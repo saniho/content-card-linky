@@ -5,9 +5,11 @@ https://github.com/saniho/apiEnedis
 
 pour le faire fonctionner 
 
-ajouter dans les ressources du lien suivant : 
+telecharger le fichier et le mettre dans votre repertoire www et l'ajouter dans l'interface ressource
 
-https://github.com/saniho/content-card-linky/blob/main/content-card-linky.js
+ou sinon via HACS, ajouter le depot personnaliser : https://github.com/saniho/content-card-linky
+
+puis installer le card
 
 et dans votre lovelace, ajouter ceci
 
