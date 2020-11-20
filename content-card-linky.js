@@ -115,7 +115,12 @@ class ContentCardLinky extends LitElement {
       `
         <div class="day">
           <span class="dayname">${new Date(new Date().setDate(new Date().getDate()-(Number.parseInt(dayNumber)))).toLocaleDateString('fr-FR', {weekday: "long"}).split(' ')[0]}</span>
-          <br><span class="cons-val">${this.toFloat(day)} ${unit_of_measurement}</span>
+          <br><span class="cons-val">${this.toFloat(day)} 
+              ${this.config.showInTableUnit 
+                ? html `
+                  ${unit_of_measurement}`
+                : html ``
+               }</span>
           ${this.renderDayPrice(day, config)}
         </div>
       `
@@ -142,6 +147,7 @@ class ContentCardLinky extends LitElement {
     const defaultConfig = {
       showHistory : true,
       showPeakOffPeak: true,
+      showInTableUnit : false,      
       kWhPrice: undefined,
     }
 
