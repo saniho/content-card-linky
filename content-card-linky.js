@@ -60,7 +60,7 @@ class ContentCardLinky extends LitElement {
               ${this.config.showIcon
                 ? html`
                   <div class="icon-block">
-                  <span class="linky-icon bigger" style="background: none, url(/hacsfiles/content-card-linky/linky.jpg) no-repeat; background-size: contain;"></span>
+                  <span class="linky-icon bigger" style="background: none, url(https://github.com/saniho/content-card-linky/blob/main/images/linky.jpg?raw=true) no-repeat; background-size: contain;"></span>
                   </div>`
                 : html `` 
               }
