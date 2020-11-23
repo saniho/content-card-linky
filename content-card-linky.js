@@ -264,7 +264,7 @@ class ContentCardLinky extends LitElement {
       }
     
       .dayname {
-        text-transform: uppercase;
+        text-transform: capitalize;
       }
   
       .week-history .day:last-child {
