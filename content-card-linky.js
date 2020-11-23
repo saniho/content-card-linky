@@ -60,7 +60,7 @@ class ContentCardLinky extends LitElement {
               ${this.config.showIcon
                 ? html`
                   <div class="icon-block">
-                  <span class="linky-icon bigger" style="background: none, url(https://github.com/saniho/content-card-linky/blob/linky-icon/images/linky.jpg) no-repeat; background-size: contain;"></span>
+                  <span class="linky-icon bigger" style="background: none, url(/hacsfiles/content-card-linky/images/linky.jpg) no-repeat; background-size: contain;"></span>
                   </div>`
                 : html `` 
               }
@@ -224,7 +224,6 @@ class ContentCardLinky extends LitElement {
       .conso-hp, .conso-hc {
         font-weight: 200;
         font-size: 2em;
-        margin-left: -5em;
       }
     
       .conso-unit-hc, .conso-unit-hp {
