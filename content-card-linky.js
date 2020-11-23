@@ -62,7 +62,8 @@ class ContentCardLinky extends LitElement {
                   <div class="icon-block">
                   <span class="linky-icon bigger" style="background: none, url(https://github.com/saniho/content-card-linky/blob/linky-icon/images/linky.jpg) no-repeat; background-size: contain;"></span>
                   </div>`
-                : html``              
+                : html `` 
+              }
               ${this.config.showPeakOffPeak
                 ? html`
                   <div class="hp-hc-block">
