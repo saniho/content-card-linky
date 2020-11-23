@@ -57,9 +57,12 @@ class ContentCardLinky extends LitElement {
         <ha-card>
           <div class="card">
             <div class="main-info">
-              <div class="icon-block">
-                <span class="linky-icon bigger" style="background: none, url(/local/plugins/linky-card1/linky.png) no-repeat; background-size: contain;"></span>
-              </div>
+              ${this.config.showIcon
+                ? html`
+                  <div class="icon-block">
+                  <span class="linky-icon bigger" style="background: none, url(https://github.com/saniho/content-card-linky/blob/linky-icon/images/linky.jpg) no-repeat; background-size: contain;"></span>
+                  </div>`
+                : html``              
               ${this.config.showPeakOffPeak
                 ? html`
                   <div class="hp-hc-block">
@@ -150,6 +153,7 @@ class ContentCardLinky extends LitElement {
     const defaultConfig = {
       showHistory : true,
       showPeakOffPeak: true,
+      showIcon: false,
       showInTableUnit : false,      
       kWhPrice: undefined,
     }
