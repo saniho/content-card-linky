@@ -57,6 +57,9 @@ class ContentCardLinky extends LitElement {
         <ha-card>
           <div class="card">
             <div class="main-info">
+              <div class="icon-block">
+                <span class="linky-icon bigger" style="background: none, url(/local/plugins/linky-card1/linky.png) no-repeat; background-size: contain;"></span>
+              </div>
               ${this.config.showPeakOffPeak
                 ? html`
                   <div class="hp-hc-block">
@@ -216,6 +219,7 @@ class ContentCardLinky extends LitElement {
       .conso-hp, .conso-hc {
         font-weight: 200;
         font-size: 2em;
+        margin-left: -5em;
       }
     
       .conso-unit-hc, .conso-unit-hp {
@@ -271,6 +275,16 @@ class ContentCardLinky extends LitElement {
         font-size: 0.8em;
         font-style: italic;
         margin-left: 5px;
+      }
+      .icon-block {
+      }
+ 
+      .linky-icon.bigger {
+        width: 6em;
+        height: 5em;
+        margin-top: -1em;
+        margin-left: 1em;
+        display: inline-block;
       }
       `;
   }
