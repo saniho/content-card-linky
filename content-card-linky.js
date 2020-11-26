@@ -100,24 +100,24 @@ class ContentCardLinky extends LitElement {
                }
               
             </div>
-            ${this.renderHistory(attributes.daily, attributes.unit_of_measurement, this.config)}
+            ${this.renderHistory(attributes.daily, attributes.unit_of_measurement, attributes.dailyweek_cost, this.config)}
           </div>
         <ha-card>`
     }
   }
 
-  renderHistory(daily, unit_of_measurement, config) {
+  renderHistory(daily, unit_of_measurement, dailyweek_cost, config) {
     if (this.config.showHistory === true) {
       return html
         `
           <div class="week-history">
-            ${daily.slice(0, 7).reverse().map((day, index) => this.renderDay(day, 7-index, unit_of_measurement, config))}
+            ${daily.slice(0, 7).reverse().map((day, index) => this.renderDay(day, 7-index, unit_of_measurement, dailyweek_cost, config))}
           </div>
         `
     }
   }
 
-  renderDay(day, dayNumber, unit_of_measurement, config) {
+  renderDay(day, dayNumber, unit_of_measurement, dailyweek_cost, config) {
     return html
       `
         <div class="day">
@@ -128,16 +128,22 @@ class ContentCardLinky extends LitElement {
                   ${unit_of_measurement}`
                 : html ``
                }</span>
-          ${this.renderDayPrice(day, config)}
+          ${this.renderDayPrice(dailyweek_cost, dayNumber, config)}
         </div>
       `
   }
 
-  renderDayPrice(value, config) {
-    if (config.showPeakOffPeak === false && config.kWhPrice) {
+  renderDayPrice(value, dayNumber, config) {
+    if (config.kWhPrice) {
       return html
       `
         <br><span class="cons-val">${this.toFloat(value * config.kWhPrice, 2)} €</span>
+      `;
+    }
+    if (config.showDayPrice) {
+      return html
+      `
+        <br><span class="cons-val">${this.toFloat(value.toString().split(",")[dayNumber-1], 2)} €</span>
       `;
     }
   }
@@ -155,7 +161,8 @@ class ContentCardLinky extends LitElement {
       showHistory : true,
       showPeakOffPeak: true,
       showIcon: false,
-      showInTableUnit : false,      
+      showInTableUnit : false,
+      showDayPrice : false,      
       kWhPrice: undefined,
     }
 
