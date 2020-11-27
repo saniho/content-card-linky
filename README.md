@@ -25,4 +25,10 @@ les options suivantes sont disponibles
 voir l'icone linky
 ````
 showIcon: True
+showHistory : true
+showPeakOffPeak: true
+showInTableUnit : false
+showDayPrice : false
+showDayPriceHCHP: false
+showDayHCHP: false
 ````

@@ -100,24 +100,26 @@ class ContentCardLinky extends LitElement {
                }
               
             </div>
-            ${this.renderHistory(attributes.daily, attributes.unit_of_measurement, attributes.dailyweek_cost, this.config)}
+            ${this.renderHistory(attributes.daily, attributes.unit_of_measurement, attributes.dailyweek_cost, attributes.dailyweek_costHC, attributes.dailyweek_costHP, 
+               attributes.dailyweek_HC, attributes.dailyweek_HP, this.config)}
           </div>
         <ha-card>`
     }
   }
 
-  renderHistory(daily, unit_of_measurement, dailyweek_cost, config) {
+  renderHistory(daily, unit_of_measurement, dailyweek_cost, dailyweek_costHC, dailyweek_costHP, dailyweek_HC, dailyweek_HP, config) {
     if (this.config.showHistory === true) {
       return html
         `
           <div class="week-history">
-            ${daily.slice(0, 7).reverse().map((day, index) => this.renderDay(day, 7-index, unit_of_measurement, dailyweek_cost, config))}
+            ${daily.slice(0, 7).reverse().map((day, index) => this.renderDay(day, 7-index, unit_of_measurement, dailyweek_cost, dailyweek_costHC, dailyweek_costHP, 
+               dailyweek_HC, dailyweek_HP, config))}
           </div>
         `
     }
   }
 
-  renderDay(day, dayNumber, unit_of_measurement, dailyweek_cost, config) {
+  renderDay(day, dayNumber, unit_of_measurement, dailyweek_cost, dailyweek_costHC, dailyweek_costHP, dailyweek_HC, dailyweek_HP, config) {
     return html
       `
         <div class="day">
@@ -129,6 +131,10 @@ class ContentCardLinky extends LitElement {
                 : html ``
                }</span>
           ${this.renderDayPrice(dailyweek_cost, dayNumber, config)}
+          ${this.renderDayPriceHCHP(dailyweek_costHC, dayNumber, config)}
+          ${this.renderDayPriceHCHP(dailyweek_costHP, dayNumber, config)}
+          ${this.renderDayHCHP(dailyweek_HC, dayNumber, unit_of_measurement, config)}
+          ${this.renderDayHCHP(dailyweek_HP, dayNumber, unit_of_measurement, config)}
         </div>
       `
   }
@@ -147,6 +153,27 @@ class ContentCardLinky extends LitElement {
       `;
     }
   }
+  renderDayPriceHCHP(value, dayNumber, config) {
+    if (config.showDayPriceHCHP) {
+      return html
+      `
+        <br><span class="cons-val">${this.toFloat(value.toString().split(",")[dayNumber-1], 2)} €</span>
+      `;
+    }
+  }
+  renderDayHCHP(value, dayNumber, unit_of_measurement, config) {
+    if (config.showDayHCHP) {
+      return html
+      `
+        <br><span class="cons-val">${this.toFloat(value.toString().split(",")[dayNumber-1], 2)} 
+        ${this.config.showInTableUnit 
+                ? html `
+                  ${unit_of_measurement}`
+                : html ``
+               }</span>
+      `;
+    }
+  }
 
   setConfig(config) {
     if (!config.entity) {
@@ -162,7 +189,9 @@ class ContentCardLinky extends LitElement {
       showPeakOffPeak: true,
       showIcon: false,
       showInTableUnit : false,
-      showDayPrice : false,      
+      showDayPrice : false,
+      showDayPriceHCHP: false,
+      showDayHCHP: false,
       kWhPrice: undefined,
     }
 
