@@ -100,36 +100,30 @@ class ContentCardLinky extends LitElement {
                }
               
             </div>
-            ${this.renderHistory(attributes.daily, attributes.unit_of_measurement, attributes.dailyweek_cost, attributes.dailyweek_costHC, attributes.dailyweek_costHP, 
-               attributes.dailyweek_HC, attributes.dailyweek_HP, this.config)}
+            ${this.renderHistory(attributes.daily, attributes.unit_of_measurement, attributes.dailyweek, attributes.dailyweek_cost, attributes.dailyweek_costHC,     attributes.dailyweek_costHP, attributes.dailyweek_HC, attributes.dailyweek_HP, this.config)}
           </div>
         <ha-card>`
     }
   }
 
-  renderHistory(daily, unit_of_measurement, dailyweek_cost, dailyweek_costHC, dailyweek_costHP, dailyweek_HC, dailyweek_HP, config) {
+  renderHistory(daily, unit_of_measurement, dailyweek, dailyweek_cost, dailyweek_costHC, dailyweek_costHP, dailyweek_HC, dailyweek_HP, config) {
     if (this.config.showHistory === true) {
       return html
         `
           <div class="week-history">
-            ${daily.slice(0, 7).reverse().map((day, index) => this.renderDay(day, 7-index, unit_of_measurement, dailyweek_cost, dailyweek_costHC, dailyweek_costHP, 
+            ${daily.slice(0, 7).reverse().map((day, index) => this.renderDay(day, 7-index, unit_of_measurement, dailyweek, dailyweek_cost, dailyweek_costHC, dailyweek_costHP, 
                dailyweek_HC, dailyweek_HP, config))}
           </div>
         `
     }
   }
 
-  renderDay(day, dayNumber, unit_of_measurement, dailyweek_cost, dailyweek_costHC, dailyweek_costHP, dailyweek_HC, dailyweek_HP, config) {
+  renderDay(day, dayNumber, unit_of_measurement, dailyweek, dailyweek_cost, dailyweek_costHC, dailyweek_costHP, dailyweek_HC, dailyweek_HP, config) {
     return html
       `
         <div class="day">
-          <span class="dayname">${new Date(new Date().setDate(new Date().getDate()-(Number.parseInt(dayNumber)))).toLocaleDateString('fr-FR', {weekday: "long"}).split(' ')[0]}</span>
-          <br><span class="cons-val">${this.toFloat(day)} 
-              ${this.config.showInTableUnit 
-                ? html `
-                  ${unit_of_measurement}`
-                : html ``
-               }</span>
+          ${this.renderDailyWeek(dailyweek, dayNumber, config)}
+          ${this.renderDailyValue(day, dayNumber, config)}
           ${this.renderDayPrice(dailyweek_cost, dayNumber, config)}
           ${this.renderDayPriceHCHP(dailyweek_costHC, dayNumber, config)}
           ${this.renderDayPriceHCHP(dailyweek_costHP, dayNumber, config)}
@@ -138,7 +132,23 @@ class ContentCardLinky extends LitElement {
         </div>
       `
   }
-
+  renderDailyWeek(value, dayNumber, config) {
+    return html
+    `
+    <br><span class="dayname">${new Date(value.toString().split(",")[dayNumber-1]).toLocaleDateString('fr-FR', {weekday: "long"})}</span>
+    `;
+  }
+  renderDailyValue(day, dayNumber, config) {
+    return html
+    `
+    <br><span class="cons-val">${this.toFloat(day)} 
+              ${this.config.showInTableUnit 
+                ? html `
+                  ${unit_of_measurement}`
+                : html ``
+               }</span>
+   `;
+  }
   renderDayPrice(value, dayNumber, config) {
     if (config.kWhPrice) {
       return html
