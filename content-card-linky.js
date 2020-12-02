@@ -135,7 +135,7 @@ class ContentCardLinky extends LitElement {
   renderDailyWeek(value, dayNumber, config) {
     return html
     `
-    <br><span class="dayname">${new Date(value.toString().split(",")[dayNumber-1]).toLocaleDateString('fr-FR', {weekday: "long"})}</span>
+    <span class="dayname">${new Date(value.toString().split(",")[dayNumber-1]).toLocaleDateString('fr-FR', {weekday: "long"})}</span>
     `;
   }
   renderDailyValue(day, dayNumber, config) {
