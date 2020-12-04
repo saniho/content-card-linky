@@ -123,7 +123,7 @@ class ContentCardLinky extends LitElement {
       `
         <div class="day">
           ${this.renderDailyWeek(dailyweek, dayNumber, config)}
-          ${this.renderDailyValue(day, dayNumber, config)}
+          ${this.renderDailyValue(day, dayNumber, unit_of_measurement, config)}
           ${this.renderDayPrice(dailyweek_cost, dayNumber, config)}
           ${this.renderDayPriceHCHP(dailyweek_costHC, dayNumber, config)}
           ${this.renderDayPriceHCHP(dailyweek_costHP, dayNumber, config)}
@@ -138,7 +138,7 @@ class ContentCardLinky extends LitElement {
     <span class="dayname">${new Date(value.toString().split(",")[dayNumber-1]).toLocaleDateString('fr-FR', {weekday: "long"})}</span>
     `;
   }
-  renderDailyValue(day, dayNumber, config) {
+  renderDailyValue(day, dayNumber, unit_of_measurement, config) {
     return html
     `
     <br><span class="cons-val">${this.toFloat(day)} 
@@ -198,8 +198,8 @@ class ContentCardLinky extends LitElement {
       showHistory : true,
       showPeakOffPeak: true,
       showIcon: false,
-      showInTableUnit : false,
-      showDayPrice : false,
+      showInTableUnit: false,
+      showDayPrice: false,
       showDayPriceHCHP: false,
       showDayHCHP: false,
       kWhPrice: undefined,
