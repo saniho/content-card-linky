@@ -51,58 +51,97 @@ class ContentCardLinky extends LitElement {
     }
 
     const attributes = stateObj.attributes;
-
+    const modeCompteur = attributes["typeCompteur"];
+    
     if (stateObj) {
-      return html`
-        <ha-card>
-          <div class="card">
-            <div class="main-info">
-              ${this.config.showIcon
-                ? html`
-                  <div class="icon-block">
-                  <span class="linky-icon bigger" style="background: none, url(https://github.com/saniho/content-card-linky/blob/main/images/linky.jpg?raw=true) no-repeat; background-size: contain;"></span>
-                  </div>`
-                : html `` 
-              }
-              ${this.config.showPeakOffPeak
-                ? html`
-                  <div class="hp-hc-block">
-                    <span class="conso-hc">${this.toFloat(attributes.offpeak_hours)}</span><span class="conso-unit-hc"> ${attributes.unit_of_measurement} <span class="more-unit">(en HC)</span></span><br />
-                    <span class="conso-hp">${this.toFloat(attributes.peak_hours)}</span><span class="conso-unit-hp"> ${attributes.unit_of_measurement} <span class="more-unit">(en HP)</span></span>
-                  </div>`
-                : html`
+        if (( modeCompteur === "consommation" ) || ( !modeCompteur )){
+          return html`
+            <ha-card>
+              <div class="card">
+                <div class="main-info">
+                  ${this.config.showIcon
+                    ? html`
+                      <div class="icon-block">
+                      <span class="linky-icon bigger" style="background: none, url(https://github.com/saniho/content-card-linky/blob/main/images/linky.jpg?raw=true) no-repeat; background-size: contain;"></span>
+                      </div>`
+                    : html `` 
+                  }
+                  ${this.config.showPeakOffPeak
+                    ? html`
+                      <div class="hp-hc-block">
+                        <span class="conso-hc">${this.toFloat(attributes.offpeak_hours)}</span><span class="conso-unit-hc"> ${attributes.unit_of_measurement} <span class="more-unit">(en HC)</span></span><br />
+                        <span class="conso-hp">${this.toFloat(attributes.peak_hours)}</span><span class="conso-unit-hp"> ${attributes.unit_of_measurement} <span class="more-unit">(en HP)</span></span>
+                      </div>`
+                    : html`
+                      <div class="cout-block">
+                        <span class="cout">${this.toFloat(stateObj.state)}</span>
+                        <span class="cout-unit">${attributes.unit_of_measurement}</span>
+                      </div>`
+                  }
                   <div class="cout-block">
-                    <span class="cout">${this.toFloat(stateObj.state)}</span>
-                    <span class="cout-unit">${attributes.unit_of_measurement}</span>
-                  </div>`
-              }
-              <div class="cout-block">
-                <span class="cout" title="Coût journalier">${this.toFloat(attributes.daily_cost, 2)}</span><span class="cout-unit"> €</span>
-              </div>
-            </div>
-            <div class="variations">
-              <span class="variations-linky">
-                <span class="ha-icon">
-                  <ha-icon icon="mdi:arrow-right" style="transform: rotate(${(attributes.monthly_evolution < 0) ? '45' : ((attributes.monthly_evolution == 0) ? "0" : "-45")}deg)">
-                  </ha-icon>
-                </span>
-                ${Math.round(attributes.monthly_evolution)}<span class="unit"> %</span><span class="previous-month">par rapport à ${this.previousMonth()}</span>
-              </span>
-              ${this.config.showPeakOffPeak 
-                ? html `
+                    <span class="cout" title="Coût journalier">${this.toFloat(attributes.daily_cost, 2)}</span><span class="cout-unit"> €</span>
+                  </div>
+                </div>
+                <div class="variations">
                   <span class="variations-linky">
                     <span class="ha-icon">
-                      <ha-icon icon="mdi:flash"></ha-icon>
+                      <ha-icon icon="mdi:arrow-right" style="transform: rotate(${(attributes.monthly_evolution < 0) ? '45' : ((attributes.monthly_evolution == 0) ? "0" : "-45")}deg)">
+                      </ha-icon>
                     </span>
-                    ${Math.round(attributes.peak_offpeak_percent)}<span class="unit"> % HP</span>
-                  </span>`
-                : html ``
-               }
-              
-            </div>
-            ${this.renderHistory(attributes.daily, attributes.unit_of_measurement, attributes.dailyweek, attributes.dailyweek_cost, attributes.dailyweek_costHC,     attributes.dailyweek_costHP, attributes.dailyweek_HC, attributes.dailyweek_HP, this.config)}
-          </div>
-        <ha-card>`
+                    ${Math.round(attributes.monthly_evolution)}<span class="unit"> %</span><span class="previous-month">par rapport à ${this.previousMonth()}</span>
+                  </span>
+                  ${this.config.showPeakOffPeak 
+                    ? html `
+                      <span class="variations-linky">
+                        <span class="ha-icon">
+                          <ha-icon icon="mdi:flash"></ha-icon>
+                        </span>
+                        ${Math.round(attributes.peak_offpeak_percent)}<span class="unit"> % HP</span>
+                      </span>`
+                    : html ``
+                   }
+                  
+                </div>
+                ${this.renderHistory(attributes.daily, attributes.unit_of_measurement, attributes.dailyweek, attributes.dailyweek_cost, attributes.dailyweek_costHC, attributes.dailyweek_costHP, attributes.dailyweek_HC, attributes.dailyweek_HP, this.config)}
+                ${this.renderError(attributes.errorLastCall, this.config)}
+              </div>
+            </ha-card>`
+        }
+        if ( modeCompteur === "production" ){
+          return html`
+            <ha-card>
+              <div class="card">
+                <div class="main-info">
+                  ${this.config.showIcon
+                    ? html`
+                      <div class="icon-block">
+                      <span class="linky-icon bigger" style="background: none, url(https://github.com/saniho/content-card-linky/blob/main/images/linky.jpg?raw=true) no-repeat; background-size: contain;"></span>
+                      </div>`
+                    : html `` 
+                  }
+                  <div class="cout-block">
+                     <span class="cout">${this.toFloat(stateObj.state)}</span>
+                     <span class="cout-unit">${attributes.unit_of_measurement}</span>
+                  </div>
+                </div>
+                ${this.renderError(attributes.errorLastCall, this.config)}
+              </div>
+            </ha-card>`
+        }
+    }
+  }
+  
+  renderError(errorMsg, config) {
+    if (this.config.showError === true) {
+       if ( errorMsg != "" ){
+          return html
+            `
+              <div class="error-msg" style="color: red">
+                <ha-icon id="icon" icon="mdi:alert-outline"></ha-icon>
+                ${errorMsg}
+              </div>
+            `
+       }
     }
   }
 
@@ -128,14 +167,14 @@ class ContentCardLinky extends LitElement {
           ${this.renderDayPriceHCHP(dailyweek_costHC, dayNumber, config)}
           ${this.renderDayPriceHCHP(dailyweek_costHP, dayNumber, config)}
           ${this.renderDayHCHP(dailyweek_HC, dayNumber, unit_of_measurement, config)}
-          ${this.renderDayHCHP(dailyweek_HP, dayNumber, unit_of_measurement, config)}
+          ${this.renderDayHCHP(dailyweek_HP, dayNumber, unit_of_measurement, config)}          
         </div>
       `
   }
   renderDailyWeek(value, dayNumber, config) {
     return html
     `
-    <span class="dayname">${new Date(value.toString().split(",")[dayNumber-1]).toLocaleDateString('fr-FR', {weekday: "long"})}</span>
+    <span class="dayname">${new Date(value.toString().split(",")[dayNumber-1]).toLocaleDateString('fr-FR', {weekday: config.showDayName})}</span>
     `;
   }
   renderDailyValue(day, dayNumber, unit_of_measurement, config) {
@@ -195,13 +234,15 @@ class ContentCardLinky extends LitElement {
     }
     
     const defaultConfig = {
-      showHistory : true,
+      showHistory: true,
       showPeakOffPeak: true,
       showIcon: false,
       showInTableUnit: false,
       showDayPrice: false,
       showDayPriceHCHP: false,
       showDayHCHP: false,
+      showDayName: "long",
+      showError: true,
       kWhPrice: undefined,
     }
 
@@ -335,6 +376,11 @@ class ContentCardLinky extends LitElement {
         margin-top: -1em;
         margin-left: 1em;
         display: inline-block;
+      }
+      .error {
+        font-size: 0.8em;
+        font-style: bold;
+        margin-left: 5px;
       }
       `;
   }
