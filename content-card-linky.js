@@ -42,7 +42,7 @@ class ContentCardLinky extends LitElement {
             <div id="states">
               <div class="name">
                 <ha-icon id="icon" icon="mdi:flash" data-state="unavailable" data-domain="connection" style="color: var(--state-icon-unavailable-color)"></ha-icon>
-                <span style="margin-right:2em">Linky : donnees inaccessible</span>
+                <span style="margin-right:2em">Linky : donnees inaccessible pour ${this.config.entity}</span>
               </div>
             </div>
           </div>
@@ -147,13 +147,16 @@ class ContentCardLinky extends LitElement {
 
   renderHistory(daily, unit_of_measurement, dailyweek, dailyweek_cost, dailyweek_costHC, dailyweek_costHP, dailyweek_HC, dailyweek_HP, config) {
     if (this.config.showHistory === true) {
-      return html
-        `
-          <div class="week-history">
-            ${daily.slice(0, 7).reverse().map((day, index) => this.renderDay(day, 7-index, unit_of_measurement, dailyweek, dailyweek_cost, dailyweek_costHC, dailyweek_costHP, 
+      if ( dailyweek != undefined){
+        const nbJours = dailyweek.toString().split(",").length ; 
+        return html
+          `
+            <div class="week-history">
+            ${daily.slice(0, nbJours).reverse().map((day, index) => this.renderDay(day, nbJours-index, unit_of_measurement, dailyweek, dailyweek_cost, dailyweek_costHC, dailyweek_costHP, 
                dailyweek_HC, dailyweek_HP, config))}
-          </div>
-        `
+            </div>
+          `
+        }
     }
   }
 
