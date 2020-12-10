@@ -57,6 +57,7 @@ class ContentCardLinky extends LitElement {
         if (( modeCompteur === "consommation" ) || ( !modeCompteur )){
           return html`
             <ha-card>
+              ${this.renderTitle(this.config)}
               <div class="card">
                 <div class="main-info">
                   ${this.config.showIcon
@@ -130,7 +131,17 @@ class ContentCardLinky extends LitElement {
         }
     }
   }
-  
+  renderTitle(config) {
+    if (this.config.showTitle === true) {
+      return html
+        `
+          <div class="card">
+          <div class="main-title">
+          <span>${this.config.titleName}</span>
+          </div>
+          </div>` 
+       }
+  }
   renderError(errorMsg, config) {
     if (this.config.showError === true) {
        if ( errorMsg != "" ){
@@ -246,6 +257,8 @@ class ContentCardLinky extends LitElement {
       showDayHCHP: false,
       showDayName: "long",
       showError: true,
+      showTitle: false,
+      titleName: "",
       kWhPrice: undefined,
     }
 
@@ -286,6 +299,13 @@ class ContentCardLinky extends LitElement {
         position: relative;
       }
 
+      .main-title {
+        margin: auto;
+        text-align: center;
+        font-weight: 200;
+        font-size: 2em;
+        justify-content: space-between;
+      }
       .main-info {
         display: flex;
         justify-content: space-between;
