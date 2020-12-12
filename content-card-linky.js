@@ -191,16 +191,27 @@ class ContentCardLinky extends LitElement {
     <span class="dayname">${new Date(value.toString().split(",")[dayNumber-1]).toLocaleDateString('fr-FR', {weekday: config.showDayName})}</span>
     `;
   }
+  renderNoData(){
+     return html
+          `
+             <br><span class="cons-val" title="Donnée indisponible"><ha-icon id="icon" icon="mdi:alert-outline"></ha-icon></span>
+           ` ;
+  }
   renderDailyValue(day, dayNumber, unit_of_measurement, config) {
-    return html
-    `
-    <br><span class="cons-val">${this.toFloat(day)} 
-              ${this.config.showInTableUnit 
-                ? html `
-                  ${unit_of_measurement}`
-                : html ``
-               }</span>
-   `;
+    if ( day === -1 ){
+        return this.renderNoData();
+    }
+    else{
+        return html
+        `
+        <br><span class="cons-val">${this.toFloat(day)} 
+                  ${this.config.showInTableUnit 
+                    ? html `
+                      ${unit_of_measurement}`
+                    : html ``
+                   }</span>
+       `;
+    }
   }
   renderDayPrice(value, dayNumber, config) {
     if (config.kWhPrice) {
@@ -210,31 +221,49 @@ class ContentCardLinky extends LitElement {
       `;
     }
     if (config.showDayPrice) {
-      return html
-      `
-        <br><span class="cons-val">${this.toFloat(value.toString().split(",")[dayNumber-1], 2)} €</span>
-      `;
+       const valeur = value.toString().split(",")[dayNumber-1] ;
+       if ( valeur === "-1" ){
+          return this.renderNoData();
+       }
+       else{
+          return html
+          `
+             <br><span class="cons-val">${this.toFloat(valeur)} €</span>
+           `;
+       }
     }
   }
   renderDayPriceHCHP(value, dayNumber, config) {
     if (config.showDayPriceHCHP) {
-      return html
-      `
-        <br><span class="cons-val">${this.toFloat(value.toString().split(",")[dayNumber-1], 2)} €</span>
-      `;
+       const valeur = value.toString().split(",")[dayNumber-1] ;
+       if ( valeur === "-1" ){
+          return this.renderNoData();
+       }
+       else{
+          return html
+          `
+             <br><span class="cons-val">${this.toFloat(valeur, 2)} €</span>
+          `;
+       }
     }
   }
   renderDayHCHP(value, dayNumber, unit_of_measurement, config) {
     if (config.showDayHCHP) {
-      return html
-      `
-        <br><span class="cons-val">${this.toFloat(value.toString().split(",")[dayNumber-1], 2)} 
-        ${this.config.showInTableUnit 
-                ? html `
-                  ${unit_of_measurement}`
-                : html ``
-               }</span>
-      `;
+       const valeur = value.toString().split(",")[dayNumber-1] ;
+       if ( valeur === "-1" ){
+          return this.renderNoData();
+       }
+       else{
+          return html
+          `
+             <br><span class="cons-val">${this.toFloat(valeur, 2)} 
+           ${this.config.showInTableUnit 
+                   ? html `
+                     ${unit_of_measurement}`
+                   : html ``
+                  }</span>
+          `;
+        }
     }
   }
 
