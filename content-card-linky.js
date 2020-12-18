@@ -79,9 +79,13 @@ class ContentCardLinky extends LitElement {
                         <span class="cout-unit">${attributes.unit_of_measurement}</span>
                       </div>`
                   }
-                  <div class="cout-block">
-                    <span class="cout" title="Coût journalier">${this.toFloat(attributes.daily_cost, 2)}</span><span class="cout-unit"> €</span>
-                  </div>
+                  ${this.config.showPrice 
+                    ? html `
+                    <div class="cout-block">
+                      <span class="cout" title="Coût journalier">${this.toFloat(attributes.daily_cost, 2)}</span><span class="cout-unit"> €</span>
+                    </div>`
+                    : html ``
+                   }
                 </div>
                 <div class="variations">
                   <span class="variations-linky">
@@ -286,6 +290,7 @@ class ContentCardLinky extends LitElement {
       showDayHCHP: false,
       showDayName: "long",
       showError: true,
+      showPrice: true,
       showTitle: false,
       titleName: "",
       kWhPrice: undefined,
