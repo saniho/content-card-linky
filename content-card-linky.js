@@ -56,7 +56,8 @@ class ContentCardLinky extends LitElement {
     if (stateObj) {
         if (( modeCompteur === "consommation" ) || ( !modeCompteur )){
           return html`
-            <ha-card>
+            <ha-card id="card">
+              ${this.addEventListener('click', event => { this._showDetails(this.config.entity); })}
               ${this.renderTitle(this.config)}
               <div class="card">
                 <div class="main-info">
@@ -134,6 +135,18 @@ class ContentCardLinky extends LitElement {
             </ha-card>`
         }
     }
+  }
+  _showDetails(myEntity) {
+    const event = new Event('hass-more-info', {
+      bubbles: true,
+      cancelable: false,
+      composed: true
+    });
+    event.detail = {
+      entityId: myEntity
+    };
+    this.dispatchEvent(event);
+    return event;
   }
   renderTitle(config) {
     if (this.config.showTitle === true) {
