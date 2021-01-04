@@ -344,6 +344,7 @@ class ContentCardLinky extends LitElement {
         margin: auto;
         padding: 1.5em 1em 1em 1em;
         position: relative;
+        cursor: pointer;
       }
 
       .main-title {
