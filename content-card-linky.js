@@ -422,6 +422,7 @@ class ContentCardLinky extends LitElement {
       }
     
       .dayname {
+        font-weight: bold;
         text-transform: capitalize;
       }
   
@@ -430,7 +431,7 @@ class ContentCardLinky extends LitElement {
       }
     
       .cons-val {
-        font-weight: bold;
+        //font-weight: bold;
       }
       
       .previous-month {
