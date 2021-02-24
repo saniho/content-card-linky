@@ -176,7 +176,8 @@ class ContentCardLinky extends LitElement {
   renderHistory(daily, unit_of_measurement, dailyweek, dailyweek_cost, dailyweek_costHC, dailyweek_costHP, dailyweek_HC, dailyweek_HP, config) {
     if (this.config.showHistory === true) {
       if ( dailyweek != undefined){
-        const nbJours = dailyweek.toString().split(",").length ; 
+        var nbJours = dailyweek.toString().split(",").length ; 
+        if ( config.nbJoursAffichage <= nbJours ) { nbJours = config.nbJoursAffichage }
         return html
           `
             <div class="week-history">
@@ -306,6 +307,7 @@ class ContentCardLinky extends LitElement {
       showPrice: true,
       showTitle: false,
       titleName: "",
+      nbJoursAffichage: 7,
       kWhPrice: undefined,
     }
 
@@ -422,6 +424,7 @@ class ContentCardLinky extends LitElement {
       }
     
       .dayname {
+        font-weight: bold;
         text-transform: capitalize;
       }
   
@@ -430,7 +433,7 @@ class ContentCardLinky extends LitElement {
       }
     
       .cons-val {
-        font-weight: bold;
+        //font-weight: bold;
       }
       
       .previous-month {
