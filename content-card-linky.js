@@ -89,13 +89,48 @@ class ContentCardLinky extends LitElement {
                    }
                 </div>
                 <div class="variations">
-                  <span class="variations-linky">
-                    <span class="ha-icon">
-                      <ha-icon icon="mdi:arrow-right" style="display: inline-block; transform: rotate(${(attributes.monthly_evolution < 0) ? '45' : ((attributes.monthly_evolution == 0) ? "0" : "-45")}deg)">
-                      </ha-icon>
-                    </span>
-                    ${Math.round(attributes.monthly_evolution)}<span class="unit"> %</span><span class="previous-month">par rapport à ${this.previousMonth()}</span>
-                  </span>
+                  ${this.config.showMonthRatio 
+                    ? html `
+                    <span class="variations-linky">
+                      <span class="ha-icon">
+                        <ha-icon icon="mdi:arrow-right" style="display: inline-block; transform: rotate(${(attributes.monthly_evolution < 0) ? '45' : ((attributes.monthly_evolution == 0) ? "0" : "-45")}deg)">
+                       </ha-icon>
+                      </span>
+                      <div class="tooltip">
+                      ${Math.round(attributes.monthly_evolution)}<span class="unit"> %</span><span class="previous-month">par rapport à ${this.previousMonth()}</span>
+                          <span class="tooltiptext">Mois Precedent A-1 : ${attributes.last_month_last_year}<br>Mois Precedent : ${attributes.last_month}</span>
+                      </div>
+                    </span>`
+                    : html ``
+                   }
+                  ${this.config.showWeekRatio 
+                    ? html `
+                    <span class="variations-linky">
+                        <span class="ha-icon">
+                          <ha-icon icon="mdi:arrow-right" style="display: inline-block; transform: rotate(${(attributes.current_week_evolution < 0) ? '45' : ((attributes.current_week_evolution == 0) ? "0" : "-45")}deg)">
+                          </ha-icon>
+                        </span>
+                        <div class="tooltip">
+                        ${Math.round(attributes.current_week_evolution)}<span class="unit"> %</span><span class="previous-month">par rapport à ${this.weekPreviousYear()}</span>
+                        <span class="tooltiptext">Semaine A-1 : ${attributes.current_week_last_year}<br>Semaine courante : ${attributes.current_week}</span>
+                    </div>
+                      </span>`
+                    : html ``
+                   }
+                  ${this.config.showYesterdayRatio
+                    ? html `
+                    <span class="variations-linky">
+                        <span class="ha-icon">
+                          <ha-icon icon="mdi:arrow-right" style="display: inline-block; transform: rotate(${(attributes.yesterday_evolution < 0) ? '45' : ((attributes.yesterday_evolution == 0) ? "0" : "-45")}deg)">
+                         </ha-icon>
+                        </span>
+                        <div class="tooltip">
+                        ${Math.round(attributes.yesterday_evolution)}<span class="unit"> %</span><span class="previous-month">par rapport à ${this.yesterdayPreviousYear()}</span>
+                        <span class="tooltiptext">Hier A-1 : ${attributes.yesterdayLastYear}<br>Hier : ${attributes.yesterday}</span>
+                    </div>
+                      </span>`
+                    : html ``
+                   }
                   ${this.config.showPeakOffPeak 
                     ? html `
                       <span class="variations-linky">
@@ -110,6 +145,7 @@ class ContentCardLinky extends LitElement {
                 </div>
                 ${this.renderHistory(attributes.daily, attributes.unit_of_measurement, attributes.dailyweek, attributes.dailyweek_cost, attributes.dailyweek_costHC, attributes.dailyweek_costHP, attributes.dailyweek_HC, attributes.dailyweek_HP, this.config)}
                 ${this.renderError(attributes.errorLastCall, this.config)}
+                ${this.renderVersion(attributes.versionUpdateAvailable, attributes.versionGit)}
               </div>
             </ha-card>`
         }
@@ -170,6 +206,20 @@ class ContentCardLinky extends LitElement {
               </div>
             `
        }
+    }
+  }
+  renderVersion(versionUpdateAvailable, versionGit) {
+    if ( versionUpdateAvailable === true ){
+          return html
+            `
+              <div class="information-msg" style="color: red">
+                <ha-icon id="icon" icon="mdi:alert-outline"></ha-icon>
+                Nouvelle version disponible ${versionGit}
+              </div>
+            `
+    }
+    else{
+       return html ``
     }
   }
 
@@ -306,6 +356,9 @@ class ContentCardLinky extends LitElement {
       showError: true,
       showPrice: true,
       showTitle: false,
+      showMonthRatio: true,
+      showWeekRatio: false,
+      showYesterdayRatio: false,
       titleName: "",
       nbJoursAffichage: 7,
       kWhPrice: undefined,
@@ -331,12 +384,17 @@ class ContentCardLinky extends LitElement {
   }
   
   previousMonth() {
-    //return new Date((new Date().getTime()) - 365*60*60*24*1000)
     var d = new Date();
     d.setMonth(d.getMonth()-1) ;
     d.setFullYear(d.getFullYear()-1 );
     
     return d.toLocaleDateString('fr-FR', {month: "long", year: "numeric"});
+  } 
+  weekPreviousYear() {
+    return "semaine";
+  } 
+  yesterdayPreviousYear() {
+    return "hier";
   } 
 
 
@@ -443,7 +501,6 @@ class ContentCardLinky extends LitElement {
       }
       .icon-block {
       }
- 
       .linky-icon.bigger {
         width: 6em;
         height: 5em;
@@ -455,6 +512,45 @@ class ContentCardLinky extends LitElement {
         font-size: 0.8em;
         font-style: bold;
         margin-left: 5px;
+      }
+      .tooltip {
+        position: relative;
+      }
+      .tooltip .tooltiptext {
+        visibility: hidden;
+        background: white;
+        box-shadow: 2px 2px 6px -4px #999;
+        text-align: center;
+        cursor: default;
+        font-size: 14px;
+        left: 62px;
+        opacity: 1;
+        pointer-events: none;
+        position: absolute;
+        top: 20px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        white-space: nowrap;
+        z-index: 12;
+        transition: 0.15s ease all;
+        padding: 5px;
+        border: 1px solid #cecece;
+        border-radius: 3px;
+      }
+      .tooltip .tooltiptext::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #555 transparent transparent transparent;
+      }
+      .tooltip:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
       }
       `;
   }
