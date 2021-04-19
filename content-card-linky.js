@@ -103,6 +103,20 @@ class ContentCardLinky extends LitElement {
                     </span>`
                     : html ``
                    }
+                  ${this.config.showCurrentMonthRatio 
+                    ? html `
+                    <span class="variations-linky">
+                      <span class="ha-icon">
+                        <ha-icon icon="mdi:arrow-right" style="display: inline-block; transform: rotate(${(attributes.current_month_evolution < 0) ? '45' : ((attributes.current_month_evolution == 0) ? "0" : "-45")}deg)">
+                       </ha-icon>
+                      </span>
+                      <div class="tooltip">
+                      ${Math.round(attributes.current_month_evolution)}<span class="unit"> %</span><span class="current-month">par rapport à ${this.currentMonth()}</span>
+                          <span class="tooltiptext">Mois  A-1 : ${attributes.current_month_last_year}<br>Mois  : ${attributes.current_month}</span>
+                      </div>
+                    </span>`
+                    : html ``
+                   }
                   ${this.config.showWeekRatio 
                     ? html `
                     <span class="variations-linky">
@@ -356,6 +370,7 @@ class ContentCardLinky extends LitElement {
       showError: true,
       showPrice: true,
       showTitle: false,
+      showCurrentMonthRatio: true,
       showMonthRatio: true,
       showWeekRatio: false,
       showYesterdayRatio: false,
@@ -386,6 +401,12 @@ class ContentCardLinky extends LitElement {
   previousMonth() {
     var d = new Date();
     d.setMonth(d.getMonth()-1) ;
+    d.setFullYear(d.getFullYear()-1 );
+    
+    return d.toLocaleDateString('fr-FR', {month: "long", year: "numeric"});
+  } 
+  currentMonth() {
+    var d = new Date();
     d.setFullYear(d.getFullYear()-1 );
     
     return d.toLocaleDateString('fr-FR', {month: "long", year: "numeric"});
@@ -495,6 +516,11 @@ class ContentCardLinky extends LitElement {
       }
       
       .previous-month {
+        font-size: 0.8em;
+        font-style: italic;
+        margin-left: 5px;
+      }
+      .current-month {
         font-size: 0.8em;
         font-style: italic;
         margin-left: 5px;
