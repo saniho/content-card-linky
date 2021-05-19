@@ -544,7 +544,7 @@ class ContentCardLinky extends LitElement {
       }
       .tooltip .tooltiptext {
         visibility: hidden;
-        background: white;
+        background: var( --ha-card-background, var(--card-background-color, white) );
         box-shadow: 2px 2px 6px -4px #999;
         text-align: center;
         cursor: default;
