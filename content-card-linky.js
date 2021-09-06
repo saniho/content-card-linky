@@ -299,7 +299,7 @@ class ContentCardLinky extends LitElement {
         return html
         `
             <div class="day">
-        <br><span class="cons-val">Consommation</span>
+        <br><span class="cons-val">Conso.</span>
         ${this.config.showDayPrice 
         ? html `
         <br><span class="cons-val">Prix</span>`

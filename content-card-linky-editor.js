@@ -111,6 +111,10 @@ export class contentCardLinkyEditor extends LitElement {
   get _nbJoursAffichage() {
     return this._config.nbJoursAffichage || 7;
   }
+
+  get _showDayName() {
+    return this._config.showDayName;
+  }
   
   get _titleName() {
     return this._config.titleName || "";
@@ -165,6 +169,12 @@ export class contentCardLinkyEditor extends LitElement {
             value=${this._nbJoursAffichage}
             .configValue="${"nbJoursAffichage"}"
             @value-changed="${this._valueChanged}"
+          ></paper-input><br>
+          <paper-input
+            label="Nom du jour de la semaine( valeur possible : long, short, narrow )"
+            .value="${this._showDayName}"
+            .configValue="${"showDayName"}"
+            @value-changed="${this._valueChanged}"
           ></paper-input>
         </div>
       </div>
@@ -194,9 +204,8 @@ export class contentCardLinkyEditor extends LitElement {
               <ha-switch
                 .checked=${state}
                 .configValue="${configAttr}"
-                @change="${this._valueChanged}"
-              ></ha-switch
-              ><span>${label}</span>
+                @change="${this._valueChanged}">
+                </ha-switch><span>${label}</span>
             </div>
           </li>
     `
