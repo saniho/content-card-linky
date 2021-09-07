@@ -92,6 +92,9 @@ export class contentCardLinkyEditor extends LitElement {
   get _showYesterdayRatio() {
     return this._config.showYesterdayRatio !== false;
   }
+  get _showTitreLigne() {
+    return this._config.showTitreLigne !== false;
+  }
 
   get _title() {
     return this._config.showTitle !== false;
@@ -107,6 +110,10 @@ export class contentCardLinkyEditor extends LitElement {
 
   get _nbJoursAffichage() {
     return this._config.nbJoursAffichage || 7;
+  }
+
+  get _showDayName() {
+    return this._config.showDayName;
   }
   
   get _titleName() {
@@ -151,6 +158,7 @@ export class contentCardLinkyEditor extends LitElement {
             ${this.renderSwitchOption("Show ratio mois precedent", this._showMonthRatio, "showMonthRatio")}
             ${this.renderSwitchOption("Show ratio semaine", this._showWeekRatio, "showWeekRatio")}
             ${this.renderSwitchOption("Show ratio hier", this._showYesterdayRatio, "showYesterdayRatio")}
+            ${this.renderSwitchOption("Show titre ligne", this._showTitreLigne, "showTitreLigne")}
           </ul>
           <!-- -->
           <paper-input
@@ -160,6 +168,12 @@ export class contentCardLinkyEditor extends LitElement {
             max="12"
             value=${this._nbJoursAffichage}
             .configValue="${"nbJoursAffichage"}"
+            @value-changed="${this._valueChanged}"
+          ></paper-input><br>
+          <paper-input
+            label="Nom du jour de la semaine( valeur possible : long, short, narrow )"
+            .value="${this._showDayName}"
+            .configValue="${"showDayName"}"
             @value-changed="${this._valueChanged}"
           ></paper-input>
         </div>
@@ -190,9 +204,8 @@ export class contentCardLinkyEditor extends LitElement {
               <ha-switch
                 .checked=${state}
                 .configValue="${configAttr}"
-                @change="${this._valueChanged}"
-              ></ha-switch
-              ><span>${label}</span>
+                @change="${this._valueChanged}">
+                </ha-switch><span>${label}</span>
             </div>
           </li>
     `

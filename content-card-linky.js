@@ -271,6 +271,7 @@ class ContentCardLinky extends LitElement {
         return html
           `
             <div class="week-history">
+            ${this.renderTitreLigne(config)}
             ${daily.slice(0, nbJours).reverse().map((day, index) => this.renderDay(day, nbJours-index, unit_of_measurement, dailyweek, dailyweek_cost, dailyweek_costHC, dailyweek_costHP, 
                dailyweek_HC, dailyweek_HP, config))}
             </div>
@@ -289,9 +290,44 @@ class ContentCardLinky extends LitElement {
           ${this.renderDayPriceHCHP(dailyweek_costHC, dayNumber, config)}
           ${this.renderDayPriceHCHP(dailyweek_costHP, dayNumber, config)}
           ${this.renderDayHCHP(dailyweek_HC, dayNumber, unit_of_measurement, config)}
-          ${this.renderDayHCHP(dailyweek_HP, dayNumber, unit_of_measurement, config)}          
+          ${this.renderDayHCHP(dailyweek_HP, dayNumber, unit_of_measurement, config)}
         </div>
       `
+  }
+  renderTitreLigne(config) {
+    if (this.config.showTitreLigne === true) {
+        return html
+        `
+            <div class="day">
+        <br><span class="cons-val">Conso.</span>
+        ${this.config.showDayPrice 
+        ? html `
+        <br><span class="cons-val">Prix</span>`
+        : html ``
+        }
+        ${this.config.showDayPriceHCHP
+        ? html `
+        <br><span class="cons-val">Prix HP</span>`
+        : html ``
+        }
+        ${this.config.showDayPriceHCHP 
+        ? html `
+        <br><span class="cons-val">Prix HC</span>`
+        : html ``
+        }
+        ${this.config.showDayHCHP 
+        ? html `
+        <br><span class="cons-val">HP</span>`
+        : html ``
+        }
+        ${this.config.showDayHCHP 
+        ? html `
+        <br><span class="cons-val">HC</span>`
+        : html ``
+        }
+            </div>
+        `;
+      }
   }
   renderDailyWeek(value, dayNumber, config) {
     return html
@@ -400,6 +436,7 @@ class ContentCardLinky extends LitElement {
       showMonthRatio: true,
       showWeekRatio: false,
       showYesterdayRatio: false,
+      showTitreLigne: false,
       titleName: "",
       nbJoursAffichage: 7,
       kWhPrice: undefined,
