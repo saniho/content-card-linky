@@ -260,10 +260,10 @@ class ContentCardLinky extends LitElement {
           ${this.renderDailyWeek(dailyweek, dayNumber, config)}
           ${this.renderDailyValue(day, dayNumber, unit_of_measurement, config)}
           ${this.renderDayPrice(dailyweek_cost, dayNumber, config)}
-          ${this.renderDayPriceHCHP(dailyweek_costHC, dayNumber, config)}
           ${this.renderDayPriceHCHP(dailyweek_costHP, dayNumber, config)}
-          ${this.renderDayHCHP(dailyweek_HC, dayNumber, unit_of_measurement, config)}
-          ${this.renderDayHCHP(dailyweek_HP, dayNumber, unit_of_measurement, config)}          
+          ${this.renderDayPriceHCHP(dailyweek_costHC, dayNumber, config)}
+          ${this.renderDayHCHP(dailyweek_HP, dayNumber, unit_of_measurement, config)}
+          ${this.renderDayHCHP(dailyweek_HC, dayNumber, unit_of_measurement, config)}          
         </div>
       `
   }
