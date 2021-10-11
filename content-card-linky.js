@@ -307,22 +307,22 @@ class ContentCardLinky extends LitElement {
         }
         ${this.config.showDayPriceHCHP
         ? html `
-        <br><span class="cons-val">Prix HP</span>`
+        <br><span class="cons-val">Prix HC</span>`
         : html ``
         }
         ${this.config.showDayPriceHCHP 
         ? html `
-        <br><span class="cons-val">Prix HC</span>`
-        : html ``
-        }
-        ${this.config.showDayHCHP 
-        ? html `
-        <br><span class="cons-val">HP</span>`
+        <br><span class="cons-val">Prix HP</span>`
         : html ``
         }
         ${this.config.showDayHCHP 
         ? html `
         <br><span class="cons-val">HC</span>`
+        : html ``
+        }
+        ${this.config.showDayHCHP 
+        ? html `
+        <br><span class="cons-val">HP</span>`
         : html ``
         }
             </div>
