@@ -95,6 +95,9 @@ export class contentCardLinkyEditor extends LitElement {
   get _showTitreLigne() {
     return this._config.showTitreLigne !== false;
   }
+  get _showErrorLigne() {
+    return this._config.showError !== false;
+  }
 
   get _title() {
     return this._config.showTitle !== false;
@@ -159,6 +162,7 @@ export class contentCardLinkyEditor extends LitElement {
             ${this.renderSwitchOption("Show ratio semaine", this._showWeekRatio, "showWeekRatio")}
             ${this.renderSwitchOption("Show ratio hier", this._showYesterdayRatio, "showYesterdayRatio")}
             ${this.renderSwitchOption("Show titre ligne", this._showTitreLigne, "showTitreLigne")}
+            ${this.renderSwitchOption("Show erreur ligne", this._showError, "showErrorLigne")}
           </ul>
           <!-- -->
           <paper-input
