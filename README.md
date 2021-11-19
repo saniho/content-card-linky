@@ -3,6 +3,8 @@ Linky Content Card compatible avec le sensor [apiEnedis/myenedis](https://github
 
 Cette card est initialement inspirée de @Imbuzi, reprise et adaptée par [@royto](https://github.com/royto/linky-card), revisitée par [@saniho](https://github.com/saniho/apiEnedis), puis revisitée et poussée sur HACS par @Imbuzi.
 
+![visuel](https://github.com/Imbuzi/content-card-linky/blob/main/linky.png?raw=true)
+
 ## Installation
 
 Il vous suffit d'installer la card via HACS.
