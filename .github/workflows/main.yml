@@ -7,11 +7,6 @@ on:
     - cron:  '0 0 * * *'
 
 jobs:
-  validate:
-    runs-on: "ubuntu-latest"
-    steps:
-        - uses: "actions/checkout@v2"
-        - uses: "home-assistant/actions/hassfest@master"
   hacs:
     name: HACS Action
     runs-on: "ubuntu-latest"
@@ -21,3 +16,4 @@ jobs:
         uses: "hacs/action@main"
         with:
           category: "plugin"
+          ignore: "brands"
