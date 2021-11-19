@@ -1,34 +1,21 @@
-# cardLinky
-cardLinky compatible avec le sensor apiEnedis/myenedis
+# Linky Content Card
+Linky Content Card compatible avec le sensor [apiEnedis/myenedis](https://github.com/saniho/apiEnedis)
 
-https://github.com/saniho/apiEnedis
+Cette card est initialement inspirée de @Imbuzi, reprise et adaptée par [@royto](https://github.com/royto/linky-card), revisitée par [@saniho](https://github.com/saniho/apiEnedis), puis revisitée et poussée sur HACS par @Imbuzi.
 
-Cette card est initialement inspirée de [@royto](https://github.com/royto/linky-card)
+![visuel](https://github.com/Imbuzi/content-card-linky/blob/main/linky.png?raw=true)
 
-Pour le faire fonctionner 
+## Installation
 
-telecharger les fichiers et les mettre dans votre repertoire www et l'ajouter dans l'interface ressource
+Il vous suffit d'installer la card via HACS.
 
-ou sinon via HACS, ajouter le depot personnaliser : https://github.com/saniho/content-card-linky
+## Configuration
 
-puis installer le card
+Pour ajouter la card dans votre interface Lovelace, pour pouvez utiliser ce template type, ou simplement sélectionner la card dans la liste de cards disponibles.
 
-et dans votre lovelace, ajouter ceci
-
-````
+```
 type: 'custom:content-card-linky'
 entity: sensor.myenedis
-````
+```
 
-les options suivantes sont disponibles
-
-voir l'icone linky
-````
-showIcon: True
-showHistory : true
-showPeakOffPeak: true
-showInTableUnit : false
-showDayPrice : false
-showDayPriceHCHP: false
-showDayHCHP: false
-````
+L'éditeur est disponible et vous permettra d'ajouter/configurer toutes les options.
