@@ -25,7 +25,9 @@ Avant de pouvoir utiliser cette intégration, assurez vous :
  *si vous n'avez pas HACS, pour l'installer cela se passe ici : [HACS : Ajoutez des modules et des cartes personnalisées](https://forum.hacf.fr/t/hacs-ajoutez-des-modules-et-des-cartes-personnalisees/359)
  
 * Ajoutez le dépot personnalisé : `https://github.com/saniho/content-card-linky`
- 
+
+* Choisir la catégorie `Lovelace`
+
 * Cliquez sur le bouton `Installer` de la carte
  
 * Cliquez sur le bouton `Installer` de la popup
