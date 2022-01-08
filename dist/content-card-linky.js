@@ -541,12 +541,12 @@ class ContentCardLinky extends LitElement {
   
       .cout {
         font-weight: 300;
-        font-size: 4em;
+        font-size: 3.5em;
       }
     
       .cout-unit {
         font-weight: 300;
-        font-size: 1.5em;
+        font-size: 1.2em;
         display: inline-block;
         vertical-align: 1.2em;
       }
@@ -575,6 +575,7 @@ class ContentCardLinky extends LitElement {
         display: inline-block;
         font-weight: 300;
         margin: 1em;
+        overflow: hidden;
       }
     
       .unit {
