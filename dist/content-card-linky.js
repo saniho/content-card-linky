@@ -202,8 +202,8 @@ class ContentCardLinky extends LitElement {
                     : html `` 
                   }
                   <div class="cout-block">
-                     <span class="cout">${this.toFloat(stateObj.state)}</span>
-                     <span class="cout-unit">${attributes.unit_of_measurement}</span>
+                    <span class="cout">${this.toFloat(stateObj.state)}</span>
+                    <span class="cout-unit">${attributes.unit_of_measurement}</span>
                   </div>
                 </div>
                 ${this.renderError(attributes.errorLastCall, this.config)}
@@ -528,6 +528,8 @@ class ContentCardLinky extends LitElement {
       }
       .main-info {
         display: flex;
+        overflow: hidden;
+        align-items: center;
         justify-content: space-between;
       }
     
@@ -548,7 +550,6 @@ class ContentCardLinky extends LitElement {
         font-weight: 300;
         font-size: 1.2em;
         display: inline-block;
-        vertical-align: 1.2em;
       }
     
       .conso-hp, .conso-hc {
@@ -569,6 +570,7 @@ class ContentCardLinky extends LitElement {
       .variations {
         display: flex;
         justify-content: space-between;
+        overflow: hidden;
       }
 
       .variations-linky {
@@ -584,6 +586,7 @@ class ContentCardLinky extends LitElement {
     
       .week-history {
         display: flex;
+        overflow: hidden;
       }
     
       .day {
@@ -622,8 +625,6 @@ class ContentCardLinky extends LitElement {
       .linky-icon.bigger {
         width: 6em;
         height: 5em;
-        margin-top: -1em;
-        margin-left: 1em;
         display: inline-block;
       }
       .error {
