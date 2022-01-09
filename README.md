@@ -92,6 +92,12 @@ showWeekRatio: true
 showDayName: short                              Affichage des jours de la semaine : "short", "narrow", "long"
 ````
 
+<br>
+ <p align="center">
+<img src="https://github.com/saniho/content-card-linky/raw/main/linky.png" height="300"/>
+ <br>
+ </p>
+
 **************
 
 N'hésitez pas à aller faire un tour sur ce forum ou vous trouverez pleins d'informations
