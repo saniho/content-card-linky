@@ -90,7 +90,7 @@ class ContentCardLinky extends LitElement {
                   ${this.config.showIcon
                     ? html`
                       <div class="icon-block">
-                      <span class="linky-icon bigger" style="background: none, url(https://apps.lincs.enedis.fr/mes-prms/assets/images/compteurs/linky.svg) no-repeat; background-size: contain;"></span>
+                        <span class="linky-icon bigger" style="background: none, url(https://apps.lincs.enedis.fr/mes-prms/assets/images/compteurs/linky.svg) no-repeat; background-size: contain;"></span>
                       </div>`
                     : html `` 
                   }
@@ -531,6 +531,7 @@ class ContentCardLinky extends LitElement {
         overflow: hidden;
         align-items: center;
         justify-content: space-between;
+        height: 75px;
       }
     
       .ha-icon {
