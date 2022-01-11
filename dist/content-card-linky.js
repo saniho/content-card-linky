@@ -102,7 +102,7 @@ class ContentCardLinky extends LitElement {
                       </div>`
                     : html`
                       <div class="cout-block">
-                        <span class="cout">${this.toFloat(attributes.yesterday_HCHP)}</span>
+                        <span class="cout">${this.toFloat(stateObj.state)}</span>
                         <span class="cout-unit">${attributes.unit_of_measurement}</span>
                       </div>`
                   }
