@@ -633,25 +633,18 @@ class ContentCardLinky extends LitElement {
         font-style: bold;
         margin-left: 5px;
       }
-      .tooltip {
-        position: relative;
-      }
       .tooltip .tooltiptext {
         visibility: hidden;
         background: var( --ha-card-background, var(--card-background-color, white) );
         box-shadow: 2px 2px 6px -4px #999;
-        text-align: center;
         cursor: default;
-        font-size: 14px;
-        left: 62px;
+        font-size: 14px;    
         opacity: 1;
         pointer-events: none;
         position: absolute;
-        top: 20px;
         display: flex;
         flex-direction: column;
         overflow: hidden;
-        white-space: nowrap;
         z-index: 12;
         transition: 0.15s ease all;
         padding: 5px;
