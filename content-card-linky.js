@@ -599,8 +599,8 @@ class ContentCardLinky extends LitElement {
       .variations-linky {
         display: inline-block;
         font-weight: 300;
-        margin: 1em;
-        overflow: hidden;
+        margin: 0px 0px 5px;
+        overflow: hidden; 
       }
     
       .unit {
