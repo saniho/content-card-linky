@@ -88,6 +88,20 @@ class ContentCardLinky extends LitElement {
               <div class="card">
 				  ${this.renderHeader(attributes, this.config, stateObj)}
                 <div class="variations">
+                  ${this.config.showYearRatio 
+                    ? html `
+                    <span class="variations-linky">
+                      <span class="ha-icon">
+                        <ha-icon icon="mdi:arrow-right" style="display: inline-block; transform: rotate(${(attributes.year_evolution < 0) ? '45' : ((attributes.year_evolution == 0) ? "0" : "-45")}deg)">
+                       </ha-icon>
+                      </span>
+                      <div class="tooltip">
+                      ${Math.round(attributes.year_evolution)}<span class="unit"> %</span><span class="year">par rapport à ${this.previousYear()}</span>
+                          <span class="tooltiptext">A-1 : ${attributes.last_year}<br>A : ${attributes.current_year}</span>
+                      </div>
+                    </span>`
+                    : html ``
+                   }
                   ${this.config.showMonthRatio 
                     ? html `
                     <span class="variations-linky">
@@ -511,6 +525,13 @@ class ContentCardLinky extends LitElement {
     return Number.parseFloat(value).toFixed(decimals);
   }
   
+  previousYear() {
+    var d = new Date();
+    d.setFullYear(d.getFullYear()-1 );
+    
+    return d.toLocaleDateString('fr-FR', {year: "numeric"});
+  } 
+  
   previousMonth() {
     var d = new Date();
     d.setMonth(d.getMonth()-1) ;
@@ -633,6 +654,11 @@ class ContentCardLinky extends LitElement {
         //font-weight: bold;
       }
       
+      .year {
+        font-size: 0.8em;
+        font-style: italic;
+        margin-left: 5px;
+      }
       .previous-month {
         font-size: 0.8em;
         font-style: italic;
