@@ -89,6 +89,10 @@ export class contentCardLinkyEditor extends LitElement {
     return this._config.showMonthRatio !== false;
   }
   
+  get _showYearRatio() {
+    return this._config.showYearRatio !== false;
+  }
+  
   get _showWeekRatio() {
     return this._config.showWeekRatio !== false;
   }
@@ -161,6 +165,7 @@ export class contentCardLinkyEditor extends LitElement {
             ${this.renderSwitchOption("Show prix HC/HP", this._showDayPriceHCHP, "showDayPriceHCHP")}
             ${this.renderSwitchOption("Show prix", this._showPrice, "showPrice")}
             ${this.renderSwitchOption("Show jours HC/HP", this._showDayHCHP, "showDayHCHP")}
+            ${this.renderSwitchOption("Show ratio year", this._showYearRatio, "showYearRatio")}
             ${this.renderSwitchOption("Show ratio mois", this._showCurrentMonthRatio, "showCurrentMonthRatio")}
             ${this.renderSwitchOption("Show ratio mois precedent", this._showMonthRatio, "showMonthRatio")}
             ${this.renderSwitchOption("Show ratio semaine", this._showWeekRatio, "showWeekRatio")}
