@@ -25,6 +25,14 @@ const fireEvent = (node, type, detail, options) => {
   return event;
 };
 
+const ecoWattForecastValues = new Map([
+  ["Pas de valeur", "green"],
+  [1, "green"],
+  [2, "yellow"],
+  [3, "red"],
+]);
+
+
 function hasConfigOrEntityChanged(element, changedProps) {
   if (changedProps.has("config")) {
     return true;
@@ -171,6 +179,7 @@ class ContentCardLinky extends LitElement {
                   
                 </div>
                 ${this.renderHistory(attributes.daily, attributes.unit_of_measurement, attributes.dailyweek, attributes.dailyweek_cost, attributes.dailyweek_costHC, attributes.dailyweek_costHP, attributes.dailyweek_HC, attributes.dailyweek_HP, this.config)}
+                ${this.renderEcoWatt(attributes, this.config)}
                 ${this.renderError(attributes.errorLastCall, this.config)}
                 ${this.renderVersion(attributes.versionUpdateAvailable, attributes.versionGit)}
               </div>
@@ -473,6 +482,84 @@ class ContentCardLinky extends LitElement {
         }
     }
   }
+  
+  getOneDayForecastTime(ecoWattForecast) {
+    let ecoWattForecastTimeRefBegin = new Date(ecoWattForecast.attributes["begin"]);
+    let ecoWattForecastTimeRefEnd = new Date(ecoWattForecast.attributes["end"]);
+    let ecoWattForecastStartTime = ecoWattForecastTimeRefBegin.toLocaleTimeString([], { hour: '2-digit'});
+    let ecoWattForecastEndTime = ecoWattForecastTimeRefEnd.toLocaleTimeString([], { hour: '2-digit' });
+
+    return [ecoWattForecastStartTime, ecoWattForecastEndTime];
+  }
+  
+  getOneDayNextEcoWattText(ecoWattForecastEntity) {
+    for (let [time, value] of Object.entries(
+      ecoWattForecastEntity.attributes["forecast"]
+    )) {
+      if (time != undefined && ecoWattForecastValues.get(value) > 0.1) {
+	let timeStr = time.replace(/([345])5/g, "$10");
+        return value + ((time == "0 min") ? " actuellement." : " dans " + timeStr + ".");
+      }
+    }
+    return ""
+  }
+  
+  getOneDayNextEcoWatt(ecoWattForecastEntity) {
+    let ecoWattForecastList = [];
+    for (let [time, value] of Object.entries(
+      ecoWattForecastEntity.attributes["forecast"]
+    )) {
+      if (time != undefined) {
+        time = time.replace("h", "").trim();
+        time = time.replace("min", "").trim();
+        ecoWattForecastList.push([time, ecoWattForecastValues.get(value), value]);
+      }
+    }
+
+    return ecoWattForecastList;
+  }
+  
+  renderEcoWatt(attributes, config) {
+	if ( attributes.serviceEnedis !== "myElectricalData" ){
+	  return html `EcoWatt : uniquement disponible avec myElectricData`;
+	}
+	if (this.config.showEcoWatt === false ){
+	  return html ``;
+	}
+	let sensorName = config.entity + "_ecowatt" ;
+    const ecoWattForecast = this.hass.states[sensorName];
+
+    if (!ecoWattForecast || ecoWattForecast.length === 0) {
+      return html``;
+    }
+
+    this.numberElements++;
+
+    let [startTime, endTime] = this.getOneDayForecastTime(ecoWattForecast);
+
+    return html`
+      <ul class="flow-row oneHourHeader ${this.numberElements > 1 ? " spacer" : ""}">
+        <li> ${startTime} </li>
+        <li>${this.getOneDayNextEcoWattText(ecoWattForecast)}</li>
+        <li> ${endTime} </li>
+      </ul>
+      <ul class="flow-row oneHour">
+        ${html`
+        ${this.getOneDayNextEcoWatt(ecoWattForecast).map(
+      (forecast) => html`
+        <li class="ecowatt-${forecast[0]}" style="background: ${forecast[1]}" title="${forecast[1]} - ${forecast[0]}" ></li>`
+    )}
+        `}
+      </ul>
+      <ul class="flow-row oneHourLabel">
+        ${html`
+        ${this.getOneDayNextEcoWatt(ecoWattForecast).map(
+      (forecast) => html`
+        <li title="${forecast[0]}">${(forecast[0]%2==1) ? forecast[0] : ''}</li>`
+    )}
+        `}
+      </ul>`;
+  }
 
   setConfig(config) {
     if (!config.entity) {
@@ -501,6 +588,7 @@ class ContentCardLinky extends LitElement {
       showWeekRatio: false,
       showYesterdayRatio: false,
       showTitreLigne: false,
+      showEcoWatt: false,
       titleName: "",
       nbJoursAffichage: 7,
       kWhPrice: undefined,
@@ -560,6 +648,12 @@ class ContentCardLinky extends LitElement {
         padding: 1.5em 1em 1em 1em;
         position: relative;
         cursor: pointer;
+      }
+	  
+      ha-card ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
       }
 
       .main-title {
@@ -712,6 +806,53 @@ class ContentCardLinky extends LitElement {
       .tooltip:hover .tooltiptext {
         visibility: visible;
         opacity: 1;
+      }
+	  
+      .flow-row {
+        display: flex;
+        flex-flow: row wrap;
+      }
+      /* One Hour Forecast */
+      .oneHour {
+        height: 1em;
+      }
+      .oneHour > li {
+        background-color: var(--paper-item-icon-color);
+        border-right: 1px solid var(--lovelace-background, var(--primary-background-color));
+      }
+      .oneHour > li:first-child {
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+      }
+      .oneHour > li:last-child {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        border: 0;
+      }
+	  /* One Hour Labels */
+      .ecowatt-00, .ecowatt-01, .ecowatt-02, .ecowatt-03, .ecowatt-04, .ecowatt-05, .ecowatt-06, .ecowatt-07{
+        flex: 2 1 0;
+      }
+      .ecowatt-08, .ecowatt-09, .ecowatt-10, .ecowatt-11, .ecowatt-12, .ecowatt-13, .ecowatt-14, .ecowatt-15 {
+        flex: 2 1 0;
+      }
+	  .ecowatt-16, .ecowatt-17, .ecowatt-18, .ecowatt-19, .ecowatt-20, .ecowatt-21, .ecowatt-22, .ecowatt-23 {
+        flex: 2 1 0;
+      }
+	  
+      .oneHourLabel > li:first-child {
+        flex: 0.70 1 0;
+      }
+      .oneHourLabel > li {
+        flex: 1 1 0;
+        text-align: left;
+      }
+      /* One Hour Header */
+      .oneHourHeader {
+        justify-content: space-between;
+      }
+      .oneHourHeader li:last-child {
+        text-align: right;
       }
       `;
   }
