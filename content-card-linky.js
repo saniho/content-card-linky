@@ -182,6 +182,7 @@ class ContentCardLinky extends LitElement {
                 ${this.renderEcoWatt(attributes, this.config)}
                 ${this.renderError(attributes.errorLastCall, this.config)}
                 ${this.renderVersion(attributes.versionUpdateAvailable, attributes.versionGit)}
+                ${this.renderInformation(attributes, this.config)}
               </div>
             </ha-card>`
         }
@@ -290,6 +291,19 @@ class ContentCardLinky extends LitElement {
               </div>
             `
        }
+    }
+  }
+  renderInformation(attributes, config) {
+    if (true) {
+		if ( attributes.serviceEnedis !== "myElectricalData2" ){
+		  return html `
+              <div class="information-msg" style="color: red">
+              <ha-icon id="icon" icon="mdi:alert-outline"></ha-icon>
+			  Merci de migrer sur myElectricalData.<br>
+			  EnedisGateway sera courant desactivé en 2023.
+			  </div>
+			  `
+		}
     }
   }
   renderVersion(versionUpdateAvailable, versionGit) {
@@ -581,6 +595,7 @@ class ContentCardLinky extends LitElement {
       showDayHCHP: false,
       showDayName: "long",
       showError: true,
+	  shoInformation: true,
       showPrice: true,
       showTitle: false,
       showCurrentMonthRatio: true,
