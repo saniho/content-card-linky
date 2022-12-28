@@ -295,7 +295,7 @@ class ContentCardLinky extends LitElement {
   }
   renderInformation(attributes, config) {
     if (true) {
-		if ( attributes.serviceEnedis !== "myElectricalData2" ){
+		if ( attributes.serviceEnedis !== "myElectricalData" ){
 		  return html `
               <div class="information-msg" style="color: red">
               <ha-icon id="icon" icon="mdi:alert-outline"></ha-icon>
