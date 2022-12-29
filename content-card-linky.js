@@ -300,7 +300,7 @@ class ContentCardLinky extends LitElement {
               <div class="information-msg" style="color: red">
               <ha-icon id="icon" icon="mdi:alert-outline"></ha-icon>
 			  Merci de migrer sur myElectricalData.<br>
-			  EnedisGateway sera courant desactivé en 2023.
+			  EnedisGateway sera desactivé courant 2023.
 			  </div>
 			  `
 		}
