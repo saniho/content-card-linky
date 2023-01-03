@@ -106,6 +106,9 @@ export class contentCardLinkyEditor extends LitElement {
   get _showTitreLigne() {
     return this._config.showTitreLigne !== false;
   }
+  get _showEcoWatt() {
+    return this._config.showEcoWatt !== false;
+  }
 
   get _title() {
     return this._config.showTitle !== false;
@@ -173,6 +176,7 @@ export class contentCardLinkyEditor extends LitElement {
             ${this.renderSwitchOption("Show titre ligne", this._showTitreLigne, "showTitreLigne")}
             ${this.renderSwitchOption("Show error", this._showError, "showError")}
             ${this.renderSwitchOption("Show header", this._showHeader, "showHeader")}
+            ${this.renderSwitchOption("Show echo Watt", this._showEcoWatt, "showEcoWatt")}
           </ul>
           <!-- -->
           <paper-input
