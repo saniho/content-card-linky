@@ -294,7 +294,10 @@ class ContentCardLinky extends LitElement {
     }
   }
   renderInformation(attributes, config) {
-    if (true) {
+    if (attributes.serviceEnedis === undefined ) {
+		return html ``
+	}
+	else{
 		if ( attributes.serviceEnedis !== "myElectricalData" ){
 		  return html `
               <div class="information-msg" style="color: red">
@@ -534,6 +537,9 @@ class ContentCardLinky extends LitElement {
   }
   
   renderEcoWatt(attributes, config) {
+	if (attributes.serviceEnedis === undefined ){
+	  return html ``;
+	}
 	if ( attributes.serviceEnedis !== "myElectricalData" ){
 	  return html `EcoWatt : uniquement disponible avec myElectricData`;
 	}
