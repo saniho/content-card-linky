@@ -25,6 +25,14 @@ const fireEvent = (node, type, detail, options) => {
   return event;
 };
 
+const ecoWattForecastValues = new Map([
+  ["Pas de valeur", "green"],
+  [1, "green"],
+  [2, "yellow"],
+  [3, "red"],
+]);
+
+
 function hasConfigOrEntityChanged(element, changedProps) {
   if (changedProps.has("config")) {
     return true;
@@ -86,35 +94,22 @@ class ContentCardLinky extends LitElement {
               ${this.addEventListener('click', event => { this._showDetails(this.config.entity); })}
               ${this.renderTitle(this.config)}
               <div class="card">
-                <div class="main-info">
-                  ${this.config.showIcon
-                    ? html`
-                      <div class="icon-block">
-                        <span class="linky-icon bigger" style="background: none, url(https://apps.lincs.enedis.fr/mes-prms/assets/images/compteurs/linky.svg) no-repeat; background-size: contain;"></span>
-                      </div>`
-                    : html `` 
-                  }
-                  ${this.config.showPeakOffPeak
-                    ? html`
-                      <div class="hp-hc-block">
-                        <span class="conso-hc">${this.toFloat(attributes.yesterday_HC)}</span><span class="conso-unit-hc"> ${attributes.unit_of_measurement} <span class="more-unit">(en HC)</span></span><br />
-                        <span class="conso-hp">${this.toFloat(attributes.yesterday_HP)}</span><span class="conso-unit-hp"> ${attributes.unit_of_measurement} <span class="more-unit">(en HP)</span></span>
-                      </div>`
-                    : html`
-                      <div class="cout-block">
-                        <span class="cout">${this.toFloat(stateObj.state)}</span>
-                        <span class="cout-unit">${attributes.unit_of_measurement}</span>
-                      </div>`
-                  }
-                  ${this.config.showPrice 
+				  ${this.renderHeader(attributes, this.config, stateObj)}
+                <div class="variations">
+                  ${this.config.showYearRatio 
                     ? html `
-                    <div class="cout-block">
-                      <span class="cout" title="Coût journalier">${this.toFloat(attributes.daily_cost, 2)}</span><span class="cout-unit"> €</span>
-                    </div>`
+                    <span class="variations-linky">
+                      <span class="ha-icon">
+                        <ha-icon icon="mdi:arrow-right" style="display: inline-block; transform: rotate(${(attributes.year_evolution < 0) ? '45' : ((attributes.year_evolution == 0) ? "0" : "-45")}deg)">
+                       </ha-icon>
+                      </span>
+                      <div class="tooltip">
+                      ${Math.round(attributes.year_evolution)}<span class="unit"> %</span><span class="year">par rapport à ${this.previousYear()}</span>
+                          <span class="tooltiptext">A-1 : ${attributes.last_year}<br>A : ${attributes.current_year}</span>
+                      </div>
+                    </span>`
                     : html ``
                    }
-                </div>
-                <div class="variations">
                   ${this.config.showMonthRatio 
                     ? html `
                     <span class="variations-linky">
@@ -184,8 +179,10 @@ class ContentCardLinky extends LitElement {
                   
                 </div>
                 ${this.renderHistory(attributes.daily, attributes.unit_of_measurement, attributes.dailyweek, attributes.dailyweek_cost, attributes.dailyweek_costHC, attributes.dailyweek_costHP, attributes.dailyweek_HC, attributes.dailyweek_HP, this.config)}
+                ${this.renderEcoWatt(attributes, this.config)}
                 ${this.renderError(attributes.errorLastCall, this.config)}
                 ${this.renderVersion(attributes.versionUpdateAvailable, attributes.versionGit)}
+                ${this.renderInformation(attributes, this.config)}
               </div>
             </ha-card>`
         }
@@ -235,6 +232,54 @@ class ContentCardLinky extends LitElement {
           </div>` 
        }
   }
+  renderHeader(attributes, config, stateObj) {
+    if (this.config.showHeader === true) {
+	  if( config.showPeakOffPeak ) {
+        return html`
+		  <div class="main-info">
+		  ${this.renderIcon(attributes, config)}
+		  <div class="hp-hc-block">
+			<span class="conso-hc">${this.toFloat(attributes.yesterday_HC)}</span><span class="conso-unit-hc"> ${attributes.unit_of_measurement} <span class="more-unit">(en HC)</span></span><br />
+			<span class="conso-hp">${this.toFloat(attributes.yesterday_HP)}</span><span class="conso-unit-hp"> ${attributes.unit_of_measurement} <span class="more-unit">(en HP)</span></span>
+		  </div>
+		  ${this.renderPrice(attributes, config)}
+          </div>`
+	  }
+	  else{
+        return html`
+		  <div class="main-info">
+		  ${this.renderIcon(attributes, config)}
+		  <div class="cout-block">
+			<span class="cout">${this.toFloat(stateObj.state)}</span>
+			<span class="cout-unit">${attributes.unit_of_measurement}</span>
+		  </div>
+		  ${this.renderPrice(attributes, config)}
+          </div>`
+      }
+    }
+  }
+  renderIcon(attributes, config) {
+    if ( this.config.showIcon ){
+  	  return html `
+		<div class="icon-block">
+			<span class="linky-icon bigger" style="background: none, url(https://apps.lincs.enedis.fr/mes-prms/assets/images/compteurs/linky.svg) no-repeat; background-size: contain;"></span>
+		</div>`
+	  }
+    else{
+	  return html ``
+	}
+  }
+  renderPrice(attributes, config) {
+    if ( this.config.showPrice ){
+  	  return html `
+		<div class="cout-block">
+		  <span class="cout" title="Coût journalier">${this.toFloat(attributes.daily_cost, 2)}</span><span class="cout-unit"> €</span>
+		</div>`
+	  }
+    else{
+	  return html ``
+	}
+  }
   renderError(errorMsg, config) {
     if (this.config.showError === true) {
        if ( errorMsg != "" ){
@@ -246,6 +291,22 @@ class ContentCardLinky extends LitElement {
               </div>
             `
        }
+    }
+  }
+  renderInformation(attributes, config) {
+    if (attributes.serviceEnedis === undefined ) {
+		return html ``
+	}
+	else{
+		if ( attributes.serviceEnedis !== "myElectricalData" ){
+		  return html `
+              <div class="information-msg" style="color: red">
+              <ha-icon id="icon" icon="mdi:alert-outline"></ha-icon>
+			  Merci de migrer sur myElectricalData.<br>
+			  EnedisGateway sera desactivé courant 2023.
+			  </div>
+			  `
+		}
     }
   }
   renderVersion(versionUpdateAvailable, versionGit) {
@@ -438,6 +499,87 @@ class ContentCardLinky extends LitElement {
         }
     }
   }
+  
+  getOneDayForecastTime(ecoWattForecast) {
+    let ecoWattForecastTimeRefBegin = new Date(ecoWattForecast.attributes["begin"]);
+    let ecoWattForecastTimeRefEnd = new Date(ecoWattForecast.attributes["end"]);
+    let ecoWattForecastStartTime = ecoWattForecastTimeRefBegin.toLocaleTimeString([], { hour: '2-digit'});
+    let ecoWattForecastEndTime = ecoWattForecastTimeRefEnd.toLocaleTimeString([], { hour: '2-digit' });
+
+    return [ecoWattForecastStartTime, ecoWattForecastEndTime];
+  }
+  
+  getOneDayNextEcoWattText(ecoWattForecastEntity) {
+    for (let [time, value] of Object.entries(
+      ecoWattForecastEntity.attributes["forecast"]
+    )) {
+      if (time != undefined && ecoWattForecastValues.get(value) > 0.1) {
+	let timeStr = time.replace(/([345])5/g, "$10");
+        return value + ((time == "0 min") ? " actuellement." : " dans " + timeStr + ".");
+      }
+    }
+    return ""
+  }
+  
+  getOneDayNextEcoWatt(ecoWattForecastEntity) {
+    let ecoWattForecastList = [];
+    for (let [time, value] of Object.entries(
+      ecoWattForecastEntity.attributes["forecast"]
+    )) {
+      if (time != undefined) {
+        time = time.replace("h", "").trim();
+        time = time.replace("min", "").trim();
+        ecoWattForecastList.push([time, ecoWattForecastValues.get(value), value]);
+      }
+    }
+
+    return ecoWattForecastList;
+  }
+  
+  renderEcoWatt(attributes, config) {
+	if (attributes.serviceEnedis === undefined ){
+	  return html ``;
+	}
+	if ( attributes.serviceEnedis !== "myElectricalData" ){
+	  return html `EcoWatt : uniquement disponible avec myElectricData`;
+	}
+	if (this.config.showEcoWatt === false ){
+	  return html ``;
+	}
+	let sensorName = config.entity + "_ecowatt" ;
+    const ecoWattForecast = this.hass.states[sensorName];
+
+    if (!ecoWattForecast || ecoWattForecast.length === 0) {
+      return html``;
+    }
+
+    this.numberElements++;
+
+    let [startTime, endTime] = this.getOneDayForecastTime(ecoWattForecast);
+
+    return html`
+      <ul class="flow-row oneHourHeader ${this.numberElements > 1 ? " spacer" : ""}">
+        <li> ${startTime} </li>
+        <li>${this.getOneDayNextEcoWattText(ecoWattForecast)}</li>
+        <li> ${endTime} </li>
+      </ul>
+      <ul class="flow-row oneHour">
+        ${html`
+        ${this.getOneDayNextEcoWatt(ecoWattForecast).map(
+      (forecast) => html`
+        <li class="ecowatt-${forecast[0]}" style="background: ${forecast[1]}" title="${forecast[1]} - ${forecast[0]}" ></li>`
+    )}
+        `}
+      </ul>
+      <ul class="flow-row oneHourLabel">
+        ${html`
+        ${this.getOneDayNextEcoWatt(ecoWattForecast).map(
+      (forecast) => html`
+        <li title="${forecast[0]}">${(forecast[0]%2==1) ? forecast[0] : ''}</li>`
+    )}
+        `}
+      </ul>`;
+  }
 
   setConfig(config) {
     if (!config.entity) {
@@ -450,6 +592,7 @@ class ContentCardLinky extends LitElement {
     
     const defaultConfig = {
       showHistory: true,
+      showHeader: true,
       showPeakOffPeak: true,
       showIcon: false,
       showInTableUnit: false,
@@ -458,6 +601,7 @@ class ContentCardLinky extends LitElement {
       showDayHCHP: false,
       showDayName: "long",
       showError: true,
+	  shoInformation: true,
       showPrice: true,
       showTitle: false,
       showCurrentMonthRatio: true,
@@ -465,6 +609,7 @@ class ContentCardLinky extends LitElement {
       showWeekRatio: false,
       showYesterdayRatio: false,
       showTitreLigne: false,
+      showEcoWatt: false,
       titleName: "",
       nbJoursAffichage: 7,
       kWhPrice: undefined,
@@ -488,6 +633,13 @@ class ContentCardLinky extends LitElement {
   toFloat(value, decimals = 1) {
     return Number.parseFloat(value).toFixed(decimals);
   }
+  
+  previousYear() {
+    var d = new Date();
+    d.setFullYear(d.getFullYear()-1 );
+    
+    return d.toLocaleDateString('fr-FR', {year: "numeric"});
+  } 
   
   previousMonth() {
     var d = new Date();
@@ -517,6 +669,12 @@ class ContentCardLinky extends LitElement {
         padding: 1.5em 1em 1em 1em;
         position: relative;
         cursor: pointer;
+      }
+	  
+      ha-card ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
       }
 
       .main-title {
@@ -577,8 +735,8 @@ class ContentCardLinky extends LitElement {
       .variations-linky {
         display: inline-block;
         font-weight: 300;
-        margin: 1em;
-        overflow: hidden;
+        margin: 0px 0px 5px;
+        overflow: hidden; 
       }
     
       .unit {
@@ -611,6 +769,11 @@ class ContentCardLinky extends LitElement {
         //font-weight: bold;
       }
       
+      .year {
+        font-size: 0.8em;
+        font-style: italic;
+        margin-left: 5px;
+      }
       .previous-month {
         font-size: 0.8em;
         font-style: italic;
@@ -664,6 +827,53 @@ class ContentCardLinky extends LitElement {
       .tooltip:hover .tooltiptext {
         visibility: visible;
         opacity: 1;
+      }
+	  
+      .flow-row {
+        display: flex;
+        flex-flow: row wrap;
+      }
+      /* One Hour Forecast */
+      .oneHour {
+        height: 1em;
+      }
+      .oneHour > li {
+        background-color: var(--paper-item-icon-color);
+        border-right: 1px solid var(--lovelace-background, var(--primary-background-color));
+      }
+      .oneHour > li:first-child {
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+      }
+      .oneHour > li:last-child {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        border: 0;
+      }
+	  /* One Hour Labels */
+      .ecowatt-00, .ecowatt-01, .ecowatt-02, .ecowatt-03, .ecowatt-04, .ecowatt-05, .ecowatt-06, .ecowatt-07{
+        flex: 2 1 0;
+      }
+      .ecowatt-08, .ecowatt-09, .ecowatt-10, .ecowatt-11, .ecowatt-12, .ecowatt-13, .ecowatt-14, .ecowatt-15 {
+        flex: 2 1 0;
+      }
+	  .ecowatt-16, .ecowatt-17, .ecowatt-18, .ecowatt-19, .ecowatt-20, .ecowatt-21, .ecowatt-22, .ecowatt-23 {
+        flex: 2 1 0;
+      }
+	  
+      .oneHourLabel > li:first-child {
+        flex: 0.70 1 0;
+      }
+      .oneHourLabel > li {
+        flex: 1 1 0;
+        text-align: left;
+      }
+      /* One Hour Header */
+      .oneHourHeader {
+        justify-content: space-between;
+      }
+      .oneHourHeader li:last-child {
+        text-align: right;
       }
       `;
   }
