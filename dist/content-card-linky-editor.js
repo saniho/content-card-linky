@@ -45,6 +45,10 @@ export class contentCardLinkyEditor extends LitElement {
     return this._config.showIcon !== false;
   }
 
+  get _showHeader() {
+    return this._config.showHeader !== false;
+  }
+
   get _showHistory() {
     return this._config.showHistory !== false;
   }
@@ -63,6 +67,10 @@ export class contentCardLinkyEditor extends LitElement {
   
   get _showDayPriceHCHP() {
     return this._config.showDayPriceHCHP !== false;
+  }
+
+  get _showDayMaxPower() {
+    return this._config.showDayMaxPower !== false;
   }
   
   get _showPrice() {
@@ -85,6 +93,10 @@ export class contentCardLinkyEditor extends LitElement {
     return this._config.showMonthRatio !== false;
   }
   
+  get _showYearRatio() {
+    return this._config.showYearRatio !== false;
+  }
+  
   get _showWeekRatio() {
     return this._config.showWeekRatio !== false;
   }
@@ -97,6 +109,9 @@ export class contentCardLinkyEditor extends LitElement {
   }
   get _showTitreLigne() {
     return this._config.showTitreLigne !== false;
+  }
+  get _showEcoWatt() {
+    return this._config.showEcoWatt !== false;
   }
 
   get _title() {
@@ -157,12 +172,16 @@ export class contentCardLinkyEditor extends LitElement {
             ${this.renderSwitchOption("Show prix HC/HP", this._showDayPriceHCHP, "showDayPriceHCHP")}
             ${this.renderSwitchOption("Show prix", this._showPrice, "showPrice")}
             ${this.renderSwitchOption("Show jours HC/HP", this._showDayHCHP, "showDayHCHP")}
+			${this.renderSwitchOption("Show jours Max Puissance", this._showDayMaxPower, "showDayMaxPower")}
+            ${this.renderSwitchOption("Show ratio year", this._showYearRatio, "showYearRatio")}
             ${this.renderSwitchOption("Show ratio mois", this._showCurrentMonthRatio, "showCurrentMonthRatio")}
             ${this.renderSwitchOption("Show ratio mois precedent", this._showMonthRatio, "showMonthRatio")}
             ${this.renderSwitchOption("Show ratio semaine", this._showWeekRatio, "showWeekRatio")}
             ${this.renderSwitchOption("Show ratio hier", this._showYesterdayRatio, "showYesterdayRatio")}
             ${this.renderSwitchOption("Show titre ligne", this._showTitreLigne, "showTitreLigne")}
             ${this.renderSwitchOption("Show error", this._showError, "showError")}
+            ${this.renderSwitchOption("Show header", this._showHeader, "showHeader")}
+            ${this.renderSwitchOption("Show echo Watt", this._showEcoWatt, "showEcoWatt")}
           </ul>
           <!-- -->
           <paper-input
