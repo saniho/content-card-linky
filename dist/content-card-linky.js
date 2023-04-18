@@ -352,8 +352,8 @@ class ContentCardLinky extends LitElement {
           ${this.renderDayPriceHCHP(dailyweek_costHP, dayNumber, config)}
           ${this.renderDayHCHP(dailyweek_HC, dayNumber, unit_of_measurement, config)}
           ${this.renderDayHCHP(dailyweek_HP, dayNumber, unit_of_measurement, config)}
-		  ${this.renderDayMaxPower(dailyweek_MP, dayNumber, dailyweek_MP_over, dailyweek_MP_time, config)}
-		  ${this.renderDayMaxPowerTime(dailyweek_MP, dayNumber, dailyweek_MP_over, dailyweek_MP_time, config)}
+          ${this.renderDayMaxPower(dailyweek_MP, dayNumber, dailyweek_MP_over, dailyweek_MP_time, config)
+          ${this.renderDayMaxPowerTime(dailyweek_MP, dayNumber, dailyweek_MP_over, dailyweek_MP_time, config)}
         </div>
       `
   }
@@ -381,8 +381,8 @@ class ContentCardLinky extends LitElement {
           ${this.renderDailyWeekTitre(this.config.showDayPriceHCHP, "Prix HP")}
           ${this.renderDailyWeekTitre(this.config.showDayHCHP, "HC")}
           ${this.renderDailyWeekTitre(this.config.showDayHCHP, "HP")}
-		  ${this.renderDailyWeekTitre(this.config.showDayMaxPower, "MP")}
-		  ${this.renderDailyWeekTitre(this.config.showDayMaxPower, "MPtime")}
+          ${this.renderDailyWeekTitre(this.config.showDayMaxPower, "MP")}
+          ${this.renderDailyWeekTitre(this.config.showDayMaxPower, "MPtime")}
         </div>
         `
     }
@@ -420,9 +420,14 @@ class ContentCardLinky extends LitElement {
         }
         ${this.config.showDayMaxPower 
         ? html `
-        <br><span class="cons-val">MPt</span>`
+        <br><span class="cons-val">MP</span>`
         : html ``
         }
+	${this.config.showDayMaxPower 
+        ? html `
+        <br><span class="cons-val">MPt</span>`
+        : html ``
+        }  
             </div>
         `;
       }
