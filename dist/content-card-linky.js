@@ -545,17 +545,17 @@ class ContentCardLinky extends LitElement {
           return this.renderNoData();
        }
        else{
-	           var val = new Date(valeur);
+	           const val = new Date(valeur);
 		   if ( over === "true") {
 		    return html
 			`
-				<br><span class="cons-val" style="color:red">${this.valeur}</span>
+				<br><span class="cons-val" style="color:red">${this.val}</span>
 			`;
 		   }
 		   else {
 			return html
 			`
-				<br><span class="cons-val" style="color:black">${this.valeur}</span>
+				<br><span class="cons-val" style="color:black">${this.val}</span>
 			`;
 		   }
 	   }
