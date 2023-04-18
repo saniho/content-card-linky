@@ -352,7 +352,7 @@ class ContentCardLinky extends LitElement {
           ${this.renderDayPriceHCHP(dailyweek_costHP, dayNumber, config)}
           ${this.renderDayHCHP(dailyweek_HC, dayNumber, unit_of_measurement, config)}
           ${this.renderDayHCHP(dailyweek_HP, dayNumber, unit_of_measurement, config)}
-		  ${this.renderDayMaxPower(dailyweek_MP, dayNumber, dailyweek_MP_over, config)}
+		  ${this.renderDayMaxPower(dailyweek_MP, dayNumber, dailyweek_MP_over, dailyweek_MP_time, config)}
         </div>
       `
   }
@@ -419,6 +419,10 @@ class ContentCardLinky extends LitElement {
 		${this.config.showDayMaxPower 
         ? html `
         <br><span class="cons-val">MP</span>`
+        : html ``
+		${this.config.showDayMaxPower 
+        ? html `
+        <br><span class="cons-val">MPtime</span>`
         : html ``
         }
             </div>
@@ -506,7 +510,7 @@ class ContentCardLinky extends LitElement {
         }
     }
   }
-  renderDayMaxPower(value, dayNumber, overMP, config) {
+  renderDayMaxPower(value, dayNumber, overMP, overMPtime, config) {
     if (config.showDayMaxPower) {
        const valeur = value.toString().split(",")[dayNumber-1] ;
 	   const over = overMP.toString().split(",")[dayNumber-1];
@@ -528,7 +532,31 @@ class ContentCardLinky extends LitElement {
 		   }
 	   }
     }
-  }  
+  } 
+
+  renderDayMaxPowerTime(value, dayNumber, overMP, overMPtime, config) {
+    if (config.showDayMaxPower) {
+       const valeur = value.toString().split(",")[dayNumber-1] ;
+	   const over = overMPtime.toString().split(" ")[dayNumber-1];
+       if ( valeur === "-1" ){
+          return this.renderNoData();
+       }
+       else{
+		   if ( over === "true") {
+		    return html
+			`
+				<br><span class="cons-val" style="color:red">${this.toFloat(valeur, 2)}</span>
+			`;
+		   }
+		   else {
+			return html
+			`
+				<br><span class="cons-val" style="color:black">${this.toFloat(valeur, 2)}</span>
+			`;
+		   }
+	   }
+    }
+  }   
   
   getOneDayForecastTime(ecoWattForecast) {
     let ecoWattForecastTimeRefBegin = new Date(ecoWattForecast.attributes["begin"]);
