@@ -6,25 +6,21 @@ Amélioration:
 
 ![image](https://user-images.githubusercontent.com/44190435/232684989-fe1c6e38-5f21-4ea9-9d45-45f34181d8c1.png)
 
-*ATTENTION, documentation pas (encore) au top*
+###ATTENTION, documentation pas (encore) au top###
 
 
 [![HACS Supported](https://img.shields.io/badge/HACS-Supported-green.svg)](https://github.com/custom-components/hacs)
 
-**Cette carte est compatible avec l'integration : [MyEnedis](https://github.com/saniho/apiEnedis)**
-
-**Un question ? Un problème ? Une demande ? Venez en parler sur le [fil de discussion dédié](https://forum.hacf.fr/t/sensor-pour-enedis-apienedis/935) sur le [forum HACF](https://forum.hacf.fr/).**
+**Cette carte est compatible avec l'integration : https://github.com/MyElectricalData/myelectricaldata**
 
 ## Bienvenue !
 
-Cette intégration fonctionne à l'aide de la passerelle fournie par https://enedisgateway.tech/.
+Cette intégration fonctionne à l'aide de la passerelle fournie par MyElectricalData.
 
 Cette carte est initialement inspirée de [@royto](https://github.com/royto/linky-card)
 
 Avant de pouvoir utiliser cette intégration, assurez vous : 
-* D'avoir validé la partage de données avec la [passerelle](https://enedisgateway.tech/),
-* D'avoir activé sur votre [espace privé Enedis](https://mon-compte-client.enedis.fr/) la remontée des informations de votre linky,
-* Et d'avoir installé l'integration [MyEnedis](https://github.com/saniho/apiEnedis).
+* d'avoir installé l'intégration de MyElectricalData https://github.com/MyElectricalData/myelectricaldata
 
 ## Installer la carte
 <details>
@@ -101,12 +97,6 @@ showCurrentMonthRatio: true
 showWeekRatio: true                             
 showDayName: short                              Affichage des jours de la semaine : "short", "narrow", "long"
 ````
-
-<br>
- <p align="center">
-<img src="https://github.com/saniho/content-card-linky/raw/main/linky.png" height="300"/>
- <br>
- </p>
 
 **************
 
