@@ -1,4 +1,12 @@
 # content-card-linky
+
+## Ceci c'est un fork de https://github.com/saniho/content-card-linky
+Amélioration:
+- ajout de Max Puissance avec indiquation (en rouge) si dépassé
+
+![image](https://user-images.githubusercontent.com/44190435/232684989-fe1c6e38-5f21-4ea9-9d45-45f34181d8c1.png)
+
+
 [![HACS Supported](https://img.shields.io/badge/HACS-Supported-green.svg)](https://github.com/custom-components/hacs)
 
 **Cette carte est compatible avec l'integration : [MyEnedis](https://github.com/saniho/apiEnedis)**
