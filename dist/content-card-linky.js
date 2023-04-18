@@ -341,7 +341,7 @@ class ContentCardLinky extends LitElement {
     }
   }
 
-  renderDay(day, dayNumber, unit_of_measurement, dailyweek, dailyweek_cost, dailyweek_costHC, dailyweek_costHP, dailyweek_HC, dailyweek_HP, dailyweek_MP, dailyweek_MP_over, config) {
+  renderDay(day, dayNumber, unit_of_measurement, dailyweek, dailyweek_cost, dailyweek_costHC, dailyweek_costHP, dailyweek_HC, dailyweek_HP, dailyweek_MP, dailyweek_MP_over,dailyweek_MP_time, config) {
     return html
       `
         <div class="day">
@@ -353,6 +353,7 @@ class ContentCardLinky extends LitElement {
           ${this.renderDayHCHP(dailyweek_HC, dayNumber, unit_of_measurement, config)}
           ${this.renderDayHCHP(dailyweek_HP, dayNumber, unit_of_measurement, config)}
 		  ${this.renderDayMaxPower(dailyweek_MP, dayNumber, dailyweek_MP_over, dailyweek_MP_time, config)}
+		  ${this.renderDayMaxPowerTime(dailyweek_MP, dayNumber, dailyweek_MP_over, dailyweek_MP_time, config)}
         </div>
       `
   }
@@ -381,6 +382,7 @@ class ContentCardLinky extends LitElement {
           ${this.renderDailyWeekTitre(this.config.showDayHCHP, "HC")}
           ${this.renderDailyWeekTitre(this.config.showDayHCHP, "HP")}
 		  ${this.renderDailyWeekTitre(this.config.showDayMaxPower, "MP")}
+		  ${this.renderDailyWeekTitre(this.config.showDayMaxPower, "MPtime")}
         </div>
         `
     }
