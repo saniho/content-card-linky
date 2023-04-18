@@ -546,16 +546,17 @@ class ContentCardLinky extends LitElement {
        }
        else{
 	           const val = new Date(valeur);
+	           const mpt = val.toLocaleTimeString(['fr-FR'], { hour: 'numeric', minute: '2-digit' });
 		   if ( over === "true") {
 		    return html
 			`
-				<br><span class="cons-val" style="color:red">${this.valeur}</span>
+				<br><span class="cons-val" style="color:red">${this.toString(mpt)}</span>
 			`;
 		   }
 		   else {
 			return html
 			`
-				<br><span class="cons-val" style="color:black">${this.valeur}</span>
+				<br><span class="cons-val" style="color:black">${this.toString(mpt)}</span>
 			`;
 		   }
 	   }
