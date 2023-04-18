@@ -178,7 +178,7 @@ class ContentCardLinky extends LitElement {
                    }
                   
                 </div>
-                ${this.renderHistory(attributes.daily, attributes.unit_of_measurement, attributes.dailyweek, attributes.dailyweek_cost, attributes.dailyweek_costHC, attributes.dailyweek_costHP, attributes.dailyweek_HC, attributes.dailyweek_HP, attributes.dailyweek_MP, attributes.dailyweek_MP_over, this.config)}
+                ${this.renderHistory(attributes.daily, attributes.unit_of_measurement, attributes.dailyweek, attributes.dailyweek_cost, attributes.dailyweek_costHC, attributes.dailyweek_costHP, attributes.dailyweek_HC, attributes.dailyweek_HP, attributes.dailyweek_MP, attributes.dailyweek_MP_over, attributes.dailyweek_MP_time, this.config)}
                 ${this.renderEcoWatt(attributes, this.config)}
                 ${this.renderError(attributes.errorLastCall, this.config)}
                 ${this.renderVersion(attributes.versionUpdateAvailable, attributes.versionGit)}
@@ -324,7 +324,7 @@ class ContentCardLinky extends LitElement {
     }
   }
 
-  renderHistory(daily, unit_of_measurement, dailyweek, dailyweek_cost, dailyweek_costHC, dailyweek_costHP, dailyweek_HC, dailyweek_HP, dailyweek_MP, dailyweek_MP_over, config) {
+  renderHistory(daily, unit_of_measurement, dailyweek, dailyweek_cost, dailyweek_costHC, dailyweek_costHP, dailyweek_HC, dailyweek_HP, dailyweek_MP, dailyweek_MP_over, dailyweek_MP_time, config) {
     if (this.config.showHistory === true) {
       if ( dailyweek != undefined){
         var nbJours = dailyweek.toString().split(",").length ; 
@@ -334,14 +334,14 @@ class ContentCardLinky extends LitElement {
             <div class="week-history">
             ${this.renderTitreLigne(config)}
             ${daily.slice(0, nbJours).reverse().map((day, index) => this.renderDay(day, nbJours-index, unit_of_measurement, dailyweek, dailyweek_cost, dailyweek_costHC, dailyweek_costHP, 
-               dailyweek_HC, dailyweek_HP, dailyweek_MP, dailyweek_MP_over, config))}
+               dailyweek_HC, dailyweek_HP, dailyweek_MP, dailyweek_MP_over, dailyweek_MP_time, config))}
             </div>
           `
         }
     }
   }
 
-  renderDay(day, dayNumber, unit_of_measurement, dailyweek, dailyweek_cost, dailyweek_costHC, dailyweek_costHP, dailyweek_HC, dailyweek_HP, dailyweek_MP, dailyweek_MP_over, config) {
+  renderDay(day, dayNumber, unit_of_measurement, dailyweek, dailyweek_cost, dailyweek_costHC, dailyweek_costHP, dailyweek_HC, dailyweek_HP, dailyweek_MP, dailyweek_MP_over, dailyweek_MP_time, config) {
     return html
       `
         <div class="day">
@@ -352,7 +352,8 @@ class ContentCardLinky extends LitElement {
           ${this.renderDayPriceHCHP(dailyweek_costHP, dayNumber, config)}
           ${this.renderDayHCHP(dailyweek_HC, dayNumber, unit_of_measurement, config)}
           ${this.renderDayHCHP(dailyweek_HP, dayNumber, unit_of_measurement, config)}
-		  ${this.renderDayMaxPower(dailyweek_MP, dayNumber, dailyweek_MP_over, config)}
+		  ${this.renderDayMaxPower(dailyweek_MP, dayNumber, dailyweek_MP_over, dailyweek_MP_time, config)}
+		  ${this.renderDayMaxPowerTime(dailyweek_MP, dayNumber, dailyweek_MP_over, dailyweek_MP_time, config)}
         </div>
       `
   }
@@ -381,6 +382,7 @@ class ContentCardLinky extends LitElement {
           ${this.renderDailyWeekTitre(this.config.showDayHCHP, "HC")}
           ${this.renderDailyWeekTitre(this.config.showDayHCHP, "HP")}
 		  ${this.renderDailyWeekTitre(this.config.showDayMaxPower, "MP")}
+		  ${this.renderDailyWeekTitre(this.config.showDayMaxPowerTime, "MPtime")}
         </div>
         `
     }
@@ -419,6 +421,11 @@ class ContentCardLinky extends LitElement {
 		${this.config.showDayMaxPower 
         ? html `
         <br><span class="cons-val">MP</span>`
+        : html ``
+        }
+        ${this.config.showDayMaxPower 
+        ? html `
+        <br><span class="cons-val">MPtime</span>`
         : html ``
         }
             </div>
@@ -506,7 +513,7 @@ class ContentCardLinky extends LitElement {
         }
     }
   }
-  renderDayMaxPower(value, dayNumber, overMP, config) {
+  renderDayMaxPower(value, dayNumber, overMP, overMPtime, config) {
     if (config.showDayMaxPower) {
        const valeur = value.toString().split(",")[dayNumber-1] ;
 	   const over = overMP.toString().split(",")[dayNumber-1];
@@ -529,6 +536,30 @@ class ContentCardLinky extends LitElement {
 	   }
     }
   }  
+  
+    renderDayMaxPowerTime(value, dayNumber, overMP, overMPtime, config) {
+    if (config.showDayMaxPower) {
+       const valeur = value.toString().split(",")[dayNumber-1] ;
+	   const over = overMPtime.toString().split(",")[dayNumber-1];
+       if ( valeur === "-1" ){
+          return this.renderNoData();
+       }
+       else{
+		   if ( over === "true") {
+		    return html
+			`
+				<br><span class="cons-val" style="color:red">${this.toFloat(valeur, 2)}</span>
+			`;
+		   }
+		   else {
+			return html
+			`
+				<br><span class="cons-val" style="color:black">${this.toFloat(valeur, 2)}</span>
+			`;
+		   }
+	   }
+    }
+  } 
   
   getOneDayForecastTime(ecoWattForecast) {
     let ecoWattForecastTimeRefBegin = new Date(ecoWattForecast.attributes["begin"]);
