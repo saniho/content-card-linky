@@ -416,11 +416,12 @@ class ContentCardLinky extends LitElement {
         <br><span class="cons-val">HP</span>`
         : html ``
         }
-		${this.config.showDayMaxPower 
+	${this.config.showDayMaxPower 
         ? html `
         <br><span class="cons-val">MP</span>`
         : html ``
-		${this.config.showDayMaxPower 
+    	}
+	${this.config.showDayMaxPower 
         ? html `
         <br><span class="cons-val">MPtime</span>`
         : html ``
