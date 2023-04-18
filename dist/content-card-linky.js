@@ -539,22 +539,23 @@ class ContentCardLinky extends LitElement {
   
     renderDayMaxPowerTime(value, dayNumber, overMP, config) {
     if (config.showDayMaxPower) {
-       const valeur = value.toLocaleTimeString().split(",")[dayNumber-1] ;
+       const valeur = value.toString.split(",")[dayNumber-1] ;
        const over = overMP.toString().split(",")[dayNumber-1];
        if ( valeur === "-1" ){
           return this.renderNoData();
        }
        else{
+	           var val = new Date(valeur);
 		   if ( over === "true") {
 		    return html
 			`
-				<br><span class="cons-val" style="color:red">${this.valeur.toLocalTimeString()}</span>
+				<br><span class="cons-val" style="color:red">${this.val.toLocalTimeString(['fr-FR'])}</span>
 			`;
 		   }
 		   else {
 			return html
 			`
-				<br><span class="cons-val" style="color:black">${this.valeur.toLocalTimeString()}</span>
+				<br><span class="cons-val" style="color:black">${this.val.toLocalTimeString(['fr-FR'])}</span>
 			`;
 		   }
 	   }
