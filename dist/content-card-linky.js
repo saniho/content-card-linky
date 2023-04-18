@@ -516,7 +516,7 @@ class ContentCardLinky extends LitElement {
   renderDayMaxPower(value, dayNumber, overMP, config) {
     if (config.showDayMaxPower) {
        const valeur = value.toString().split(",")[dayNumber-1] ;
-	   const over = overMP.toString().split(",")[dayNumber-1];
+       const over = overMP.toString().split(",")[dayNumber-1];
        if ( valeur === "-1" ){
           return this.renderNoData();
        }
@@ -545,18 +545,16 @@ class ContentCardLinky extends LitElement {
           return this.renderNoData();
        }
        else{
-	           const val = new Date(valeur);
-	           const mpt = val.toLocaleTimeString(['fr-FR'], { hour: 'numeric', minute: '2-digit' });
 		   if ( over === "true") {
 		    return html
 			`
-				<br><span class="cons-val" style="color:red">${mpt}</span>
+				<br><span class="cons-val" style="color:red">${this.toFloat(valeur, 2)}</span>
 			`;
 		   }
 		   else {
 			return html
 			`
-				<br><span class="cons-val" style="color:black">${mpt}</span>
+				<br><span class="cons-val" style="color:black">${this.toFloat(valeur, 2)}</span>
 			`;
 		   }
 	   }
