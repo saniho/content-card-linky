@@ -549,13 +549,13 @@ class ContentCardLinky extends LitElement {
 		   if ( over === "true") {
 		    return html
 			`
-				<br><span class="cons-val" style="color:red">${this.val.toLocalTimeString(['fr-FR'])}</span>
+				<br><span class="cons-val" style="color:red">${this.valeur}</span>
 			`;
 		   }
 		   else {
 			return html
 			`
-				<br><span class="cons-val" style="color:black">${this.val.toLocalTimeString(['fr-FR'])}</span>
+				<br><span class="cons-val" style="color:black">${this.valeur}</span>
 			`;
 		   }
 	   }
