@@ -550,13 +550,13 @@ class ContentCardLinky extends LitElement {
 		   if ( over === "true") {
 		    return html
 			`
-				<br><span class="cons-val" style="color:red">${this.toString(mpt)}</span>
+				<br><span class="cons-val" style="color:red">${mpt}</span>
 			`;
 		   }
 		   else {
 			return html
 			`
-				<br><span class="cons-val" style="color:black">${this.toString(mpt)}</span>
+				<br><span class="cons-val" style="color:black">${mpt}</span>
 			`;
 		   }
 	   }
