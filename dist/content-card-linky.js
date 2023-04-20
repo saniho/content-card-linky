@@ -419,7 +419,7 @@ class ContentCardLinky extends LitElement {
         }
 	${this.config.showDayMaxPower 
         ? html `
-        <br><span class="cons-val">MP</span>`
+        <br><span class="cons-val">MP</span>
 	<br><span class="cons-val">MPtime</span>`
         : html ``
         }
