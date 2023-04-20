@@ -522,14 +522,14 @@ class ContentCardLinky extends LitElement {
 		    return html
 			`
 				<br><span class="cons-val" style="color:red">${this.toFloat(valeur, 2)}</span>
-				<br><span class="cons-val" style="color:red">${this.toString(valeur2, 2)}</span>
+				<br><span class="cons-val" style="color:red">${this.toString(valeur2)}</span>
 			`;
 		   }
 		   else {
 			return html
 			`
 				<br><span class="cons-val" style="color:black">${this.toFloat(valeur, 2)}</span>
-				<br><span class="cons-val" style="color:black">${this.toString(valeurt, 2)}</span>
+				<br><span class="cons-val" style="color:black">${this.toString(valeurt)}</span>
 			`;
 		   }
 	   }
