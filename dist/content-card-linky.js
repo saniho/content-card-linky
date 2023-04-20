@@ -352,7 +352,7 @@ class ContentCardLinky extends LitElement {
           ${this.renderDayPriceHCHP(dailyweek_costHP, dayNumber, config)}
           ${this.renderDayHCHP(dailyweek_HC, dayNumber, unit_of_measurement, config)}
           ${this.renderDayHCHP(dailyweek_HP, dayNumber, unit_of_measurement, config)}
-		  ${this.renderDayMaxPower(dailyweek_MP_time, dayNumber, dailyweek_MP_over, config)}
+		  ${this.renderDayMaxPower(dailyweek_MP, dayNumber, dailyweek_MP_over, dailyweek_MP_time, config)}
         </div>
       `
   }
@@ -507,9 +507,11 @@ class ContentCardLinky extends LitElement {
         }
     }
   }
-  renderDayMaxPower(value, dayNumber, overMP, config) {
+  renderDayMaxPower(value, dayNumber, overMP, MPtime, config) {
     if (config.showDayMaxPower) {
        const valeur = value.toString().split(",")[dayNumber-1] ;
+       const valeur2 = MPtime.toString().split(",")[dayNumber-1] ;
+
        const over = overMP.toString().split(",")[dayNumber-1];
        if ( valeur === "-1" ){
           return this.renderNoData();
@@ -519,12 +521,14 @@ class ContentCardLinky extends LitElement {
 		    return html
 			`
 				<br><span class="cons-val" style="color:red">${this.toFloat(valeur, 2)}</span>
+				<br><span class="cons-val" style="color:red">${this.toFloat(valeur2, 2)}</span>
 			`;
 		   }
 		   else {
 			return html
 			`
 				<br><span class="cons-val" style="color:black">${this.toFloat(valeur, 2)}</span>
+				<br><span class="cons-val" style="color:black">${this.toFloat(valeur2, 2)}</span>
 			`;
 		   }
 	   }
