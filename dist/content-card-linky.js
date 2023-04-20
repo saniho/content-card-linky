@@ -513,6 +513,7 @@ class ContentCardLinky extends LitElement {
        const valeur2 = MPtime.toString().split(",")[dayNumber-1] ;
 
        const over = overMP.toString().split(",")[dayNumber-1];
+       const valuert = valuer2.split(' ')[1].substring(0,5));
        if ( valeur === "-1" ){
           return this.renderNoData();
        }
@@ -521,14 +522,14 @@ class ContentCardLinky extends LitElement {
 		    return html
 			`
 				<br><span class="cons-val" style="color:red">${this.toFloat(valeur, 2)}</span>
-				<br><span class="cons-val" style="color:red">${this.toFloat(valeur2, 2)}</span>
+				<br><span class="cons-val" style="color:red">${this.toFloat(valeurt, 2)}</span>
 			`;
 		   }
 		   else {
 			return html
 			`
 				<br><span class="cons-val" style="color:black">${this.toFloat(valeur, 2)}</span>
-				<br><span class="cons-val" style="color:black">${this.toFloat(valeur2, 2)}</span>
+				<br><span class="cons-val" style="color:black">${this.toFloat(valeurt, 2)}</span>
 			`;
 		   }
 	   }
