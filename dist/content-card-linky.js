@@ -522,7 +522,7 @@ class ContentCardLinky extends LitElement {
 		    return html
 			`
 				<br><span class="cons-val" style="color:red">${this.toFloat(valeur, 2)}</span>
-				<br><span class="cons-val" style="color:red">${this.toString(valeur2)}</span>
+				<br><span class="cons-val" style="color:red">${this.toString(valeurt)}</span>
 			`;
 		   }
 		   else {
