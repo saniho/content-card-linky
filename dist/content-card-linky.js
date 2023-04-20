@@ -353,7 +353,6 @@ class ContentCardLinky extends LitElement {
           ${this.renderDayHCHP(dailyweek_HC, dayNumber, unit_of_measurement, config)}
           ${this.renderDayHCHP(dailyweek_HP, dayNumber, unit_of_measurement, config)}
 		  ${this.renderDayMaxPower(dailyweek_MP, dayNumber, dailyweek_MP_over, config)}
-		  ${this.renderDayMaxPowerTime(dailyweek_MP_time, dayNumber, dailyweek_MP_over, config)}
         </div>
       `
   }
