@@ -3,8 +3,7 @@
 
 **Cette carte est compatible avec l'integration : [MyElectricalData](https://github.com/MyElectricalData/myelectricaldata)**
 
-**Avec le changement vers MyElectricalData, cette carte n'est plus garanti d'être compatible avec l'integration : [MyEnedis](https://github.com/saniho/apiEnedis)**
-
+A noter: avec le changement vers MyElectricalData, cette carte **n'est plus garanti d'être compatible** avec l'integration : [MyEnedis](https://github.com/saniho/apiEnedis)
 
 **Un question ? Un problème ? Une demande ? Venez en parler sur le [forum HACF](https://forum.hacf.fr/).**
 
