@@ -1,9 +1,8 @@
 # content-card-linky
 
-## Ceci c'est un fork de https://github.com/saniho/content-card-linky
-Améliorations:
-- v1.0: ajout de Max Puissance, avec indiquation (en rouge) si dépassé
-- v1.1: ajout de l'heure de Max Puissance, avec indiquation (en rouge) si dépassé
+Améliorations récents:
+- ajout de Max Puissance, avec indiquation (en rouge) si dépassé
+- ajout de l'heure de Max Puissance, avec indiquation (en rouge) si dépassé
 
 
 ![image](https://user-images.githubusercontent.com/44190435/233289971-802d34cd-5b06-4faa-869a-66919eb56683.png)
