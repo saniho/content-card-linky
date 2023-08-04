@@ -74,7 +74,7 @@ entity: sensor.myenedis
 type: custom:content-card-linky                 Type de la carte
 nbJoursAffichage: '7'                           Nombre de jour historique
 titleName: Consommation d'hier                  Titre
-entity: sensor.myenedis_09145007157315          Sensor de l'integration [MyEnedis](https://github.com/saniho/apiEnedis)
+entity: sensor.myelectricaldata_09145007157315  Sensor de l'integration MyElectricalData
 showIcon: false                                 Affiche l'icon Linky
 showHistory: true                               Affiche l'historique sur plusieurs jours
 showInTableUnit: false                          
@@ -88,6 +88,9 @@ showPrice: true                                 Affiche le prix de l'historique
 showCurrentMonthRatio: true                     
 showWeekRatio: true                             
 showDayName: short                              Affichage des jours de la semaine : "short", "narrow", "long"
+showDayMaxPower: true                           Affichage MaxPower avec indication si dépassé
+showTitreLigne: true
+showEcoWatt: true                               Affichage EcoWatt pour ajourd'hui
 ````
 
 <br>
