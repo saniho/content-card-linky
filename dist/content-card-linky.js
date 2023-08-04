@@ -530,8 +530,8 @@ class ContentCardLinky extends LitElement {
 		   else {
 			return html
 			`
-				<br><span class="cons-val" style="color:black">${this.toFloat(valeur, 2)}</span>
-				<br><span class="cons-val" style="color:black">${new Date(MPtime.toString().split(",")[dayNumber-1]).toLocaleTimeString('fr-FR', { hour: "2-digit", minute: "2-digit" }) }</span>
+				<br><span class="cons-val">${this.toFloat(valeur, 2)}</span>
+				<br><span class="cons-val">${new Date(MPtime.toString().split(",")[dayNumber-1]).toLocaleTimeString('fr-FR', { hour: "2-digit", minute: "2-digit" }) }</span>
 			`;
 		   }
 	   }
@@ -555,7 +555,7 @@ class ContentCardLinky extends LitElement {
 		   else {
 			return html
 			`
-				<br><span class="cons-val" style="color:black">${this.toFloat(valeur, 2)}</span>
+				<br><span class="cons-val">${this.toFloat(valeur, 2)}</span>
 			`;
 		   }
 	   }
