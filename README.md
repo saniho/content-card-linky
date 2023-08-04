@@ -95,7 +95,8 @@ showEcoWatt: true                               Affichage EcoWatt pour ajourd'hu
 
 <br>
  <p align="center">
-![image](https://github.com/saniho/content-card-linky/assets/44190435/760ce4fe-a833-47bd-9586-4607f63d275c)
+![image](https://github.com/saniho/content-card-linky/assets/44190435/bed36123-de76-4ba9-bbeb-4a3a2ddf9fe3)
+
 
  <br>
  </p>
