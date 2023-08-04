@@ -1,29 +1,22 @@
 # content-card-linky
-
-Améliorations récents:
-- ajout de Max Puissance, avec indiquation (en rouge) si dépassé
-- ajout de l'heure de Max Puissance, avec indiquation (en rouge) si dépassé
-
-
-![image](https://user-images.githubusercontent.com/44190435/233289971-802d34cd-5b06-4faa-869a-66919eb56683.png)
-
-
-
-### ATTENTION, documentation pas (encore) au top ###
-
-
 [![HACS Supported](https://img.shields.io/badge/HACS-Supported-green.svg)](https://github.com/custom-components/hacs)
 
-**Cette carte est compatible avec l'integration : https://github.com/MyElectricalData/myelectricaldata**
+**Cette carte est compatible avec l'integration : [MyElectricalData](https://github.com/MyElectricalData/myelectricaldata)**
+**Avec le changement vers MyElectricalData, cette carte n'est plus garanti d'être compatible avec l'integration : [MyEnedis](https://github.com/saniho/apiEnedis)**
+
+
+**Un question ? Un problème ? Une demande ? Venez en parler sur le [fil de discussion dédié](https://forum.hacf.fr/t/sensor-pour-enedis-apienedis/935) sur le [forum HACF](https://forum.hacf.fr/).**
 
 ## Bienvenue !
 
-Cette intégration fonctionne à l'aide de la passerelle fournie par MyElectricalData.
+Cette intégration fonctionne à l'aide de la passerelle fournie par https://enedisgateway.tech/.
 
 Cette carte est initialement inspirée de [@royto](https://github.com/royto/linky-card)
 
 Avant de pouvoir utiliser cette intégration, assurez vous : 
-* d'avoir installé l'intégration de MyElectricalData https://github.com/MyElectricalData/myelectricaldata
+* D'avoir validé la partage de données avec la [passerelle](https://enedisgateway.tech/),
+* D'avoir activé sur votre [espace privé Enedis](https://mon-compte-client.enedis.fr/) la remontée des informations de votre linky,
+* Et d'avoir installé l'integration [MyEnedis](https://github.com/saniho/apiEnedis).
 
 ## Installer la carte
 <details>
@@ -33,7 +26,7 @@ Avant de pouvoir utiliser cette intégration, assurez vous :
  
  *si vous n'avez pas HACS, pour l'installer cela se passe ici : [HACS : Ajoutez des modules et des cartes personnalisées](https://forum.hacf.fr/t/hacs-ajoutez-des-modules-et-des-cartes-personnalisees/359)
  
-* Ajoutez le dépot personnalisé : `https://github.com/vingerha/content-card-linky`
+* Ajoutez le dépot personnalisé : `https://github.com/saniho/content-card-linky`
 
 * Choisir la catégorie `Lovelace`
 
@@ -73,7 +66,7 @@ resources:
 
 ````
 type: 'custom:content-card-linky'
-entity: sensor.myelectricaldata_[PDL]_consumption
+entity: sensor.myenedis
 ````
 </details>
 
@@ -85,7 +78,7 @@ entity: sensor.myelectricaldata_[PDL]_consumption
 type: custom:content-card-linky                 Type de la carte
 nbJoursAffichage: '7'                           Nombre de jour historique
 titleName: Consommation d'hier                  Titre
-entity: sensor.myenedis_XXXXXXXXXXXXXX          Sensor de l'integration [MyEnedis](https://github.com/saniho/apiEnedis)
+entity: sensor.myenedis_09145007157315          Sensor de l'integration [MyEnedis](https://github.com/saniho/apiEnedis)
 showIcon: false                                 Affiche l'icon Linky
 showHistory: true                               Affiche l'historique sur plusieurs jours
 showInTableUnit: false                          
@@ -100,6 +93,12 @@ showCurrentMonthRatio: true
 showWeekRatio: true                             
 showDayName: short                              Affichage des jours de la semaine : "short", "narrow", "long"
 ````
+
+<br>
+ <p align="center">
+<img src="https://github.com/saniho/content-card-linky/raw/main/linky.png" height="300"/>
+ <br>
+ </p>
 
 **************
 
