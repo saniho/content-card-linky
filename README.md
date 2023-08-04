@@ -2,6 +2,7 @@
 [![HACS Supported](https://img.shields.io/badge/HACS-Supported-green.svg)](https://github.com/custom-components/hacs)
 
 **Cette carte est compatible avec l'integration : [MyElectricalData](https://github.com/MyElectricalData/myelectricaldata)**
+
 **Avec le changement vers MyElectricalData, cette carte n'est plus garanti d'être compatible avec l'integration : [MyEnedis](https://github.com/saniho/apiEnedis)**
 
 
