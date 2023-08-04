@@ -9,8 +9,6 @@ A noter: avec le changement vers MyElectricalData, cette carte **n'est plus gara
 
 ## Bienvenue !
 
-Cette intégration fonctionne à l'aide de la passerelle fournie par https://enedisgateway.tech/.
-
 Cette carte est initialement inspirée de [@royto](https://github.com/royto/linky-card)
 
 Avant de pouvoir utiliser cette intégration, assurez vous : 
