@@ -6,7 +6,7 @@
 **Avec le changement vers MyElectricalData, cette carte n'est plus garanti d'être compatible avec l'integration : [MyEnedis](https://github.com/saniho/apiEnedis)**
 
 
-**Un question ? Un problème ? Une demande ? Venez en parler sur le [fil de discussion dédié](https://forum.hacf.fr/t/sensor-pour-enedis-apienedis/935) sur le [forum HACF](https://forum.hacf.fr/).**
+**Un question ? Un problème ? Une demande ? Venez en parler sur le [forum HACF](https://forum.hacf.fr/).**
 
 ## Bienvenue !
 
@@ -15,9 +15,7 @@ Cette intégration fonctionne à l'aide de la passerelle fournie par https://ene
 Cette carte est initialement inspirée de [@royto](https://github.com/royto/linky-card)
 
 Avant de pouvoir utiliser cette intégration, assurez vous : 
-* D'avoir validé la partage de données avec la [passerelle](https://enedisgateway.tech/),
-* D'avoir activé sur votre [espace privé Enedis](https://mon-compte-client.enedis.fr/) la remontée des informations de votre linky,
-* Et d'avoir installé l'integration [MyEnedis](https://github.com/saniho/apiEnedis).
+* D'avoir validé l'installation correcte de [MyElectricalData](https://github.com/MyElectricalData/myelectricaldata)
 
 ## Installer la carte
 <details>
