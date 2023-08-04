@@ -93,13 +93,7 @@ showTitreLigne: true
 showEcoWatt: true                               Affichage EcoWatt pour ajourd'hui
 ````
 
-<br>
- <p align="center">
 ![image](https://github.com/saniho/content-card-linky/assets/44190435/bed36123-de76-4ba9-bbeb-4a3a2ddf9fe3)
-
-
- <br>
- </p>
 
 **************
 
