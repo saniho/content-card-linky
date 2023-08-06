@@ -7,7 +7,7 @@ const css = LitElement.prototype.css;
 window.customCards = window.customCards || [];
 window.customCards.push({
   type: "content-card-linky",
-  name: "Carte Enedis16",
+  name: "Carte Enedis",
   description: "Carte pour l'intégration myElectricalData.",
   preview: true,
   documentationURL: "https://github.com/saniho/content-card-linky",
@@ -576,13 +576,13 @@ class ContentCardLinky extends LitElement {
     for (let [time, value] of Object.entries(
       ecoWattForecastEntity.attributes["forecast"]
     )) {
-      if ( time != undefined && ecoWattForecastValues.get(value) != "green" ) {
+      if ( time != undefined && ecoWattForecastValues.get(value) !== "green" ) {
 	let timeStr = time.replace(/([345])5/g, "$10");
         // return value + ((time == "0 min") ? " actuellement." : " dans " + timeStr + ".");
-		return 'not green';
+		return html `not green`;
       } else
 	  {
-		  return html `Ecowatt:  ${ecoWattForecastValues.get(value)}`;
+		  return html `Ecowatt aujourd'hui:  ${ecoWattForecastValues.get(value)}`;
 	  }
     }
     return ""
