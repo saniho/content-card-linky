@@ -7,7 +7,7 @@ const css = LitElement.prototype.css;
 window.customCards = window.customCards || [];
 window.customCards.push({
   type: "content-card-linky",
-  name: "Carte Enedis6",
+  name: "Carte Enedis7",
   description: "Carte pour l'intégration myElectricalData.",
   preview: true,
   documentationURL: "https://github.com/saniho/content-card-linky",
@@ -669,7 +669,7 @@ class ContentCardLinky extends LitElement {
 
     return html`
       <ul class="flow-row oneHourHeader ${this.numberElements > 1 ? " spacer" : ""}">
-        <li> ${startTime} </li>
+        <li> 'J1 ' ${startTime} </li>
         <li>${this.getOneDayNextEcoWattText(ecoWattForecastJ1)}</li>
         <li> ${endTime} </li>
       </ul>
@@ -688,10 +688,7 @@ class ContentCardLinky extends LitElement {
         <li title="${forecast[0]}">${(forecast[0]%2==1) ? forecast[0] : ''}</li>`
     )}
         `}
-      </ul>`; 
 
-    let [startTime, endTime] = this.getOneDayForecastTime(ecoWattForecastJ2);	  
-	return html`
       <ul class="flow-row oneHourHeader ${this.numberElements > 1 ? " spacer" : ""}">
         <li> ${startTime} </li>
         <li>${this.getOneDayNextEcoWattText(ecoWattForecastJ2)}</li>
