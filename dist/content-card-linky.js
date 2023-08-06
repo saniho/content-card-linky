@@ -7,7 +7,7 @@ const css = LitElement.prototype.css;
 window.customCards = window.customCards || [];
 window.customCards.push({
   type: "content-card-linky",
-  name: "Carte Enedis....",
+  name: "Carte Enedis5",
   description: "Carte pour l'intégration myElectricalData.",
   preview: true,
   documentationURL: "https://github.com/saniho/content-card-linky",
@@ -613,7 +613,7 @@ class ContentCardLinky extends LitElement {
     const ecoWattForecast = this.hass.states[sensorName];
 
     if (!ecoWattForecast || ecoWattForecast.length === 0) {
-      return html``;
+      return html ``;
     }
 
     this.numberElements++;
@@ -688,30 +688,7 @@ class ContentCardLinky extends LitElement {
         <li title="${forecast[0]}">${(forecast[0]%2==1) ? forecast[0] : ''}</li>`
     )}
         `}
-      </ul>`;
-	  
-	return html`
-      <ul class="flow-row oneHourHeader ${this.numberElements > 1 ? " spacer" : ""}">
-        <li> ${startTime} </li>
-        <li>${this.getOneDayNextEcoWattText(ecoWattForecastJ2)}</li>
-        <li> ${endTime} </li>
-      </ul>
-      <ul class="flow-row oneHour">
-        ${html`
-        ${this.getOneDayNextEcoWatt(ecoWattForecastJ2).map(
-      (forecast) => html`
-        <li class="ecowatt-${forecast[0]}" style="background: ${forecast[1]}" title="${forecast[1]} - ${forecast[0]}" ></li>`
-    )}
-        `}
-      </ul>
-      <ul class="flow-row oneHourLabel">
-        ${html`
-        ${this.getOneDayNextEcoWatt(ecoWattForecastJ2).map(
-      (forecast) => html`
-        <li title="${forecast[0]}">${(forecast[0]%2==1) ? forecast[0] : ''}</li>`
-    )}
-        `}
-      </ul>`;  
+      </ul>`; 
   }
 
   setConfig(config) {

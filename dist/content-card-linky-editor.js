@@ -187,7 +187,7 @@ export class contentCardLinkyEditor extends LitElement {
             ${this.renderSwitchOption("Show titre ligne", this._showTitreLigne, "showTitreLigne")}
             ${this.renderSwitchOption("Show error", this._showError, "showError")}
             ${this.renderSwitchOption("Show header", this._showHeader, "showHeader")}
-            ${this.renderSwitchOption("Show EcoWatt aujourd'hui", this._showEcoWatt, "showEcoWatt")}
+            ${this.renderSwitchOption("Show EcoWatt J", this._showEcoWatt, "showEcoWatt")}
 			${this.renderSwitchOption("Show EcoWatt J+1 et J+2", this._showEcoWattJ12, "showEcoWattJ12")}
           </ul>
           <!-- -->
