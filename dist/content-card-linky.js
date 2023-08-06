@@ -608,7 +608,7 @@ class ContentCardLinky extends LitElement {
 	if (this.config.showEcoWatt === false ){
 	  return html ``;
 	}
-	let sensorName = config.entity + "_ecowatt" ;
+	let sensorName = config.ewEntity;
     const ecoWattForecast = this.hass.states[sensorName];
 
     if (!ecoWattForecast || ecoWattForecast.length === 0) {
