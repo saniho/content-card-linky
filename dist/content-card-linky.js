@@ -576,10 +576,13 @@ class ContentCardLinky extends LitElement {
     for (let [time, value] of Object.entries(
       ecoWattForecastEntity.attributes["forecast"]
     )) {
-      if (time != undefined && ecoWattForecastValues.get(value) > 0.1) {
+      if (time != undefined && ecoWattForecastValues.get(value) != "green") {
 	let timeStr = time.replace(/([345])5/g, "$10");
         return value + ((time == "0 min") ? " actuellement." : " dans " + timeStr + ".");
-      }
+      } else
+	  {
+		  return 'Ecowatt';
+	  }
     }
     return ""
   }
