@@ -7,7 +7,7 @@ const css = LitElement.prototype.css;
 window.customCards = window.customCards || [];
 window.customCards.push({
   type: "content-card-linky",
-  name: "Carte Enedis...",
+  name: "Carte Enedis....",
   description: "Carte pour l'intégration myElectricalData.",
   preview: true,
   documentationURL: "https://github.com/saniho/content-card-linky",
@@ -180,6 +180,7 @@ class ContentCardLinky extends LitElement {
                 </div>
                 ${this.renderHistory(attributes.daily, attributes.unit_of_measurement, attributes.dailyweek, attributes.dailyweek_cost, attributes.dailyweek_costHC, attributes.dailyweek_costHP, attributes.dailyweek_HC, attributes.dailyweek_HP, attributes.dailyweek_MP, attributes.dailyweek_MP_over, attributes.dailyweek_MP_time, this.config)}
                 ${this.renderEcoWatt(attributes, this.config)}
+				${this.renderEcoWattJ12(attributes, this.config)}
                 ${this.renderError(attributes.errorLastCall, this.config)}
                 ${this.renderVersion(attributes.versionUpdateAvailable, attributes.versionGit)}
                 ${this.renderInformation(attributes, this.config)}
@@ -641,6 +642,76 @@ class ContentCardLinky extends LitElement {
     )}
         `}
       </ul>`;
+  }
+  
+  renderEcoWattJ12(attributes, config) {
+	if (attributes.serviceEnedis === undefined ){
+	  return html ``;
+	}
+	if ( attributes.serviceEnedis !== "myElectricalData" ){
+	  return html `EcoWatt : uniquement disponible avec myElectricData`;
+	}
+	if (this.config.showEcoWattJ12 === false ){
+	  return html ``;
+	}
+	let sensorNameJ1 = this.config.ewEntityJ1;
+    const ecoWattForecastJ1 = this.hass.states[sensorNameJ1];
+	let sensorNameJ2 = this.config.ewEntityJ2;
+    const ecoWattForecastJ2 = this.hass.states[sensorNameJ2];
+
+    if (!ecoWattForecastJ1 || ecoWattForecastJ1.length === 0 || !ecoWattForecastJ2 || ecoWattForecastJ2.length === 0) {
+      return html `EcoWatt: sensor J+1 ou J+2 indisponible ou incorrecte`;
+    }
+
+    this.numberElements++;
+
+    let [startTime, endTime] = this.getOneDayForecastTime(ecoWattForecastJ1);
+
+    return html`
+      <ul class="flow-row oneHourHeader ${this.numberElements > 1 ? " spacer" : ""}">
+        <li> ${startTime} </li>
+        <li>${this.getOneDayNextEcoWattText(ecoWattForecastJ1)}</li>
+        <li> ${endTime} </li>
+      </ul>
+      <ul class="flow-row oneHour">
+        ${html`
+        ${this.getOneDayNextEcoWatt(ecoWattForecastJ1).map(
+      (forecast) => html`
+        <li class="ecowatt-${forecast[0]}" style="background: ${forecast[1]}" title="${forecast[1]} - ${forecast[0]}" ></li>`
+    )}
+        `}
+      </ul>
+      <ul class="flow-row oneHourLabel">
+        ${html`
+        ${this.getOneDayNextEcoWatt(ecoWattForecastJ1).map(
+      (forecast) => html`
+        <li title="${forecast[0]}">${(forecast[0]%2==1) ? forecast[0] : ''}</li>`
+    )}
+        `}
+      </ul>`;
+	  
+	return html`
+      <ul class="flow-row oneHourHeader ${this.numberElements > 1 ? " spacer" : ""}">
+        <li> ${startTime} </li>
+        <li>${this.getOneDayNextEcoWattText(ecoWattForecastJ2)}</li>
+        <li> ${endTime} </li>
+      </ul>
+      <ul class="flow-row oneHour">
+        ${html`
+        ${this.getOneDayNextEcoWatt(ecoWattForecastJ2).map(
+      (forecast) => html`
+        <li class="ecowatt-${forecast[0]}" style="background: ${forecast[1]}" title="${forecast[1]} - ${forecast[0]}" ></li>`
+    )}
+        `}
+      </ul>
+      <ul class="flow-row oneHourLabel">
+        ${html`
+        ${this.getOneDayNextEcoWatt(ecoWattForecastJ2).map(
+      (forecast) => html`
+        <li title="${forecast[0]}">${(forecast[0]%2==1) ? forecast[0] : ''}</li>`
+    )}
+        `}
+      </ul>`;  
   }
 
   setConfig(config) {
