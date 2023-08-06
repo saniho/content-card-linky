@@ -581,7 +581,7 @@ class ContentCardLinky extends LitElement {
         return value + ((time == "0 min") ? " actuellement." : " dans " + timeStr + ".");
       } else
 	  {
-		  return 'Ecowatt ' + ecoWattForecastValues.get(value);
+		  return html `'Ecowatt:  ${ecoWattForecastValues.get(value)}`;
 	  }
     }
     return ""
