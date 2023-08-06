@@ -7,7 +7,7 @@ const css = LitElement.prototype.css;
 window.customCards = window.customCards || [];
 window.customCards.push({
   type: "content-card-linky",
-  name: "Carte Enedis..",
+  name: "Carte Enedis...",
   description: "Carte pour l'intégration myElectricalData.",
   preview: true,
   documentationURL: "https://github.com/saniho/content-card-linky",
@@ -608,7 +608,7 @@ class ContentCardLinky extends LitElement {
 	if (this.config.showEcoWatt === false ){
 	  return html ``;
 	}
-	let sensorName = config.ewEntity;
+	let sensorName = this.config.ewEntity;
     const ecoWattForecast = this.hass.states[sensorName];
 
     if (!ecoWattForecast || ecoWattForecast.length === 0) {
