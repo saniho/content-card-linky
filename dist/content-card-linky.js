@@ -669,8 +669,8 @@ class ContentCardLinky extends LitElement {
 
     return html`
       <ul class="flow-row oneHourHeader ${this.numberElements > 1 ? " spacer" : ""}">
-        <li>J1 ${startTime} </li>
-        <li>${this.getOneDayNextEcoWattText(ecoWattForecastJ1)}</li>
+        <li>${startTime} </li>
+        <li>Jour + 1</li>
         <li> ${endTime} </li>
       </ul>
       <ul class="flow-row oneHour">
