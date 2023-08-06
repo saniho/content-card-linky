@@ -7,7 +7,7 @@ const css = LitElement.prototype.css;
 window.customCards = window.customCards || [];
 window.customCards.push({
   type: "content-card-linky",
-  name: "Carte Enedis14",
+  name: "Carte Enedis15",
   description: "Carte pour l'intégration myElectricalData.",
   preview: true,
   documentationURL: "https://github.com/saniho/content-card-linky",
