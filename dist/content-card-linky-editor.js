@@ -160,7 +160,7 @@ export class contentCardLinkyEditor extends LitElement {
             .configValue="${"titleName"}"
             @value-changed="${this._valueChanged}"
           ></paper-input>
-          ${this.renderLinkyPicker("Entity", this._entity, "entity")}
+          ${this.renderSensorPicker("Entity", this._entity, "entity")}
 		  ${this.renderSensorPicker("EcoWatt", this._ewEntity, "ewEntity")}
           <!-- Switches -->
           <ul class="switches">
@@ -204,12 +204,8 @@ export class contentCardLinkyEditor extends LitElement {
       </div>
     `;
   }
-  
-  renderLinkyPicker(label, entity, configAttr) {
-    return this.renderPicker(label, entity, configAttr, "sensor");
-  }
-  
-  renderEcowattPicker(label, entity, configAttr) {
+   
+  renderSensorPicker(label, entity, configAttr) {
     return this.renderPicker(label, entity, configAttr, "sensor");
   }
 
