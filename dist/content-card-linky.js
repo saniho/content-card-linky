@@ -665,13 +665,14 @@ class ContentCardLinky extends LitElement {
 
     this.numberElements++;
 
-    let [startTime, endTime] = this.getOneDayForecastTime(ecoWattForecastJ1);
+    let [startTime1, endTime1] = this.getOneDayForecastTime(ecoWattForecastJ1);
+	let [startTime2, endTime2] = this.getOneDayForecastTime(ecoWattForecastJ2);
 
     return html`
       <ul class="flow-row oneHourHeader ${this.numberElements > 1 ? " spacer" : ""}">
-        <li>${startTime} </li>
+        <li> ${startTime1} </li>
         <li>Jour + 1</li>
-        <li> ${endTime} </li>
+        <li> ${endTime2} </li>
       </ul>
       <ul class="flow-row oneHour">
         ${html`
@@ -691,9 +692,9 @@ class ContentCardLinky extends LitElement {
 	  </ul>
 
       <ul class="flow-row oneHourHeader ${this.numberElements > 1 ? " spacer" : ""}">
-        <li>${startTime} </li>
+        <li> ${startTime2} </li>
         <li>Jour + 2</li>
-        <li> ${endTime} </li>
+        <li> ${endTime2} </li>
       </ul>
       <ul class="flow-row oneHour">
         ${html`
