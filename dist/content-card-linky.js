@@ -578,8 +578,7 @@ class ContentCardLinky extends LitElement {
     )) {
       if ( time != undefined && ecoWattForecastValues.get(value) !== "green" ) {
 		let timeStr = time.replace(/([345])5/g, "$10");
-        // return value + ((time == "0 min") ? " actuellement." : " dans " + timeStr + ".");
-		return html `not green: ${timeStr} ${time}`;
+		return html `Actuellement: ${ecoWattForecastValues.get(value)}`;
       } else
 	  {
 		  return html `Ecowatt aujourd'hui`;
