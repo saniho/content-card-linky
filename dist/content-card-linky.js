@@ -569,7 +569,7 @@ class ContentCardLinky extends LitElement {
     let ecoWattForecastStartTime = ecoWattForecastTimeRefBegin.toLocaleTimeString([], { hour: '2-digit'});
     let ecoWattForecastEndTime = ecoWattForecastTimeRefEnd.toLocaleTimeString([], { hour: '2-digit' });
 
-    return [ecoWattForecastStartTime, ecoWattForecastEndTime];
+    return [ecoWattForecastStartTime, ecoWattForecastEndTime, ecoWattForecast.attributes["begin"], ecoWattForecast.attributes["end"] ];
   }
   
   getOneDayNextEcoWattText(ecoWattForecastEntity) {
@@ -621,7 +621,7 @@ class ContentCardLinky extends LitElement {
 
     this.numberElements++;
 
-    let [startTime, endTime] = this.getOneDayForecastTime(ecoWattForecast);
+    let [startTime, endTime, begin, end ] = this.getOneDayForecastTime(ecoWattForecast);
 
     return html`
       <ul class="flow-row oneHourHeader ${this.numberElements > 1 ? " spacer" : ""}">
@@ -669,8 +669,8 @@ class ContentCardLinky extends LitElement {
 
     this.numberElements++;
 
-    let [startTime1, endTime1] = this.getOneDayForecastTime(ecoWattForecastJ1);
-	let [startTime2, endTime2] = this.getOneDayForecastTime(ecoWattForecastJ2);
+    let [startTime1, endTime1, begin1, end1 ] = this.getOneDayForecastTime(ecoWattForecastJ1);
+	let [startTime2, endTime2, begin2, end2 ] = this.getOneDayForecastTime(ecoWattForecastJ2);
 
     return html`
       <ul class="flow-row oneHourHeader ${this.numberElements > 1 ? " spacer" : ""}">
