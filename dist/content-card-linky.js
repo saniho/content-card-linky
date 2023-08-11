@@ -581,7 +581,7 @@ class ContentCardLinky extends LitElement {
 		return html `Actuellement: ${ecoWattForecastValues.get(value)}`;
       } else
 	  {
-		  return html `Ecowatt ${new Date(ecoWattForecastEntity.attributes["begin"].toString().split(" ")[0]).toLocaleDateString('fr-FR', {weekday: config.showDayName}, day: 'numeric')}`;
+		  return html `Ecowatt ${new Date(ecoWattForecastEntity.attributes["begin"]).toLocaleDateString('fr-FR', {weekday: 'short', day: 'numeric')}`;
 	  }
     }
     return ""
