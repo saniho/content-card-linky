@@ -573,7 +573,7 @@ class ContentCardLinky extends LitElement {
   }
   
   getOneDayNextEcoWattText(ecoWattForecastEntity) {
-	let beginDate = new Date(ecoWattForecast.attributes["begin"]);
+	let beginDate = new Date(ecoWattForecastEntity.attributes["begin"]);
     for (let [time, value] of Object.entries(
       ecoWattForecastEntity.attributes["forecast"]
     )) {
