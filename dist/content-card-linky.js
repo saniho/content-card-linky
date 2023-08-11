@@ -581,7 +581,7 @@ class ContentCardLinky extends LitElement {
 		return html `Actuellement: ${ecoWattForecastValues.get(value)}`;
       } else
 	  {
-		  return html `Ecowatt aujourd'hui`;
+		  return html `Ecowatt ${new Date(ecoWattForecastEntity.attributes["begin"].toString().split(" ")[0]).toLocaleDateString('fr-FR', {weekday: config.showDayName}, day: 'numeric')}`;
 	  }
     }
     return ""
@@ -627,7 +627,6 @@ class ContentCardLinky extends LitElement {
       <ul class="flow-row oneHourHeader ${this.numberElements > 1 ? " spacer" : ""}">
         <li> ${startTime} </li>
 		<li> ${this.getOneDayNextEcoWattText(ecoWattForecast)}</li>
-        <li>${new Date(begin.toString().split(" ")[0]).toLocaleDateString('fr-FR', {weekday: config.showDayName})}</li>
         <li> ${endTime} </li>
       </ul>
       <ul class="flow-row oneHour">
