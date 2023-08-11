@@ -573,6 +573,7 @@ class ContentCardLinky extends LitElement {
   }
   
   getOneDayNextEcoWattText(ecoWattForecastEntity) {
+	let beginDate = new Date(ecoWattForecast.attributes["begin"]);
     for (let [time, value] of Object.entries(
       ecoWattForecastEntity.attributes["forecast"]
     )) {
@@ -581,7 +582,7 @@ class ContentCardLinky extends LitElement {
 		return html `Actuellement: ${ecoWattForecastValues.get(value)}`;
       } else
 	  {
-		  return html `Ecowatt ${ (new Date(ecoWattForecastEntity.attributes["begin"])).toLocaleDateString('fr-FR', weekday: 'short', day: 'numeric')}`;
+		  return html `Ecowatt ${ beginDate.toLocaleDateString('fr-FR', weekday: 'short', day: 'numeric') }`;
 	  }
     }
     return ""
