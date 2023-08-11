@@ -626,7 +626,8 @@ class ContentCardLinky extends LitElement {
     return html`
       <ul class="flow-row oneHourHeader ${this.numberElements > 1 ? " spacer" : ""}">
         <li> ${startTime} </li>
-        <li>${new Date(begin.toString().split(" ")[0]).toLocaleDateString('fr-FR', {weekday: config.showDayName})} ${this.getOneDayNextEcoWattText(ecoWattForecast)}</li>
+		<li> ${this.getOneDayNextEcoWattText(ecoWattForecast)}</li>
+        <li>${new Date(begin.toString().split(" ")[0]).toLocaleDateString('fr-FR', {weekday: config.showDayName})}</li>
         <li> ${endTime} </li>
       </ul>
       <ul class="flow-row oneHour">
