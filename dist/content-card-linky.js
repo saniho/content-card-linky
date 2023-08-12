@@ -675,7 +675,7 @@ class ContentCardLinky extends LitElement {
     return html`
       <ul class="flow-row oneHourHeader ${this.numberElements > 1 ? " spacer" : ""}">
         <li> ${startTime1} </li>
-        <li> Ecowatt ${ begin1.toLocaleDateString('fr-FR', {weekday: 'long', day: 'numeric'}) </li>
+        <li> Ecowatt ${ begin1.toLocaleDateString('fr-FR', {weekday: 'long', day: 'numeric'})} </li>
         <li> ${endTime2} </li>
       </ul>
       <ul class="flow-row oneHour">
@@ -697,7 +697,7 @@ class ContentCardLinky extends LitElement {
 
       <ul class="flow-row oneHourHeader ${this.numberElements > 1 ? " spacer" : ""}">
         <li> ${startTime2} </li>
-        <li> Ecowatt ${ begin2.toLocaleDateString('fr-FR', {weekday: 'long', day: 'numeric'}) </li>
+        <li> Ecowatt ${ begin2.toLocaleDateString('fr-FR', {weekday: 'long', day: 'numeric'})} </li>
         <li> ${endTime2} </li>
       </ul>
       <ul class="flow-row oneHour">
