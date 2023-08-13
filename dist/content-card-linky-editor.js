@@ -222,7 +222,7 @@ export class contentCardLinkyEditor extends LitElement {
                 .hass="${this.hass}"
                 .value="${entity}"
                 .configValue="${configAttr}"
-                .includeDomains="${domain}"
+                domain-filter="${domain}"
                 @change="${this._valueChanged}"
                 allow-custom-entity
               ></ha-entity-picker>
