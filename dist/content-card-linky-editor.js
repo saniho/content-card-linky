@@ -223,13 +223,12 @@ export class contentCardLinkyEditor extends LitElement {
             ? html`
                 <ha-entity-picker
                   .hass="${this.hass}"
-                  .value="${entity}"
-                  .configValue="${configAttr}"
-                  domain-filter="${domain}"
+                  .value="${this._entity}"
+                  .configValue=${"entity"}
+                  domain-filter="sensor"
                   @change="${this._valueChanged}"
                   allow-custom-entity
                 ></ha-entity-picker>
-              `
             : html`
                 <paper-dropdown-menu
                   label="${label}"
