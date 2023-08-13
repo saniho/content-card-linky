@@ -246,6 +246,7 @@ export class contentCardLinkyEditor extends LitElement {
                   </paper-listbox>
                 </paper-dropdown-menu>
               `}
+  }
   
   renderSwitchOption(label, state, configAttr) {
     return html`
