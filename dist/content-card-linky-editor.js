@@ -218,8 +218,8 @@ export class contentCardLinkyEditor extends LitElement {
   }
 
   renderPicker(label, entity, configAttr, domain) {
-    return 
-		 ${customElements.get("ha-entity-picker")
+    return html `
+			${customElements.get("ha-entity-picker")
             ? html`
                 <ha-entity-picker
                   .hass="${this.hass}"
@@ -246,6 +246,7 @@ export class contentCardLinkyEditor extends LitElement {
                   </paper-listbox>
                 </paper-dropdown-menu>
               `}
+			  `
   }
   
   renderSwitchOption(label, state, configAttr) {
