@@ -11,7 +11,6 @@ const fireEvent = (node, type, detail, options) => {
   return event;
 };
 
-
 if (
   !customElements.get("ha-switch") &&
   customElements.get("paper-toggle-button")
