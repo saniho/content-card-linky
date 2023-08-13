@@ -212,6 +212,7 @@ export class contentCardLinkyEditor extends LitElement {
     `;
   }
    
+   
   renderSensorPicker(label, entity, configAttr) {
     return this.renderPicker(label, entity, configAttr, "sensor");
   }
