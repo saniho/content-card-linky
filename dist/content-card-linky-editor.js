@@ -167,7 +167,6 @@ export class contentCardLinkyEditor extends LitElement {
 		  ${this.renderSensorPicker("EcoWatt", this._ewEntity, "ewEntity")}
 		  ${this.renderSensorPicker("EcoWattJ1", this._ewEntityJ1, "ewEntityJ1")}
 		  ${this.renderSensorPicker("EcoWattJ2", this._ewEntityJ2, "ewEntityJ2")}
-
           <!-- Switches -->
           <ul class="switches">
             ${this.renderSwitchOption("Show icon", this._showIcon, "showIcon")}
@@ -218,7 +217,7 @@ export class contentCardLinkyEditor extends LitElement {
   }
 
   renderPicker(label, entity, configAttr, domain) {
-    return html `
+    return html`
 			${customElements.get("ha-entity-picker")
                <ha-entity-picker
                 label="${label}"		 
@@ -229,7 +228,7 @@ export class contentCardLinkyEditor extends LitElement {
                 @change="${this._valueChanged}"
                 allow-custom-entity
               ></ha-entity-picker>
-			}`
+			}`;
   }
   
   renderSwitchOption(label, state, configAttr) {
