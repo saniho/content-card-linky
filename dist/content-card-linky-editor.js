@@ -228,6 +228,7 @@ export class contentCardLinkyEditor extends LitElement {
                   @change="${this._valueChanged}"
                   allow-custom-entity
                 ></ha-entity-picker>
+				`
             : html`
                 <paper-dropdown-menu
                   label="${label}"
