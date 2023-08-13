@@ -163,7 +163,7 @@ export class contentCardLinkyEditor extends LitElement {
             .configValue="${"titleName"}"
             @value-changed="${this._valueChanged}"
           ></paper-input>
-		  ${this.renderSensorPicker("Entity", this._entity, "entity")}
+          ${this.renderSensorPicker("Entity", this._entity, "entity")}
 		  ${this.renderSensorPicker("EcoWatt", this._ewEntity, "ewEntity")}
 		  ${this.renderSensorPicker("EcoWattJ1", this._ewEntityJ1, "ewEntityJ1")}
 		  ${this.renderSensorPicker("EcoWattJ2", this._ewEntityJ2, "ewEntityJ2")}
