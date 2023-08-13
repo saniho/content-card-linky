@@ -220,33 +220,16 @@ export class contentCardLinkyEditor extends LitElement {
   renderPicker(label, entity, configAttr, domain) {
     return html `
 			${customElements.get("ha-entity-picker")
-            ? html`
-                <ha-entity-picker
-                  .hass="${this.hass}"
-                  .value="${this._entity}"
-                  .configValue=${"entity"}
-                  domain-filter="sensor"
-                  @change="${this._valueChanged}"
-                  allow-custom-entity
-                ></ha-entity-picker>
-				`
-            : html`
-                <paper-dropdown-menu
-                  label="${label}"
-                  @value-changed="${this._valueChanged}"
-                  .configValue="${"entity"}"
-                >
-                  <paper-listbox
-                    slot="dropdown-content"
-                    .selected="${entities.indexOf(this._entity)}"
-                  >
-                    ${entities.map((entity) => {
-                      return html` <paper-item>${entity}</paper-item> `;
-                    })}
-                  </paper-listbox>
-                </paper-dropdown-menu>
-              `}
-			  `
+               <ha-entity-picker
+                label="${label}"		 
+                .hass="${this.hass}"
+                .value="${entity}"
+                .configValue="${configAttr}"
+                .includeDomains="${domain}"
+                @change="${this._valueChanged}"
+                allow-custom-entity
+              ></ha-entity-picker>
+			}`
   }
   
   renderSwitchOption(label, state, configAttr) {
