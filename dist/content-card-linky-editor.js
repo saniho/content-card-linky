@@ -230,7 +230,7 @@ export class contentCardLinkyEditor extends LitElement {
   }
   
   renderSwitchOption(label, state, configAttr) {
-	${customElements.get("ha-entity-picker")
+	${customElements.get("ha-entity-picker")}
     return html`
       <li class="switch">
               <ha-switch
