@@ -218,7 +218,6 @@ export class contentCardLinkyEditor extends LitElement {
 
   renderPicker(label, entity, configAttr, domain) {
     return html`
-			${customElements.get("ha-entity-picker")
                <ha-entity-picker
                 label="${label}"		 
                 .hass="${this.hass}"
@@ -228,7 +227,7 @@ export class contentCardLinkyEditor extends LitElement {
                 @change="${this._valueChanged}"
                 allow-custom-entity
               ></ha-entity-picker>
-			}`;
+			`;
   }
   
   renderSwitchOption(label, state, configAttr) {
