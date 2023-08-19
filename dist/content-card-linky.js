@@ -104,8 +104,8 @@ class ContentCardLinky extends LitElement {
                        </ha-icon>
                       </span>
                       <div class="tooltip">
-                      ${Math.round(attributes.year_evolution)}<span class="unit"> %</span><span class="year">par rapport à ${this.previousYear()}</span>
-                          <span class="tooltiptext">A-1 : ${attributes.last_year}<br>A : ${attributes.current_year}</span>
+                      ${Math.round(attributes.yearly_evolution)}<span class="unit"> %</span><span class="year">par rapport à ${this.previousYear()}</span>
+                          <span class="tooltiptext">A-1 : ${attributes.current_year_last_year}<br>A : ${attributes.current_year}</span>
                       </div>
                     </span>`
                     : html ``
