@@ -100,7 +100,7 @@ class ContentCardLinky extends LitElement {
                     ? html `
                     <span class="variations-linky">
                       <span class="ha-icon">
-                        <ha-icon icon="mdi:arrow-right" style="display: inline-block; transform: rotate(${(attributes.year_evolution < 0) ? '45' : ((attributes.year_evolution == 0) ? "0" : "-45")}deg)">
+                        <ha-icon icon="mdi:arrow-right" style="display: inline-block; transform: rotate(${(attributes.yearly_evolution < 0) ? '45' : ((attributes.yearly_evolution == 0) ? "0" : "-45")}deg)">
                        </ha-icon>
                       </span>
                       <div class="tooltip">
@@ -160,8 +160,8 @@ class ContentCardLinky extends LitElement {
                          </ha-icon>
                         </span>
                         <div class="tooltip">
-                        ${Math.round(attributes.yesterday_evolution)}<span class="unit"> %</span><span class="previous-month">par rapport à ${this.yesterdayPreviousYear()}</span>
-                        <span class="tooltiptext">Hier A-1 : ${attributes.yesterdayLastYear}<br>Hier : ${attributes.yesterday}</span>
+                        ${Math.round(attributes.yesterday_evolution)}<span class="unit"> %</span><span class="previous-month">par rapport à ${this.dayBeforeYesterday()}</span>
+                        <span class="tooltiptext">Avant-hier : ${attributes.day_2}<br>Hier : ${attributes.yesterday}</span>
                     </div>
                       </span>`
                     : html ``
@@ -795,8 +795,8 @@ class ContentCardLinky extends LitElement {
   weekPreviousYear() {
     return "semaine";
   } 
-  yesterdayPreviousYear() {
-    return "hier";
+  dayBeforeYesterday() {
+    return "avant-hier";
   } 
 
 
