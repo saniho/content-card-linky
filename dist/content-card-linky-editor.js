@@ -40,6 +40,18 @@ export class contentCardLinkyEditor extends LitElement {
   get _entity() {
     return this._config.entity || "";
   }
+  
+  get _ewEntity() {
+    return this._config.ewEntity || "";
+  }
+  
+  get _ewEntityJ1() {
+    return this._config.ewEntityJ1 || "";
+  }
+
+  get _ewEntityJ2() {
+    return this._config.ewEntityJ2 || "";
+  }  
 
   get _name() {
     return this._config.name || "";
