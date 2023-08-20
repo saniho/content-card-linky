@@ -147,8 +147,8 @@ class ContentCardLinky extends LitElement {
                           </ha-icon>
                         </span>
                         <div class="tooltip">
-                        ${Math.round(attributes.current_week_evolution)}<span class="unit"> %</span><span class="previous-month">par rapport à ${this.weekPreviousYear()}</span>
-                        <span class="tooltiptext">Semaine A-1 : ${attributes.current_week_last_year}<br>Semaine courante : ${attributes.current_week}</span>
+                        ${Math.round(attributes.current_week_evolution)}<span class="unit"> %</span><span class="previous-month">par rapport à ${this.weekBefore()}</span>
+                        <span class="tooltiptext">Semaine dernière : ${attributes.last_week}<br>Semaine courante : ${attributes.current_week}</span>
                     </div>
                       </span>`
                     : html ``
@@ -793,7 +793,7 @@ class ContentCardLinky extends LitElement {
     
     return d.toLocaleDateString('fr-FR', {month: "long", year: "numeric"});
   } 
-  weekPreviousYear() {
+  weekBefore() {
     return "semaine";
   } 
   dayBeforeYesterday() {
