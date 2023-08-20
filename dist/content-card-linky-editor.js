@@ -11,6 +11,7 @@ const fireEvent = (node, type, detail, options) => {
   return event;
 };
 
+
 if (
   !customElements.get("ha-switch") &&
   customElements.get("paper-toggle-button")
@@ -113,6 +114,9 @@ export class contentCardLinkyEditor extends LitElement {
   get _showEcoWatt() {
     return this._config.showEcoWatt !== false;
   }
+  get _showEcoWattJ12() {
+    return this._config.showEcoWattJ12 !== false;
+  }
 
   get _title() {
     return this._config.showTitle !== false;
@@ -160,7 +164,10 @@ export class contentCardLinkyEditor extends LitElement {
             .configValue="${"titleName"}"
             @value-changed="${this._valueChanged}"
           ></paper-input>
-          ${this.renderLinkyPicker("Entity", this._entity, "entity")}
+          ${this.renderSensorPicker("Entity", this._entity, "entity")}
+		  ${this.renderSensorPicker("EcoWatt", this._ewEntity, "ewEntity")}
+		  ${this.renderSensorPicker("EcoWattJ1", this._ewEntityJ1, "ewEntityJ1")}
+		  ${this.renderSensorPicker("EcoWattJ2", this._ewEntityJ2, "ewEntityJ2")}
           <!-- Switches -->
           <ul class="switches">
             ${this.renderSwitchOption("Show icon", this._showIcon, "showIcon")}
@@ -181,7 +188,8 @@ export class contentCardLinkyEditor extends LitElement {
             ${this.renderSwitchOption("Show titre ligne", this._showTitreLigne, "showTitreLigne")}
             ${this.renderSwitchOption("Show error", this._showError, "showError")}
             ${this.renderSwitchOption("Show header", this._showHeader, "showHeader")}
-            ${this.renderSwitchOption("Show echo Watt", this._showEcoWatt, "showEcoWatt")}
+            ${this.renderSwitchOption("Show EcoWatt J", this._showEcoWatt, "showEcoWatt")}
+			${this.renderSwitchOption("Show EcoWatt J+1 et J+2", this._showEcoWattJ12, "showEcoWattJ12")}
           </ul>
           <!-- -->
           <paper-input
@@ -203,9 +211,9 @@ export class contentCardLinkyEditor extends LitElement {
       </div>
     `;
   }
-  
-  renderLinkyPicker(label, entity, configAttr) {
-    return this.renderPicker(label, entity, configAttr, "sensor.myenedis");
+   
+  renderSensorPicker(label, entity, configAttr) {
+    return this.renderPicker(label, entity, configAttr, "sensor");
   }
 
   renderPicker(label, entity, configAttr, domain) {
@@ -221,6 +229,7 @@ export class contentCardLinkyEditor extends LitElement {
               ></ha-entity-picker>
             `
   }
+  
   renderSwitchOption(label, state, configAttr) {
     return html`
       <li class="switch">

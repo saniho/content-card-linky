@@ -3,7 +3,7 @@
 
 **Cette carte est compatible avec l'integration : [MyElectricalData](https://github.com/MyElectricalData/myelectricaldata)**
 
-A noter: avec le changement vers MyElectricalData, cette carte **n'est plus garanti d'être compatible** avec l'integration : [MyEnedis](https://github.com/saniho/apiEnedis)
+Depuis Aout 2023: avec le changement vers MyElectricalData, cette carte **n'est plus garanti d'être compatible** avec l'integration : [MyEnedis](https://github.com/saniho/apiEnedis)
 
 **Un question ? Un problème ? Une demande ? Venez en parler sur le [forum HACF](https://forum.hacf.fr/).**
 
@@ -62,7 +62,7 @@ resources:
 
 ````
 type: 'custom:content-card-linky'
-entity: sensor.myenedis
+entity: sensor.xxx_myelctricaldata_xxxx
 ````
 </details>
 
@@ -74,7 +74,10 @@ entity: sensor.myenedis
 type: custom:content-card-linky                 Type de la carte
 nbJoursAffichage: '7'                           Nombre de jour historique
 titleName: Consommation d'hier                  Titre
-entity: sensor.myelectricaldata_09145007157315  Sensor de l'integration MyElectricalData
+entity: sensor.myelectricaldata_123456  		Sensor de l'integration MyElectricalData
+ewEntity: sensor.myelectricaldata_123456		Sensor de l'intégration Ecowatt J0 via (!) MyElectricalData
+ewEntityJ1: sensor.myelectricaldata_123456_J1	Sensor de l'intégration Ecowatt J+1 via (!) MyElectricalData (dd. 20 Aout: en attendant release MED)
+ewEntityJ2: sensor.myelectricaldata_123456_J2	Sensor de l'intégration Ecowatt J+2 (!) MyElectricalData (dd. 20 Aout: en attendant release MED)
 showIcon: false                                 Affiche l'icon Linky
 showHistory: true                               Affiche l'historique sur plusieurs jours
 showInTableUnit: false                          
@@ -91,6 +94,7 @@ showDayName: short                              Affichage des jours de la semain
 showDayMaxPower: true                           Affichage MaxPower avec indication si dépassé
 showTitreLigne: true
 showEcoWatt: true                               Affichage EcoWatt pour ajourd'hui
+showEcoWattJ12: false							Affichage EcoWatt pour demains et après (dd. 20 Aout: en attendant release MED)
 ````
 
 ![image](https://github.com/saniho/content-card-linky/assets/44190435/bed36123-de76-4ba9-bbeb-4a3a2ddf9fe3)

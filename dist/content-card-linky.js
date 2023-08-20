@@ -4,11 +4,12 @@ const LitElement = Object.getPrototypeOf(
 const html = LitElement.prototype.html;
 const css = LitElement.prototype.css;
 
+
 window.customCards = window.customCards || [];
 window.customCards.push({
   type: "content-card-linky",
-  name: "Carte Enedis par saniho",
-  description: "Carte pour l'intégration myEnedis.",
+  name: "Carte Enedis1",
+  description: "Carte pour l'intégration myElectricalData.",
   preview: true,
   documentationURL: "https://github.com/saniho/content-card-linky",
 });
@@ -100,12 +101,12 @@ class ContentCardLinky extends LitElement {
                     ? html `
                     <span class="variations-linky">
                       <span class="ha-icon">
-                        <ha-icon icon="mdi:arrow-right" style="display: inline-block; transform: rotate(${(attributes.year_evolution < 0) ? '45' : ((attributes.year_evolution == 0) ? "0" : "-45")}deg)">
+                        <ha-icon icon="mdi:arrow-right" style="display: inline-block; transform: rotate(${(attributes.yearly_evolution < 0) ? '45' : ((attributes.yearly_evolution == 0) ? "0" : "-45")}deg)">
                        </ha-icon>
                       </span>
                       <div class="tooltip">
-                      ${Math.round(attributes.year_evolution)}<span class="unit"> %</span><span class="year">par rapport à ${this.previousYear()}</span>
-                          <span class="tooltiptext">A-1 : ${attributes.last_year}<br>A : ${attributes.current_year}</span>
+                      ${Math.round(attributes.yearly_evolution)}<span class="unit"> %</span><span class="year">par rapport à ${this.previousYear()}</span>
+                          <span class="tooltiptext">A-1 : ${attributes.current_year_last_year}<br>A : ${attributes.current_year}</span>
                       </div>
                     </span>`
                     : html ``
@@ -160,8 +161,8 @@ class ContentCardLinky extends LitElement {
                          </ha-icon>
                         </span>
                         <div class="tooltip">
-                        ${Math.round(attributes.yesterday_evolution)}<span class="unit"> %</span><span class="previous-month">par rapport à ${this.yesterdayPreviousYear()}</span>
-                        <span class="tooltiptext">Hier A-1 : ${attributes.yesterdayLastYear}<br>Hier : ${attributes.yesterday}</span>
+                        ${Math.round(attributes.yesterday_evolution)}<span class="unit"> %</span><span class="previous-month">par rapport à ${this.dayBeforeYesterday()}</span>
+                        <span class="tooltiptext">Avant-hier : ${attributes.day_2}<br>Hier : ${attributes.yesterday}</span>
                     </div>
                       </span>`
                     : html ``
@@ -180,6 +181,7 @@ class ContentCardLinky extends LitElement {
                 </div>
                 ${this.renderHistory(attributes.daily, attributes.unit_of_measurement, attributes.dailyweek, attributes.dailyweek_cost, attributes.dailyweek_costHC, attributes.dailyweek_costHP, attributes.dailyweek_HC, attributes.dailyweek_HP, attributes.dailyweek_MP, attributes.dailyweek_MP_over, attributes.dailyweek_MP_time, this.config)}
                 ${this.renderEcoWatt(attributes, this.config)}
+				${this.renderEcoWattJ12(attributes, this.config)}
                 ${this.renderError(attributes.errorLastCall, this.config)}
                 ${this.renderVersion(attributes.versionUpdateAvailable, attributes.versionGit)}
                 ${this.renderInformation(attributes, this.config)}
@@ -568,17 +570,21 @@ class ContentCardLinky extends LitElement {
     let ecoWattForecastStartTime = ecoWattForecastTimeRefBegin.toLocaleTimeString([], { hour: '2-digit'});
     let ecoWattForecastEndTime = ecoWattForecastTimeRefEnd.toLocaleTimeString([], { hour: '2-digit' });
 
-    return [ecoWattForecastStartTime, ecoWattForecastEndTime];
+    return [ecoWattForecastStartTime, ecoWattForecastEndTime, ecoWattForecast.attributes["begin"], ecoWattForecast.attributes["end"] ];
   }
   
   getOneDayNextEcoWattText(ecoWattForecastEntity) {
+	let beginDate = new Date(ecoWattForecastEntity.attributes["begin"]);
     for (let [time, value] of Object.entries(
       ecoWattForecastEntity.attributes["forecast"]
     )) {
-      if (time != undefined && ecoWattForecastValues.get(value) > 0.1) {
-	let timeStr = time.replace(/([345])5/g, "$10");
-        return value + ((time == "0 min") ? " actuellement." : " dans " + timeStr + ".");
-      }
+      if ( time != undefined && ecoWattForecastValues.get(value) !== "green" ) {
+		let timeStr = time.replace(/([345])5/g, "$10");
+		return html `Actuellement: ${ecoWattForecastValues.get(value)}`;
+      } else
+	  {
+		  return html `Ecowatt ${ beginDate.toLocaleDateString('fr-FR', {weekday: 'long', day: 'numeric'}) }`;
+	  }
     }
     return ""
   }
@@ -608,21 +614,21 @@ class ContentCardLinky extends LitElement {
 	if (this.config.showEcoWatt === false ){
 	  return html ``;
 	}
-	let sensorName = config.entity + "_ecowatt" ;
+	let sensorName = this.config.ewEntity;
     const ecoWattForecast = this.hass.states[sensorName];
 
     if (!ecoWattForecast || ecoWattForecast.length === 0) {
-      return html``;
+      return html ``;
     }
 
     this.numberElements++;
 
-    let [startTime, endTime] = this.getOneDayForecastTime(ecoWattForecast);
+    let [startTime, endTime, begin, end ] = this.getOneDayForecastTime(ecoWattForecast);
 
     return html`
       <ul class="flow-row oneHourHeader ${this.numberElements > 1 ? " spacer" : ""}">
         <li> ${startTime} </li>
-        <li>${this.getOneDayNextEcoWattText(ecoWattForecast)}</li>
+		<li> ${this.getOneDayNextEcoWattText(ecoWattForecast)}</li>
         <li> ${endTime} </li>
       </ul>
       <ul class="flow-row oneHour">
@@ -641,6 +647,76 @@ class ContentCardLinky extends LitElement {
     )}
         `}
       </ul>`;
+  }
+  
+  renderEcoWattJ12(attributes, config) {
+	if (attributes.serviceEnedis === undefined ){
+	  return html ``;
+	}
+	if ( attributes.serviceEnedis !== "myElectricalData" ){
+	  return html `EcoWatt : uniquement disponible avec myElectricData`;
+	}
+	if (this.config.showEcoWattJ12 === false ){
+	  return html ``;
+	}
+	let sensorNameJ1 = this.config.ewEntityJ1;
+    const ecoWattForecastJ1 = this.hass.states[sensorNameJ1];
+	let sensorNameJ2 = this.config.ewEntityJ2;
+    const ecoWattForecastJ2 = this.hass.states[sensorNameJ2];
+
+    if (!ecoWattForecastJ1 || ecoWattForecastJ1.length === 0 || !ecoWattForecastJ2 || ecoWattForecastJ2.length === 0) {
+      return html `EcoWatt: sensor J+1 ou J+2 indisponible ou incorrecte`;
+    }
+
+    this.numberElements++;
+
+    let [startTime1, endTime1, begin1, end1 ] = this.getOneDayForecastTime(ecoWattForecastJ1);
+	let [startTime2, endTime2, begin2, end2 ] = this.getOneDayForecastTime(ecoWattForecastJ2);
+
+    return html`
+      <ul class="flow-row oneHourHeader ${this.numberElements > 1 ? " spacer" : ""}">
+        <li> ${startTime1} </li>
+        <li> Ecowatt ${ (new Date(begin1)).toLocaleDateString('fr-FR', {weekday: 'long', day: 'numeric'})} </li>
+        <li> ${endTime2} </li>
+      </ul>
+      <ul class="flow-row oneHour">
+        ${html`
+        ${this.getOneDayNextEcoWatt(ecoWattForecastJ1).map(
+      (forecast) => html`
+        <li class="ecowatt-${forecast[0]}" style="background: ${forecast[1]}" title="${forecast[1]} - ${forecast[0]}" ></li>`
+    )}
+        `}
+      </ul>
+      <ul class="flow-row oneHourLabel">
+        ${html`
+        ${this.getOneDayNextEcoWatt(ecoWattForecastJ1).map(
+      (forecast) => html`
+        <li title="${forecast[0]}">${(forecast[0]%2==1) ? forecast[0] : ''}</li>`
+    )}
+        `}
+	  </ul>
+
+      <ul class="flow-row oneHourHeader ${this.numberElements > 1 ? " spacer" : ""}">
+        <li> ${startTime2} </li>
+        <li> Ecowatt ${ (new Date(begin2)).toLocaleDateString('fr-FR', {weekday: 'long', day: 'numeric'})} </li>
+        <li> ${endTime2} </li>
+      </ul>
+      <ul class="flow-row oneHour">
+        ${html`
+        ${this.getOneDayNextEcoWatt(ecoWattForecastJ2).map(
+      (forecast) => html`
+        <li class="ecowatt-${forecast[0]}" style="background: ${forecast[1]}" title="${forecast[1]} - ${forecast[0]}" ></li>`
+    )}
+        `}
+      </ul>
+      <ul class="flow-row oneHourLabel">
+        ${html`
+        ${this.getOneDayNextEcoWatt(ecoWattForecastJ2).map(
+      (forecast) => html`
+        <li title="${forecast[0]}">${(forecast[0]%2==1) ? forecast[0] : ''}</li>`
+    )}
+        `}
+      </ul>`;   
   }
 
   setConfig(config) {
@@ -720,8 +796,8 @@ class ContentCardLinky extends LitElement {
   weekPreviousYear() {
     return "semaine";
   } 
-  yesterdayPreviousYear() {
-    return "hier";
+  dayBeforeYesterday() {
+    return "avant-hier";
   } 
 
 
