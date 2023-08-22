@@ -76,8 +76,8 @@ nbJoursAffichage: '7'                           Nombre de jour historique
 titleName: Consommation d'hier                  Titre
 entity: sensor.myelectricaldata_123456          Sensor de l'integration MyElectricalData
 ewEntity: sensor.myelectricaldata_123456        Sensor de l'intégration Ecowatt J0 via (!) MyElectricalData
-ewEntityJ1: sensor.myelectricaldata_123456_J1   Sensor de l'intégration Ecowatt J+1 via (!) MyElectricalData (dd. 20 Aout: en attendant release MED)
-ewEntityJ2: sensor.myelectricaldata_123456_J2   Sensor de l'intégration Ecowatt J+2 (!) MyElectricalData (dd. 20 Aout: en attendant release MED)
+ewEntityJ1: sensor.myelectricaldata_123456_J1   Sensor de l'intégration Ecowatt J+1 via (!) MyElectricalData (sensor dispo dès MyElectricaldata v0.9.1)
+ewEntityJ2: sensor.myelectricaldata_123456_J2   Sensor de l'intégration Ecowatt J+2 (!) MyElectricalData (sensor dispo dès MyElectricaldata v0.9.1)
 showIcon: false                                 Affiche l'icon Linky
 showHistory: true                               Affiche l'historique sur plusieurs jours
 showInTableUnit: false                          
@@ -94,7 +94,7 @@ showDayName: short                              Affichage des jours de la semain
 showDayMaxPower: true                           Affichage MaxPower avec indication si dépassé
 showTitreLigne: true
 showEcoWatt: true                               Affichage EcoWatt pour ajourd'hui
-showEcoWattJ12: false                           Affichage EcoWatt pour demains et après (dd. 20 Aout: en attendant release MED)
+showEcoWattJ12: false                           Affichage EcoWatt pour demains et après (sensor dispo dès MyElectricaldata v0.9.1)
 ````
 
 ![image](https://github.com/saniho/content-card-linky/assets/44190435/aa773aec-fc40-43a5-959a-c7fbb2f62c4c)
