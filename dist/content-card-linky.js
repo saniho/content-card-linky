@@ -4,7 +4,6 @@ const LitElement = Object.getPrototypeOf(
 const html = LitElement.prototype.html;
 const css = LitElement.prototype.css;
 
-
 window.customCards = window.customCards || [];
 window.customCards.push({
   type: "content-card-linky",
