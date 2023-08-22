@@ -565,16 +565,12 @@ class ContentCardLinky extends LitElement {
   } 
   
   getOneDayForecastTime(ecoWattForecast) {
-    let ecoWattForecastTimeRefBegin = new Date(ecoWattForecast.attributes["begin"]);
-    let ecoWattForecastTimeRefEnd = new Date(ecoWattForecast.attributes["end"]);
-    let ecoWattForecastStartTime = ecoWattForecastTimeRefBegin.toLocaleTimeString([], { hour: '2-digit'});
-    let ecoWattForecastEndTime = ecoWattForecastTimeRefEnd.toLocaleTimeString([], { hour: '2-digit' });
-
-    return [ecoWattForecastStartTime, ecoWattForecastEndTime, ecoWattForecast.attributes["begin"], ecoWattForecast.attributes["end"] ];
+	let ecoWattForecastDate = new Date(ecoWattForecast.attributes["date"]);
+    return [ecoWattForecastDate];
   }
   
   getOneDayNextEcoWattText(ecoWattForecastEntity) {
-	let beginDate = new Date(ecoWattForecastEntity.attributes["begin"]);
+	let forecastDate = new Date(ecoWattForecastEntity.attributes["date"]);
     for (let [time, value] of Object.entries(
       ecoWattForecastEntity.attributes["forecast"]
     )) {
@@ -583,7 +579,7 @@ class ContentCardLinky extends LitElement {
 		return html `Actuellement: ${ecoWattForecastValues.get(value)}`;
       } else
 	  {
-		  return html `Ecowatt ${ beginDate.toLocaleDateString('fr-FR', {weekday: 'long', day: 'numeric'}) }`;
+		  return html `Ecowatt ${ forecastDate.toLocaleDateString('fr-FR', {weekday: 'long', day: 'numeric'}) }`;
 	  }
     }
     return ""
@@ -623,13 +619,11 @@ class ContentCardLinky extends LitElement {
 
     this.numberElements++;
 
-    let [startTime, endTime, begin, end ] = this.getOneDayForecastTime(ecoWattForecast);
+    let [date] = this.getOneDayForecastTime(ecoWattForecast);
 
     return html`
       <ul class="flow-row oneHourHeader ${this.numberElements > 1 ? " spacer" : ""}">
-        <li> ${startTime} </li>
 		<li> ${this.getOneDayNextEcoWattText(ecoWattForecast)}</li>
-        <li> ${endTime} </li>
       </ul>
       <ul class="flow-row oneHour">
         ${html`
@@ -670,14 +664,12 @@ class ContentCardLinky extends LitElement {
 
     this.numberElements++;
 
-    let [startTime1, endTime1, begin1, end1 ] = this.getOneDayForecastTime(ecoWattForecastJ1);
-	let [startTime2, endTime2, begin2, end2 ] = this.getOneDayForecastTime(ecoWattForecastJ2);
+    let [dateJ1] = this.getOneDayForecastTime(ecoWattForecastJ1);
+	let [dateJ2 ] = this.getOneDayForecastTime(ecoWattForecastJ2);
 
     return html`
       <ul class="flow-row oneHourHeader ${this.numberElements > 1 ? " spacer" : ""}">
-        <li> ${startTime1} </li>
-        <li> Ecowatt ${ (new Date(begin1)).toLocaleDateString('fr-FR', {weekday: 'long', day: 'numeric'})} </li>
-        <li> ${endTime2} </li>
+        <li> Ecowatt ${ (new Date(dateJ1)).toLocaleDateString('fr-FR', {weekday: 'long', day: 'numeric'})} </li>
       </ul>
       <ul class="flow-row oneHour">
         ${html`
@@ -697,9 +689,7 @@ class ContentCardLinky extends LitElement {
 	  </ul>
 
       <ul class="flow-row oneHourHeader ${this.numberElements > 1 ? " spacer" : ""}">
-        <li> ${startTime2} </li>
-        <li> Ecowatt ${ (new Date(begin2)).toLocaleDateString('fr-FR', {weekday: 'long', day: 'numeric'})} </li>
-        <li> ${endTime2} </li>
+        <li> Ecowatt ${ (new Date(dateJ2)).toLocaleDateString('fr-FR', {weekday: 'long', day: 'numeric'})} </li>
       </ul>
       <ul class="flow-row oneHour">
         ${html`
