@@ -52,6 +52,14 @@ export class contentCardLinkyEditor extends LitElement {
   get _ewEntityJ2() {
     return this._config.ewEntityJ2 || "";
   }  
+  
+  get _tempoEntityJ0() {
+    return this._config.tempoEntityJ0 || "";
+  }
+
+  get _tempoEntityJ1() {
+    return this._config.tempoEntityJ1 || "";
+  }    
 
   get _name() {
     return this._config.name || "";
@@ -132,6 +140,10 @@ export class contentCardLinkyEditor extends LitElement {
   get _showEcoWattJ12() {
     return this._config.showEcoWattJ12 !== false;
   }
+  
+  get _showTempo() {
+    return this._config.showTempo !== false;
+  }  
 
   get _title() {
     return this._config.showTitle !== false;
@@ -182,7 +194,9 @@ export class contentCardLinkyEditor extends LitElement {
           ${this.renderSensorPicker("Entity", this._entity, "entity")}
 		  ${this.renderSensorPicker("EcoWatt", this._ewEntity, "ewEntity")}
 		  ${this.renderSensorPicker("EcoWattJ1", this._ewEntityJ1, "ewEntityJ1")}
-		  ${this.renderSensorPicker("EcoWattJ2", this._ewEntityJ2, "ewEntityJ2")}
+          ${this.renderSensorPicker("EcoWattJ2", this._ewEntityJ2, "ewEntityJ2")}
+		  ${this.renderSensorPicker("TempoJ0", this._tempoEntityJ0, "tempoEntityJ0")}
+		  ${this.renderSensorPicker("TempoJ1", this._tempoEntityJ1, "tempoEntityJ1")}
           <!-- Switches -->
           <ul class="switches">
             ${this.renderSwitchOption("Show icon", this._showIcon, "showIcon")}
@@ -205,6 +219,7 @@ export class contentCardLinkyEditor extends LitElement {
             ${this.renderSwitchOption("Show header", this._showHeader, "showHeader")}
             ${this.renderSwitchOption("Show EcoWatt J", this._showEcoWatt, "showEcoWatt")}
 			${this.renderSwitchOption("Show EcoWatt J+1 et J+2", this._showEcoWattJ12, "showEcoWattJ12")}
+			${this.renderSwitchOption("Show Tempo", this._showTempo, "showTempo")}
           </ul>
           <!-- -->
           <paper-input
