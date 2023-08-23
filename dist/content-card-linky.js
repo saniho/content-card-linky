@@ -1032,7 +1032,7 @@ class ContentCardLinky extends LitElement {
 	  .tempo-white {
         color: #002654;
 		text-align: center;
-        background: white;
+        background: silver;
       }
 	  .tempo-red {
         color: white;
@@ -1042,7 +1042,7 @@ class ContentCardLinky extends LitElement {
 	  .tempo-grey {
         color: white;
 		text-align: center;
-        background: #dcdcdc;
+        background: grey;
       }	  
       `;
   }
