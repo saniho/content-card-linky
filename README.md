@@ -75,9 +75,9 @@ type: custom:content-card-linky                 Type de la carte
 nbJoursAffichage: '7'                           Nombre de jour historique
 titleName: Consommation d'hier                  Titre
 entity: sensor.myelectricaldata_123456          Sensor de l'integration MyElectricalData
-ewEntity: sensor.myelectricaldata_123456        Sensor de l'intégration Ecowatt J0 via (!) MyElectricalData
+ewEntity: sensor.myelectricaldata_123456_J0     Sensor de l'intégration Ecowatt J+0 via (!) MyElectricalData (sensor dispo dès MyElectricaldata v0.9.1)
 ewEntityJ1: sensor.myelectricaldata_123456_J1   Sensor de l'intégration Ecowatt J+1 via (!) MyElectricalData (sensor dispo dès MyElectricaldata v0.9.1)
-ewEntityJ2: sensor.myelectricaldata_123456_J2   Sensor de l'intégration Ecowatt J+2 (!) MyElectricalData (sensor dispo dès MyElectricaldata v0.9.1)
+ewEntityJ2: sensor.myelectricaldata_123456_J2   Sensor de l'intégration Ecowatt J+2 via (!) MyElectricalData (sensor dispo dès MyElectricaldata v0.9.1)
 tempoEntityJ0: sensor.myelec..._tempotoday      Sensor de l'intégration Tempo aujourd'hui
 tempoEntityJ1: sensor.myelec..._tempotomorrow   Sensor de l'intégration Tempo demain
 showIcon: false                                 Affiche l'icon Linky
