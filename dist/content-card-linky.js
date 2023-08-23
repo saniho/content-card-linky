@@ -4,6 +4,7 @@ const LitElement = Object.getPrototypeOf(
 const html = LitElement.prototype.html;
 const css = LitElement.prototype.css;
 
+
 window.customCards = window.customCards || [];
 window.customCards.push({
   type: "content-card-linky",
@@ -30,6 +31,14 @@ const ecoWattForecastValues = new Map([
   [1, "green"],
   [2, "yellow"],
   [3, "red"],
+]);
+
+const tempoValues = new Map([
+  ["unknown", "grey"],
+  ["Inconnu", "grey"],
+  ["BLUE", "blue"],
+  ["WHITE", "white"],
+  ["RED", "red"],
 ]);
 
 
@@ -180,7 +189,7 @@ class ContentCardLinky extends LitElement {
                 </div>
                 ${this.renderHistory(attributes.daily, attributes.unit_of_measurement, attributes.dailyweek, attributes.dailyweek_cost, attributes.dailyweek_costHC, attributes.dailyweek_costHP, attributes.dailyweek_HC, attributes.dailyweek_HP, attributes.dailyweek_MP, attributes.dailyweek_MP_over, attributes.dailyweek_MP_time, this.config)}
                 ${this.renderEcoWatt(attributes, this.config)}
-				${this.renderEcoWattJ12(attributes, this.config)}
+				${this.renderTempo(attributes, this.config)}
                 ${this.renderError(attributes.errorLastCall, this.config)}
                 ${this.renderVersion(attributes.versionUpdateAvailable, attributes.versionGit)}
                 ${this.renderInformation(attributes, this.config)}
@@ -606,106 +615,116 @@ class ContentCardLinky extends LitElement {
 	if ( attributes.serviceEnedis !== "myElectricalData" ){
 	  return html `EcoWatt : uniquement disponible avec myElectricData`;
 	}
-	if (this.config.showEcoWatt === false ){
-	  return html ``;
-	}
+	
 	let sensorName = this.config.ewEntity;
-    const ecoWattForecast = this.hass.states[sensorName];
+    const ecoWattForecast = this.hass.states[sensorName];	
+	let sensorNameJ1 = this.config.ewEntityJ1;
+    const ecoWattForecastJ1 = this.hass.states[sensorNameJ1];
+	let sensorNameJ2 = this.config.ewEntityJ2;
+    const ecoWattForecastJ2 = this.hass.states[sensorNameJ2];
 
-    if (!ecoWattForecast || ecoWattForecast.length === 0) {
-      return html ``;
-    }
-
-    this.numberElements++;
-
-    let [date] = this.getOneDayForecastTime(ecoWattForecast);
-
-    return html`
-      <ul class="flow-row oneHourHeader ${this.numberElements > 1 ? " spacer" : ""}">
-		<li> ${this.getOneDayNextEcoWattText(ecoWattForecast)}</li>
-      </ul>
-      <ul class="flow-row oneHour">
-        ${html`
-        ${this.getOneDayNextEcoWatt(ecoWattForecast).map(
-      (forecast) => html`
-        <li class="ecowatt-${forecast[0]}" style="background: ${forecast[1]}" title="${forecast[1]} - ${forecast[0]}" ></li>`
-    )}
-        `}
-      </ul>
-      <ul class="flow-row oneHourLabel">
-        ${html`
-        ${this.getOneDayNextEcoWatt(ecoWattForecast).map(
-      (forecast) => html`
-        <li title="${forecast[0]}">${(forecast[0]%2==1) ? forecast[0] : ''}</li>`
-    )}
-        `}
-      </ul>`;
+    return html` 
+	<table style="width:100%">
+		${this.config.showEcoWatt 
+		? html`
+		<tr style="line-height:80%">
+		<td style="width:5%">J+0</td>
+		<td style="width:95%">
+			<ul class="flow-row oneHour">
+			${html`
+			${this.getOneDayNextEcoWatt(ecoWattForecast).map(
+			(forecast) => html`
+			<li class="ecowatt-${forecast[0]}" style="background: ${forecast[1]}" title="${forecast[1]} - ${forecast[0]}" ></li>`
+			)}
+			`}
+			</ul>	
+		</td>
+		</tr>`
+		: html ``}
+		${this.config.showEcoWattJ12
+		? html`
+		<tr style="line-height:80%">
+		<td style="width:5%">J+1</td>
+		<td style="width:95%">
+			<ul class="flow-row oneHour">
+			${html`
+			${this.getOneDayNextEcoWatt(ecoWattForecastJ1).map(
+			(forecast) => html`
+			<li class="ecowatt-${forecast[0]}" style="background: ${forecast[1]}" title="${forecast[1]} - ${forecast[0]}" ></li>`
+			)}
+			`}
+			</ul>	
+		</td>
+		</tr>
+		<tr style="line-height:80%">
+		<td style="width:5%">J+2</td>
+		<td style="width:95%">
+			<ul class="flow-row oneHour">
+			${html`
+			${this.getOneDayNextEcoWatt(ecoWattForecastJ2).map(
+			(forecast) => html`
+			<li class="ecowatt-${forecast[0]}" style="background: ${forecast[1]}" title="${forecast[1]} - ${forecast[0]}" ></li>`
+			)}
+			`}
+			</ul>	
+		</td>
+		</tr>
+		<tr style="line-height:80%">
+		<td style="width:5%"> </td>
+		<td style="width:95%">
+			<ul class="flow-row oneHourLabel">
+			${html`
+			${this.getOneDayNextEcoWatt(ecoWattForecastJ2).map(
+			(forecast) => html`
+			<li title="${forecast[0]}">${(forecast[0]%2==1) ? forecast[0] : ''}</li>`
+			)}
+			`}
+			</ul>
+		</td>
+		</tr>
+		`
+		: html``}
+		`;   
   }
   
-  renderEcoWattJ12(attributes, config) {
+  getTempoDateValue(tempoEntity) {
+	let tempoDate = new Date(tempoEntity.attributes["date"]);
+	let tempoValue = tempoEntity.state;
+    return [tempoDate, tempoValues.get(tempoValue), tempoValue];
+  } 
+  
+  renderTempo(attributes, config) {
 	if (attributes.serviceEnedis === undefined ){
 	  return html ``;
 	}
 	if ( attributes.serviceEnedis !== "myElectricalData" ){
 	  return html `EcoWatt : uniquement disponible avec myElectricData`;
 	}
-	if (this.config.showEcoWattJ12 === false ){
+	if (this.config.showTempo === false ){
 	  return html ``;
 	}
-	let sensorNameJ1 = this.config.ewEntityJ1;
-    const ecoWattForecastJ1 = this.hass.states[sensorNameJ1];
-	let sensorNameJ2 = this.config.ewEntityJ2;
-    const ecoWattForecastJ2 = this.hass.states[sensorNameJ2];
+	let sensorNameJ0 = this.config.tempoEntityJ0;
+    const tempoJ0 = this.hass.states[sensorNameJ0];
+	let sensorNameJ1 = this.config.tempoEntityJ1;
+    const tempoJ1 = this.hass.states[sensorNameJ1];
 
-    if (!ecoWattForecastJ1 || ecoWattForecastJ1.length === 0 || !ecoWattForecastJ2 || ecoWattForecastJ2.length === 0) {
-      return html `EcoWatt: sensor J+1 ou J+2 indisponible ou incorrecte`;
+    if (!tempoJ0 || tempoJ0.length === 0 || !tempoJ1 || tempoJ1.length === 0) {
+      return html `Tempo: sensor(s) indisponible ou incorrecte`;
     }
 
-    this.numberElements++;
-
-    let [dateJ1] = this.getOneDayForecastTime(ecoWattForecastJ1);
-	let [dateJ2 ] = this.getOneDayForecastTime(ecoWattForecastJ2);
+    let [dateJ0, valueJ0, stateJ0] = this.getTempoDateValue(tempoJ0);
+	let [dateJ1, valueJ1, stateJ1] = this.getTempoDateValue(tempoJ1);
 
     return html`
-      <ul class="flow-row oneHourHeader ${this.numberElements > 1 ? " spacer" : ""}">
-        <li> Ecowatt ${ (new Date(dateJ1)).toLocaleDateString('fr-FR', {weekday: 'long', day: 'numeric'})} </li>
-      </ul>
-      <ul class="flow-row oneHour">
-        ${html`
-        ${this.getOneDayNextEcoWatt(ecoWattForecastJ1).map(
-      (forecast) => html`
-        <li class="ecowatt-${forecast[0]}" style="background: ${forecast[1]}" title="${forecast[1]} - ${forecast[0]}" ></li>`
-    )}
-        `}
-      </ul>
-      <ul class="flow-row oneHourLabel">
-        ${html`
-        ${this.getOneDayNextEcoWatt(ecoWattForecastJ1).map(
-      (forecast) => html`
-        <li title="${forecast[0]}">${(forecast[0]%2==1) ? forecast[0] : ''}</li>`
-    )}
-        `}
-	  </ul>
-
-      <ul class="flow-row oneHourHeader ${this.numberElements > 1 ? " spacer" : ""}">
-        <li> Ecowatt ${ (new Date(dateJ2)).toLocaleDateString('fr-FR', {weekday: 'long', day: 'numeric'})} </li>
-      </ul>
-      <ul class="flow-row oneHour">
-        ${html`
-        ${this.getOneDayNextEcoWatt(ecoWattForecastJ2).map(
-      (forecast) => html`
-        <li class="ecowatt-${forecast[0]}" style="background: ${forecast[1]}" title="${forecast[1]} - ${forecast[0]}" ></li>`
-    )}
-        `}
-      </ul>
-      <ul class="flow-row oneHourLabel">
-        ${html`
-        ${this.getOneDayNextEcoWatt(ecoWattForecastJ2).map(
-      (forecast) => html`
-        <li title="${forecast[0]}">${(forecast[0]%2==1) ? forecast[0] : ''}</li>`
-    )}
-        `}
-      </ul>`;   
+	  <table style="width:100%">
+	  <tr>
+		<td class="tempo-${valueJ0}" style="width:50%">${ (new Date(dateJ0)).toLocaleDateString('fr-FR', {weekday: 'long', day: 'numeric'})}</td>
+		<td class="tempo-${valueJ1}" style="width:50%">${ (new Date(dateJ1)).toLocaleDateString('fr-FR', {weekday: 'long', day: 'numeric'})}</td>
+	  </tr>
+	  </table>
+		
+    `
+ 
   }
 
   setConfig(config) {
@@ -738,6 +757,8 @@ class ContentCardLinky extends LitElement {
       showYesterdayRatio: false,
       showTitreLigne: false,
       showEcoWatt: false,
+	  showEcoWattJ12: false,
+	  showTempo: false,
       titleName: "",
       nbJoursAffichage: 7,
       kWhPrice: undefined,
@@ -1003,8 +1024,27 @@ class ContentCardLinky extends LitElement {
       .oneHourHeader li:last-child {
         text-align: right;
       }
+	  .tempo-blue {
+        color: white;
+		text-align: center;
+        background: #009dfa;
+      }
+	  .tempo-white {
+        color: #002654;
+		text-align: center;
+        background: white;
+      }
+	  .tempo-red {
+        color: white;
+		text-align: center;
+        background: #ff2700;
+      }
+	  .tempo-grey {
+        color: white;
+		text-align: center;
+        background: #dcdcdc;
+      }	  
       `;
   }
 }
-
 customElements.define('content-card-linky', ContentCardLinky);
