@@ -95,9 +95,11 @@ showDayMaxPower: true                           Affichage MaxPower avec indicati
 showTitreLigne: true
 showEcoWatt: true                               Affichage EcoWatt pour ajourd'hui
 showEcoWattJ12: false                           Affichage EcoWatt pour demains et après (sensor dispo dès MyElectricaldata v0.9.1)
+showTempo: false                                Affichage Tempo
 ````
 
-![image](https://github.com/saniho/content-card-linky/assets/44190435/aa773aec-fc40-43a5-959a-c7fbb2f62c4c)
+![image](https://github.com/saniho/content-card-linky/assets/44190435/68d1b8d8-a8d0-4af9-a32d-81abe632004b)
+
 
 
 **************
