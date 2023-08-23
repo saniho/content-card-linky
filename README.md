@@ -78,6 +78,8 @@ entity: sensor.myelectricaldata_123456          Sensor de l'integration MyElectr
 ewEntity: sensor.myelectricaldata_123456        Sensor de l'intégration Ecowatt J0 via (!) MyElectricalData
 ewEntityJ1: sensor.myelectricaldata_123456_J1   Sensor de l'intégration Ecowatt J+1 via (!) MyElectricalData (sensor dispo dès MyElectricaldata v0.9.1)
 ewEntityJ2: sensor.myelectricaldata_123456_J2   Sensor de l'intégration Ecowatt J+2 (!) MyElectricalData (sensor dispo dès MyElectricaldata v0.9.1)
+tempoEntityJ0: sensor.myelec..._tempotoday      Sensor de l'intégration Tempo aujourd'hui
+tempoEntityJ1: sensor.myelec..._tempotomorrow   Sensor de l'intégration Tempo demain
 showIcon: false                                 Affiche l'icon Linky
 showHistory: true                               Affiche l'historique sur plusieurs jours
 showInTableUnit: false                          
