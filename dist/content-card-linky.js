@@ -693,6 +693,13 @@ class ContentCardLinky extends LitElement {
     return [tempoDate, tempoValues.get(tempoValue), tempoValue];
   } 
   
+  getTempoRemainingDays(tempoEntity) {
+	let tempoRemainingRed = tempoEntity.attributes["days_red"];
+	let tempoRemainingWhite = tempoEntity.attributes["days_white"];
+	let tempoRemainingBlue = tempoEntity.attributes["days_blue"];
+    return [tempoRemainingRed, tempoRemainingWhite, tempoRemainingBlue];
+  } 
+  
   renderTempo(attributes, config) {
 	if (attributes.serviceEnedis === undefined ){
 	  return html ``;
@@ -703,23 +710,36 @@ class ContentCardLinky extends LitElement {
 	if (this.config.showTempo === false ){
 	  return html ``;
 	}
+	let sensorName = this.config.tempoEntityInfo;
+    const tempoInfo = this.hass.states[sensorName];
 	let sensorNameJ0 = this.config.tempoEntityJ0;
     const tempoJ0 = this.hass.states[sensorNameJ0];
 	let sensorNameJ1 = this.config.tempoEntityJ1;
     const tempoJ1 = this.hass.states[sensorNameJ1];
 
     if (!tempoJ0 || tempoJ0.length === 0 || !tempoJ1 || tempoJ1.length === 0) {
-      return html `Tempo: sensor(s) indisponible ou incorrecte`;
+      return html `Tempo: sensor(s) J0 et/ou J1 indisponible ou incorrecte`;
+    }
+	if (!tempoInfo || tempoInfo.length === 0) {
+      return html `Tempo: sensor 'info' indisponible ou incorrecte`;
     }
 
     let [dateJ0, valueJ0, stateJ0] = this.getTempoDateValue(tempoJ0);
 	let [dateJ1, valueJ1, stateJ1] = this.getTempoDateValue(tempoJ1);
+	let [remainingRed, remainingWhite, remainingBlue] = this.getTempoRemainingDays(tempoInfo);
 
     return html`
 	  <table style="width:100%">
 	  <tr>
 		<td class="tempo-${valueJ0}" style="width:50%">${ (new Date(dateJ0)).toLocaleDateString('fr-FR', {weekday: 'long', day: 'numeric'})}</td>
 		<td class="tempo-${valueJ1}" style="width:50%">${ (new Date(dateJ1)).toLocaleDateString('fr-FR', {weekday: 'long', day: 'numeric'})}</td>
+	  </tr>
+	  </table>
+	  <table style="width:100%">
+	  <tr>
+		<td class="tempo-red" style="width:33.33%">${remainingRed}</td>
+		<td class="tempo-white" style="width:33.33%">${remainingWhite}</td>
+		<td class="tempo-blue" style="width:33.33%">${remainingBlue}</td>
 	  </tr>
 	  </table>
 		

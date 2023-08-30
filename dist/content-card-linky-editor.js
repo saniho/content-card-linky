@@ -53,6 +53,10 @@ export class contentCardLinkyEditor extends LitElement {
     return this._config.ewEntityJ2 || "";
   }  
   
+  get _tempoEntity() {
+    return this._config.tempoEntityInfo || "";
+  }  
+  
   get _tempoEntityJ0() {
     return this._config.tempoEntityJ0 || "";
   }
@@ -195,6 +199,7 @@ export class contentCardLinkyEditor extends LitElement {
 		  ${this.renderSensorPicker("EcoWatt", this._ewEntity, "ewEntity")}
 		  ${this.renderSensorPicker("EcoWattJ1", this._ewEntityJ1, "ewEntityJ1")}
           ${this.renderSensorPicker("EcoWattJ2", this._ewEntityJ2, "ewEntityJ2")}
+		  ${this.renderSensorPicker("TempoInfo", this._tempoEntityInfo, "tempoEntityInfo")}		  
 		  ${this.renderSensorPicker("TempoJ0", this._tempoEntityJ0, "tempoEntityJ0")}
 		  ${this.renderSensorPicker("TempoJ1", this._tempoEntityJ1, "tempoEntityJ1")}
           <!-- Switches -->
