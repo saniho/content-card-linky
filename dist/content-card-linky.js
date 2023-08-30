@@ -734,6 +734,8 @@ class ContentCardLinky extends LitElement {
 		<td class="tempo-${valueJ0}" style="width:50%">${ (new Date(dateJ0)).toLocaleDateString('fr-FR', {weekday: 'long', day: 'numeric'})}</td>
 		<td class="tempo-${valueJ1}" style="width:50%">${ (new Date(dateJ1)).toLocaleDateString('fr-FR', {weekday: 'long', day: 'numeric'})}</td>
 	  </tr>
+	  </table>
+	  <table style="width:100%">
 	  <tr>
 		<td class="tempo-red" style="width:33.33%">${remainingRed}</td>
 		<td class="tempo-white" style="width:33.33%">${remainingWhite}</td>
