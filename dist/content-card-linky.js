@@ -694,9 +694,9 @@ class ContentCardLinky extends LitElement {
   } 
   
   getTempoRemainingDays(tempoEntity) {
-	let tempoRemainingRed = new Date(tempoEntity.attributes["days_red"]);
-	let tempoRemainingWhite = new Date(tempoEntity.attributes["days_white"]);
-	let tempoRemainingBlue = new Date(tempoEntity.attributes["days_blue"]);
+	let tempoRemainingRed = tempoEntity.attributes["days_red"];
+	let tempoRemainingWhite = tempoEntity.attributes["days_white"];
+	let tempoRemainingBlue = tempoEntity.attributes["days_blue"];
     return [tempoRemainingRed, tempoRemainingWhite, tempoRemainingBlue];
   } 
   
