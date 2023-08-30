@@ -54,7 +54,7 @@ export class contentCardLinkyEditor extends LitElement {
   }  
   
   get _tempoEntity() {
-    return this._config.tempoEntity || "";
+    return this._config.tempoEntityInfo || "";
   }  
   
   get _tempoEntityJ0() {
@@ -199,7 +199,7 @@ export class contentCardLinkyEditor extends LitElement {
 		  ${this.renderSensorPicker("EcoWatt", this._ewEntity, "ewEntity")}
 		  ${this.renderSensorPicker("EcoWattJ1", this._ewEntityJ1, "ewEntityJ1")}
           ${this.renderSensorPicker("EcoWattJ2", this._ewEntityJ2, "ewEntityJ2")}
-		  ${this.renderSensorPicker("Tempo", this._tempoEntity, "tempoEntity")}		  
+		  ${this.renderSensorPicker("TempoInfo", this._tempoEntityInfo, "tempoEntityInfo")}		  
 		  ${this.renderSensorPicker("TempoJ0", this._tempoEntityJ0, "tempoEntityJ0")}
 		  ${this.renderSensorPicker("TempoJ1", this._tempoEntityJ1, "tempoEntityJ1")}
           <!-- Switches -->

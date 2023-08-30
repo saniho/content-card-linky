@@ -710,8 +710,8 @@ class ContentCardLinky extends LitElement {
 	if (this.config.showTempo === false ){
 	  return html ``;
 	}
-	let sensorName = this.config.tempoEntity;
-    const tempo = this.hass.states[sensorName];
+	let sensorName = this.config.tempoEntityInfo;
+    const tempoInfo = this.hass.states[sensorName];
 	let sensorNameJ0 = this.config.tempoEntityJ0;
     const tempoJ0 = this.hass.states[sensorNameJ0];
 	let sensorNameJ1 = this.config.tempoEntityJ1;
@@ -720,13 +720,13 @@ class ContentCardLinky extends LitElement {
     if (!tempoJ0 || tempoJ0.length === 0 || !tempoJ1 || tempoJ1.length === 0) {
       return html `Tempo: sensor(s) J0 et/ou J1 indisponible ou incorrecte`;
     }
-	if (!tempo || tempo.length === 0) {
-      return html `Tempo: sensor tempo indisponible ou incorrecte`;
+	if (!tempoInfo || tempoInfo.length === 0) {
+      return html `Tempo: sensor 'info' indisponible ou incorrecte`;
     }
 
     let [dateJ0, valueJ0, stateJ0] = this.getTempoDateValue(tempoJ0);
 	let [dateJ1, valueJ1, stateJ1] = this.getTempoDateValue(tempoJ1);
-	let [remainingRed, remainingWhite, remainingBlue] = this.getTempoRemainingDays(tempo);
+	let [remainingRed, remainingWhite, remainingBlue] = this.getTempoRemainingDays(tempoInfo);
 
     return html`
 	  <table style="width:100%">
