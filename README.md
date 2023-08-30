@@ -78,6 +78,7 @@ entity: sensor.myelectricaldata_123456          Sensor de l'integration MyElectr
 ewEntity: sensor.myelectricaldata_123456_J0     Sensor de l'intégration Ecowatt J+0 via (!) MyElectricalData (sensor dispo dès MyElectricaldata v0.9.1)
 ewEntityJ1: sensor.myelectricaldata_123456_J1   Sensor de l'intégration Ecowatt J+1 via (!) MyElectricalData (sensor dispo dès MyElectricaldata v0.9.1)
 ewEntityJ2: sensor.myelectricaldata_123456_J2   Sensor de l'intégration Ecowatt J+2 via (!) MyElectricalData (sensor dispo dès MyElectricaldata v0.9.1)
+tempoInfo: sensor.myelec..._tempoinfo           Sensor de l'intégratoin Tempo, contient des prix et jours restant par couleur (sensor dispo dès v0.9.2 ou en dev 0.9.2.b4)
 tempoEntityJ0: sensor.myelec..._tempotoday      Sensor de l'intégration Tempo aujourd'hui
 tempoEntityJ1: sensor.myelec..._tempotomorrow   Sensor de l'intégration Tempo demain
 showIcon: false                                 Affiche l'icon Linky
@@ -100,7 +101,7 @@ showEcoWattJ12: false                           Affichage EcoWatt pour demains e
 showTempo: false                                Affichage Tempo
 ````
 
-![image](https://github.com/saniho/content-card-linky/assets/44190435/68d1b8d8-a8d0-4af9-a32d-81abe632004b)
+![image](https://github.com/saniho/content-card-linky/assets/44190435/222621d5-70bb-4b69-97a7-6d140f6de98e)
 
 
 
