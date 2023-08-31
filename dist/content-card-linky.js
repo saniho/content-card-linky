@@ -737,9 +737,9 @@ class ContentCardLinky extends LitElement {
 	  </table>
 	  <table class="tempo-days">
 	  <tr>
-		<td class="tempo-red" style="width:33.33%">${remainingRed}</td>
+	  	<td class="tempo-blue" style="width:33.33%">${remainingBlue}</td>
 		<td class="tempo-white" style="width:33.33%">${remainingWhite}</td>
-		<td class="tempo-blue" style="width:33.33%">${remainingBlue}</td>
+		<td class="tempo-red" style="width:33.33%">${remainingRed}</td>
 	  </tr>
 	  </table>
 		
