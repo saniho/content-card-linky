@@ -4,7 +4,7 @@ Pour en profiter, il faut désinstaller cette carte et reïnstaller https://gith
 
 
 
-# content-card-linky
+## content-card-linky
 [![HACS Supported](https://img.shields.io/badge/HACS-Supported-green.svg)](https://github.com/custom-components/hacs)
 
 **Cette carte est compatible avec l'integration : [MyElectricalData](https://github.com/MyElectricalData/myelectricaldata)**
