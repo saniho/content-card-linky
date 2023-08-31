@@ -1046,11 +1046,11 @@ class ContentCardLinky extends LitElement {
       }
       .tempo-days {
        	width:100%;
-	border-spacing: 6px;
+	border-spacing: 2px;
       }
       .tempo-color {
         width:100%;
-	border-spacing: 6px;
+	border-spacing: 2px;
       }
       .tempo-blue {
         color: white;
@@ -1081,7 +1081,8 @@ class ContentCardLinky extends LitElement {
         background: grey;
 	border: 2px solid var(--divider-color);
 	box-shadow: var(--ha-card-box-shadow,none);
-
+	background-image: linear-gradient(45deg, #d6d6d6 25%, #dedede 25%, #dedede 50%, #d6d6d6 50%, #d6d6d6 75%, #dedede 75%, #dedede 100%);
+	background-size: 28.28px 28.28px;
       }	  
       `;
   }
