@@ -1056,21 +1056,32 @@ class ContentCardLinky extends LitElement {
         color: white;
 	text-align: center;
         background: #009dfa;
+    	border: 2px solid var(--divider-color);
+    	box-shadow: var(--ha-card-box-shadow,none);
+	
       }
       .tempo-white {
         color: #002654;
 	text-align: center;
         background: white;
+    	border: 2px solid var(--divider-color);
+    	box-shadow: var(--ha-card-box-shadow,none);
+	
       }
       .tempo-red {
         color: white;
 	text-align: center;
         background: #ff2700;
+    	border: 2px solid var(--divider-color);
+    	box-shadow: var(--ha-card-box-shadow,none);
       }
       .tempo-grey {
         color: white;
 	text-align: center;
         background: grey;
+	border: 2px solid var(--divider-color);
+	box-shadow: var(--ha-card-box-shadow,none);
+
       }	  
       `;
   }
