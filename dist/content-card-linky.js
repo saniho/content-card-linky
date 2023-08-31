@@ -729,13 +729,13 @@ class ContentCardLinky extends LitElement {
 	let [remainingRed, remainingWhite, remainingBlue] = this.getTempoRemainingDays(tempoInfo);
 
     return html`
-	  <table style="width:100%">
+	  <table class="tempo-color">
 	  <tr>
 		<td class="tempo-${valueJ0}" style="width:50%">${ (new Date(dateJ0)).toLocaleDateString('fr-FR', {weekday: 'long', day: 'numeric'})}</td>
 		<td class="tempo-${valueJ1}" style="width:50%">${ (new Date(dateJ1)).toLocaleDateString('fr-FR', {weekday: 'long', day: 'numeric'})}</td>
 	  </tr>
 	  </table>
-	  <table style="width:100%">
+	  <table class="tempo-days>
 	  <tr>
 		<td class="tempo-red" style="width:33.33%">${remainingRed}</td>
 		<td class="tempo-white" style="width:33.33%">${remainingWhite}</td>
@@ -1026,7 +1026,7 @@ class ContentCardLinky extends LitElement {
       .ecowatt-08, .ecowatt-09, .ecowatt-10, .ecowatt-11, .ecowatt-12, .ecowatt-13, .ecowatt-14, .ecowatt-15 {
         flex: 2 1 0;
       }
-	  .ecowatt-16, .ecowatt-17, .ecowatt-18, .ecowatt-19, .ecowatt-20, .ecowatt-21, .ecowatt-22, .ecowatt-23 {
+      .ecowatt-16, .ecowatt-17, .ecowatt-18, .ecowatt-19, .ecowatt-20, .ecowatt-21, .ecowatt-22, .ecowatt-23 {
         flex: 2 1 0;
       }
 	  
@@ -1044,24 +1044,32 @@ class ContentCardLinky extends LitElement {
       .oneHourHeader li:last-child {
         text-align: right;
       }
-	  .tempo-blue {
+      .tempo-days {
+       	width:100%;
+	border-spacing: 6px;
+      }
+      .tempo-color {
+        width:100%;
+	border-spacing: 6px;
+      }
+      .tempo-blue {
         color: white;
-		text-align: center;
+	text-align: center;
         background: #009dfa;
       }
-	  .tempo-white {
+      .tempo-white {
         color: #002654;
-		text-align: center;
-        background: silver;
+	text-align: center;
+        background: white;
       }
-	  .tempo-red {
+      .tempo-red {
         color: white;
-		text-align: center;
+	text-align: center;
         background: #ff2700;
       }
-	  .tempo-grey {
+      .tempo-grey {
         color: white;
-		text-align: center;
+	text-align: center;
         background: grey;
       }	  
       `;
