@@ -1,3 +1,9 @@
+# Pré-avis: cette carte est en train d'être abandonné en faveur de son successor (copie) dans le domain de MyElectricalData
+Pour en profiter, il faut désinstaller cette carte et reïnstaller https://github.com/MyElectricalData/content-card-linky
+
+
+
+
 # content-card-linky
 [![HACS Supported](https://img.shields.io/badge/HACS-Supported-green.svg)](https://github.com/custom-components/hacs)
 
